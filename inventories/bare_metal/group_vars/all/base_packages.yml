@@ -1,3 +1,4 @@
+---
 base_packages:
   - name: "strace"
   - name: "vim"  
@@ -5,3 +6,4 @@ base_packages:
   - name: "nc"
   - name: "nload"
   - name: "telnet"
+  - name: "chrony"

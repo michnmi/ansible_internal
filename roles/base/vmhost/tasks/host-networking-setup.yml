@@ -1,0 +1,8 @@
+---
+- name: "host-networking: Setup IP Forwarding"
+  sysctl:
+    state: present
+    name: "net.ipv4.ip_forward"
+    value: "1"
+    sysctl_set: yes
+    reload: yes
