@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  role_name: "vmhost"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "Virtual Machine host, installation and configuration"
+  company: "Home"
+  license: Internal
+  min_ansible_version: 2.5
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
