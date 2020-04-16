@@ -1,0 +1,12 @@
+- name: "host-installation: Base Package Installation"
+  package:
+    state: "{{ item.state | default ('present') }}"
+    name: "{{ item.name }}"
+  loop: "{{ base_packages }}"
+
+- name: "host-installation: QEMU specific Package Installation"
+  package:
+    state: "{{ item.state | default ('present') }}"
+    name: "{{ item.name }}"
+  loop: "{{ vmhost_packages }}"
+

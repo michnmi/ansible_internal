@@ -1,0 +1,7 @@
+base_packages:
+  - name: "strace"
+  - name: "vim"  
+  - name: "lsof"
+  - name: "nc"
+  - name: "nload"
+  - name: "telnet"
