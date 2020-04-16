@@ -1,0 +1,7 @@
+---
+- name: "Setup the VM Hosts"
+  hosts: hypervisors
+  become: yes
+  become_method: sudo
+  roles:
+    - vmhost
