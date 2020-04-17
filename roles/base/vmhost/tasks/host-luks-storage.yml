@@ -1,0 +1,10 @@
+---
+- name: "host-luks-storage: Open the LUKS device"
+  luks_device:
+    device: "/dev/disk/by-id/{{ LUKS_device.name }}"
+    state: "opened"
+    name: "{{ LUKS_device.name }}"
+    keyfile: "files/keyfile"
+  loop: "{{ LUKS_devices }}"
+  loop_control:
+    loop_var: "LUKS_device"
