@@ -3,5 +3,5 @@ network:
   ethernets:
 {% for network in network_interfaces %}
     {{ network }}
-    {{ network.dhcp }}
+    {{ network.dhcp4 }}
 {% endfor %}
