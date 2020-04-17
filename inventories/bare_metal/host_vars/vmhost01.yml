@@ -15,3 +15,7 @@ network_interfaces:
     dhcp4: "yes"
 
 vmhost_storage_path: "/zpools/vmhost"
+
+LUKS_devices:
+  - name: "ata-VBOX_HARDDISK_VBde0d1d04-d97cbd7d"
+  - name: "ata-VBOX_HARDDISK_VBc7951d56-623c4af4"
