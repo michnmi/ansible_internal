@@ -9,5 +9,5 @@
 
 - name: "host-networking-setup: Setup host interfaces"
   template:
-    src: "XX-netcfg.yaml.j2"
-    dest: "/etc/netplan/XX-netcfg.yaml"
+    src: "01-netcfg.yaml.j2"
+    dest: "/etc/netplan/01-netcfg.yaml"
