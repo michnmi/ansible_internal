@@ -1,2 +1,5 @@
-- name: "main: [VM Host] Installation"
+- name: "main: Installation"
   import_tasks: "host-installation.yml"
+
+- name: "main: Setup the host networking"
+  import_tasks: "host-networking-setup.yml"

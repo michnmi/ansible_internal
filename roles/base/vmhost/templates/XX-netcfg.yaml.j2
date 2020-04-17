@@ -1,0 +1,7 @@
+network:
+  version: 2
+  ethernets:
+{% for network in network_interfaces %}
+    {{ network }}
+    {{ network.dhcp4 }}
+{% endfor %}

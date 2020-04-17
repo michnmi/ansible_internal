@@ -1,0 +1,15 @@
+---
+network_interfaces:
+  - enp0s3:
+    dhcp4: "no"
+    addresses: [
+      "192.168.1.162/24"
+    ]
+    gateway4: "192.168.1.254"
+    nameservers:
+      addresses: [
+        "8.8.8.8",
+        "192.168.1.254"
+      ]
+  - enp0s8:
+    dhcp4: "yes"

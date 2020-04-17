@@ -1,8 +1,13 @@
 ---
-- name: "host-networking: Setup IP Forwarding"
+- name: "host-networking-setup: Setup IP Forwarding"
   sysctl:
     state: present
     name: "net.ipv4.ip_forward"
     value: "1"
     sysctl_set: yes
     reload: yes
+
+- name: "host-networking-setup: Setup host interfaces"
+  template:
+    src: "XX-netcfg.yaml.j2"
+    dest: "/etc/netplan/XX-netcfg.yaml"
