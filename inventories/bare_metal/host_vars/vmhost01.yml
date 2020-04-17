@@ -18,6 +18,4 @@ vmhost_storage_path: "/zpools/vmhost"
 
 LUKS_devices:
   - name: "ata-VBOX_HARDDISK_VBde0d1d04-d97cbd7d"
-    passphrase: "toor1234"
   - name: "ata-VBOX_HARDDISK_VBc7951d56-623c4af4"
-    passphrase: "toor1234"
