@@ -5,6 +5,11 @@ network:
 {% for network in network_interfaces %}
     {{ network.name }}:
 {% if network.dhcp4 == "yes" %}
-    dhcp4: yes
+      dhcp4: yes
+{% else %}}
+      dhcp4: no
+      addresses: {{ network.addresses }}
+      gateway4: {{ network.gateway4 }}
+      nameservers: {{ network.nameservers.addresses }}
 {% endif %}
 {% endfor %}
