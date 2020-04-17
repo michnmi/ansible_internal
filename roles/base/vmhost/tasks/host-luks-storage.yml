@@ -16,3 +16,8 @@
   loop: "{{ LUKS_devices }}"
   loop_control:
     loop_var: "LUKS_device"
+
+- name: "host-luks-storage: Remove the keyfile"
+  file:
+    path: "/tmp/keyfile"
+    state: absent
