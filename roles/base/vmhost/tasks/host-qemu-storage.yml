@@ -1,0 +1,28 @@
+---
+- name: "host-qemu-storage: Directory for the storage pools (on {{ vmhost_storage_path }})"
+  file:
+    state: directory
+    path: "{{ vmhost_storage_path }}/{{ item }}"
+    owner: "root"
+    group: "root"
+    mode: "u=rwx,g=x,o=x"
+  loop: "{{ vmhost_storage_pools }}"
+
+- name: "host-qemu-storage: Define the storage pools (on {{ vmhost_storage_path }})"
+  virt_pool:
+    command: define
+    name: "{{ item }}"
+    xml: "{{ lookup('template', 'storage.xml.j2') }}"
+  loop: "{{ vmhost_storage_pools }}"
+
+- name: "host-storage: [VM Host] Activate the storage pools"
+  virt_pool:
+    state: active
+    name: "{{ item }}"
+  loop: "{{ vmhost_storage_pools }}"
+
+- name: "host-storage: [VM Host] Set the storage pools to autostart"
+  virt_pool:
+    name: "{{ item }}"
+    autostart: yes
+  loop: "{{ vmhost_storage_pools }}"

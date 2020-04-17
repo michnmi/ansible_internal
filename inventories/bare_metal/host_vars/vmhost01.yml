@@ -13,3 +13,5 @@ network_interfaces:
       ]
   - name: "enp0s8"
     dhcp4: "yes"
+
+vmhost_storage_path: "/zpools/vmhost"

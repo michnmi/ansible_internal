@@ -5,5 +5,7 @@ vmhost_packages:
   - name: "bridge-utils"
   - name: "virt-manager"
   - name: "xutils"
+  - name: "python-lxml"
+  - name: "libguestfs-tools"
   - name: "zfsutils-linux"
   - name: "cpu-checker"
