@@ -1,10 +1,18 @@
 ---
+- name: "host-luks-storage: Send the keyfile over to the target machine."
+  file:
+    path: "/tmp/keyfile"
+    src: files/keyfile
+    owner: "root"
+    group: "root"
+    mode: 0400
+
 - name: "host-luks-storage: Open the LUKS device"
   luks_device:
     device: "/dev/disk/by-id/{{ LUKS_device.name }}"
     state: "opened"
     name: "{{ LUKS_device.name }}"
-    keyfile: "files/keyfile"
+    keyfile: "/tmp/keyfile"
   loop: "{{ LUKS_devices }}"
   loop_control:
     loop_var: "LUKS_device"
