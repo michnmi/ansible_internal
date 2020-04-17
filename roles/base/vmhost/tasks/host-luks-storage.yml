@@ -1,11 +1,11 @@
 ---
 - name: "host-luks-storage: Send the keyfile over to the target machine."
-  file:
+  copy:
     path: "/tmp/keyfile"
     src: files/keyfile
     owner: "root"
     group: "root"
-    mode: 0400
+    mode: "0400"
 
 - name: "host-luks-storage: Open the LUKS device"
   luks_device:
