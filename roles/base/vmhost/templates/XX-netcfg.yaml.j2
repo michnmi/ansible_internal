@@ -8,8 +8,8 @@ network:
       dhcp4: yes
 {% else %}
       dhcp4: no
-      addresses: "{{ network.addresses }}"
+      addresses: [{{ network.addresses | list | join (',') }}]
       gateway4: {{ network.gateway4 }}
-      nameservers: {{ network.nameservers.addresses | list | join ('\',\'') }}
+      nameservers: [{{ network.nameservers.addresses | list | join (',') }}]
 {% endif %}
 {% endfor %}
