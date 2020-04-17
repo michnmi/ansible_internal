@@ -10,6 +10,6 @@ network:
       dhcp4: no
       addresses: "{{ network.addresses }}"
       gateway4: {{ network.gateway4 }}
-      nameservers: {{ network.nameservers.addresses }}
+      nameservers: {{ network.nameservers.addresses | list | join ('\',\'') }}
 {% endif %}
 {% endfor %}
