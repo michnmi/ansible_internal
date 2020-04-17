@@ -3,3 +3,6 @@
 
 - name: "main: Setup the host networking"
   import_tasks: "host-networking-setup.yml"
+
+- name: "main: Setup the storage location for qemu"
+  import_tasks: "host-qemu-storage.yml"
