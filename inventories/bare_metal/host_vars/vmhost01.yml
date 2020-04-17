@@ -1,6 +1,6 @@
 ---
 network_interfaces:
-  - enp0s3:
+  - name: "enp0s3"
     dhcp4: "no"
     addresses: [
       "192.168.1.162/24"
@@ -11,5 +11,5 @@ network_interfaces:
         "8.8.8.8",
         "192.168.1.254"
       ]
-  - enp0s8:
+  - name: "enp0s8"
     dhcp4: "yes"
