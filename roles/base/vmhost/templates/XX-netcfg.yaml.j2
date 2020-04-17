@@ -6,9 +6,9 @@ network:
     {{ network.name }}:
 {% if network.dhcp4 == "yes" %}
       dhcp4: yes
-{% else %}}
+{% else %}
       dhcp4: no
-      addresses: {{ str(network.addresses) }}
+      addresses: {{ network.addresses.encode('ascii') }}
       gateway4: {{ network.gateway4 }}
       nameservers: {{ network.nameservers.addresses }}
 {% endif %}
