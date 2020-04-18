@@ -2,7 +2,7 @@
 - name: "host-luks-storage: Send the keyfile over to the target machine."
   copy:
     dest: "/root/{{ LUKS_device.name }}_key"
-    src: files/keyfile
+    src: "files/{{ LUKS_device.name }}_key"
     owner: "root"
     group: "root"
     mode: "0400"
