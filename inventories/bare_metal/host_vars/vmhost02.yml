@@ -1,0 +1,21 @@
+---
+network_interfaces:
+  - name: "enp0s3"
+    dhcp4: "no"
+    addresses: [
+      "192.168.1.163/24"
+    ]
+    gateway4: "192.168.1.254"
+    nameservers:
+      addresses: [
+        "8.8.8.8",
+        "192.168.1.254"
+      ]
+  - name: "enp0s8"
+    dhcp4: "yes"
+
+vmhost_storage_path: "/zpools/vmhost"
+
+LUKS_devices:
+  - name: "ata-VBOX_HARDDISK_VBde0d1d04-d97cbd7d"
+  - name: "ata-VBOX_HARDDISK_VBc7951d56-623c4af4"
