@@ -25,6 +25,7 @@
     name: "{{ LUKS_device.name }}"
     backing_device: "/dev/disk/by-id/{{ LUKS_device.name }}"
     password: "/root/{{ LUKS_device.name }}_key"
+    opts: luks
     state: present
   loop: "{{ LUKS_devices }}"
   loop_control:
