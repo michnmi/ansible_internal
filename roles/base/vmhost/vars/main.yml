@@ -1,7 +1,8 @@
 ---
 vmhost_packages:
   - name: "qemu-kvm"
-  - name: "libvirt-bin"  
+  - name: "libvirt-bin"
+  - name: "libvirt-python"
   - name: "bridge-utils"
   - name: "virt-manager"
   - name: "xutils"
