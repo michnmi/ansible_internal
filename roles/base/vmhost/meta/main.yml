@@ -5,7 +5,7 @@ galaxy_info:
   description: "Virtual Machine host, installation and configuration"
   company: "Home"
   license: Internal
-  min_ansible_version: 2.5
+  min_ansible_version: 2.9
   platforms:
     - name: Ubuntu
       versions:
