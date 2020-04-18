@@ -30,3 +30,4 @@
   loop: "{{ LUKS_devices }}"
   loop_control:
     loop_var: "LUKS_device"
+  no_log: true
