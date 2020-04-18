@@ -1,23 +1,31 @@
 ---
 - name: "host-luks-storage: Send the keyfile over to the target machine."
   copy:
-    dest: "/tmp/keyfile"
+    dest: "/root/{{ LUKS_device.name }}_key"
     src: files/keyfile
     owner: "root"
     group: "root"
     mode: "0400"
+  loop: "{{ LUKS_devices }}"
+  loop_control:
+    loop_var: "LUKS_device"
 
 - name: "host-luks-storage: Open the LUKS device"
   luks_device:
     device: "/dev/disk/by-id/{{ LUKS_device.name }}"
     state: "opened"
     name: "{{ LUKS_device.name }}"
-    keyfile: "/tmp/keyfile"
+    keyfile: "/root/{{ LUKS_device.name }}_key"
   loop: "{{ LUKS_devices }}"
   loop_control:
     loop_var: "LUKS_device"
 
-- name: "host-luks-storage: Remove the keyfile"
-  file:
-    path: "/tmp/keyfile"
-    state: absent
+- name: "host-luks-storage: Setup crypptab"
+  crypttab:
+    name: "{{ LUKS_device.name }}"
+    backing_device: "/dev/disk/by-id/{{ LUKS_device.name }}"
+    password: "/root/{{ LUKS_device.name }}_key"
+    state: present
+  loop: "{{ LUKS_devices }}"
+  loop_control:
+    loop_var: "LUKS_device"
