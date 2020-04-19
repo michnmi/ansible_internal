@@ -1,14 +1,17 @@
 ---
 vmhost_packages:
+# Basic packages for QEMU/KVM
+  - name: "bridge-utils"
   - name: "qemu-kvm"
   - name: "libvirt-bin"
-  - name: "python-libvirt"
-  - name: "python3-libvirt"
-  - name: "python3-lxml"
-  - name: "bridge-utils"
-  - name: "virt-manager"
-  - name: "xutils"
-  - name: "python-lxml"
   - name: "libguestfs-tools"
+  - name: "virt-manager"
+# Extra packages for host management
+  - name: "xutils"
   - name: "zfsutils-linux"
   - name: "cpu-checker"
+# Ansible related packages and their python3 versions
+  - name: "python-libvirt"
+  - name: "python-lxml"
+  - name: "python3-libvirt"
+  - name: "python3-lxml"
