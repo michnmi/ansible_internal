@@ -1,0 +1,14 @@
+---
+# There is no ansible module for managing zpools.
+# So this is a series of steps to make sure that the zpool is imported if not
+# already there.
+
+- name: "host-zpool-storage: Check if the zpool already is there."
+  command: "zpool list -Ho name {{ vmhost_zpool_name }}"
+  register: result_pool_list
+  ignore_errors: yes
+
+- name: "host-zpool-storage: Import the zpool if not already there."
+  command: "zpool import {{ vmhost_zpool_name }}"
+  when:
+    - result_pool_list.rc == 1
