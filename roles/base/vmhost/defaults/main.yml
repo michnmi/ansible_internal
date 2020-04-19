@@ -1,5 +1,5 @@
 ---
-vmhost_storage_path: "/var/lib/vmhost"
+vmhost_storage_path: "/zpools/vmhost_qcow"
 vmhost_storage_pools:
   - "test"
   - "prod"
