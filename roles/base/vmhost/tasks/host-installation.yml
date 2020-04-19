@@ -10,3 +10,6 @@
     name: "{{ item.name }}"
   loop: "{{ vmhost_packages }}"
 
+- name: "host-installation: Reset facts (after libvirt installation, for network bridge)"
+  setup:
+    gather_subset: all
