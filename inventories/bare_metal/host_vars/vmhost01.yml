@@ -17,5 +17,5 @@ network_interfaces:
 vmhost_storage_path: "/zpools/vmhost"
 
 LUKS_devices:
-  - name: "ata-VBOX_HARDDISK_VBc30be439-0d129879"
-  - name: "ata-VBOX_HARDDISK_VBda2c1377-1724ffd3"
+  - name: "ata-VBOX_HARDDISK_VB153925d7-10573414"
+  - name: "ata-VBOX_HARDDISK_VB3023a120-91df1c0a"
