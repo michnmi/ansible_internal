@@ -7,3 +7,4 @@ base_packages:
   - name: "nload"
   - name: "telnet"
   - name: "chrony"
+  - name: "python-apt"
