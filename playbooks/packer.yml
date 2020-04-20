@@ -1,0 +1,7 @@
+---
+- name: "Setup packer"
+  hosts: hypervisors
+  become: yes
+  become_method: sudo
+  roles:
+    - packer
