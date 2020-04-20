@@ -1,1 +1,2 @@
----
+packer_packages:
+  - name: "unzip"
