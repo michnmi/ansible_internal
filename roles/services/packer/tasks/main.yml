@@ -1,0 +1,6 @@
+---
+- name: "main: Prepare host"
+  import_tasks: "pre-requirements.yml"
+
+- name: "main: Download packer"
+  import_tasks: "packer-installation.yml"

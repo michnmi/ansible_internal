@@ -1,0 +1,4 @@
+---
+packer_base_url: "https://releases.hashicorp.com/packer"
+packer_version: "1.5.5"
+packer_arch: "linux_amd64"
