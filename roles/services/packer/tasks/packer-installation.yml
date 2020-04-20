@@ -1,0 +1,6 @@
+---
+- name: "packer-installation: Download packer from the website"
+  unarchive:
+    src: "{{ packer_base_url }}/{{ packer_version }}/packer_{{ packer_version }}/packer_{{ packer_version }}_{{ packer_arch }}.zip"
+    dest: "/usr/local/bin"
+    remote_src: yes
