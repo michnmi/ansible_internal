@@ -1,3 +1,3 @@
 packer_packages:
   - name: "unzip"
-  - name: "qemu-system-x86"
+  - name: "qemu-kvm"
