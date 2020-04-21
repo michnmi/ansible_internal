@@ -1,4 +1,3 @@
 packer_packages:
   - name: "unzip"
   - name: "qemu-kvm"
-  - name: "libvirt-bin"
