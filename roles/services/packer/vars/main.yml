@@ -1,3 +1,4 @@
 packer_packages:
   - name: "unzip"
   - name: "qemu-kvm"
+  - name: "xvnc4viewer"
