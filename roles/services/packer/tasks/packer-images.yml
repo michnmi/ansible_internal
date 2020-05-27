@@ -1,0 +1,8 @@
+---
+- name: "packer-images: Send template files over to host."
+  copy:
+    dest: "/home/michnmi/ubuntu.18.04"
+    src: "files/ubuntu.18.04"
+    owner: "michnmi"
+    group: "michnmi"
+    mode: "0400"
