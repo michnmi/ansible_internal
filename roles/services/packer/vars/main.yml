@@ -2,3 +2,5 @@ packer_packages:
   - name: "unzip"
   - name: "qemu-kvm"
   - name: "xvnc4viewer"
+  - name: "cloud-init"
+  - name: "cloud-image-utils"
