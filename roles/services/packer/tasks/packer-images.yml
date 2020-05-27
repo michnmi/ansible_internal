@@ -1,7 +1,7 @@
 ---
 - name: "packer-images: Send template files over to host."
   copy:
-    dest: "/home/michnmi/ubuntu.18.04"
+    dest: "/home/michnmi/"
     src: "files/ubuntu.18.04"
     owner: "michnmi"
     group: "michnmi"
