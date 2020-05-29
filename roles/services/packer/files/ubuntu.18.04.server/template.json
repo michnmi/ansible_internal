@@ -31,7 +31,8 @@
         "ssh_password": "{{user `ssh_password`}}",
         "ssh_username": "{{user `ssh_username`}}",
         "ssh_wait_timeout": "10000s",
-        "vm_name": "{{user `vm_name`}}"
+        "vm_name": "{{user `vm_name`}}",
+        "type": "qemu"
     }],
     "variables": {
         "boot_command_prefix": "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
