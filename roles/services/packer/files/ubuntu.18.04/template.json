@@ -11,7 +11,7 @@
             "disk_discard": "unmap",
             "ssh_username": "packer",
             "ssh_password": "packer",
-            "http_directory": "cloud-data",
+            "http_directory": "./cloud-data",
             "qemuargs": [
                 ["-smbios", "type=1,serial=ds=nocloud-net;instance-id=packer;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/"]
             ],
