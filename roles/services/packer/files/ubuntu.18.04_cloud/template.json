@@ -12,13 +12,9 @@
             "ssh_username": "packer",
             "ssh_password": "packer",
             "http_directory": "./cloud-data",
-            #"qemuargs": [
-            #    ["-smbios", "type=1,serial=ds=nocloud-net;instance-id=packer;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/"]
-            #],
             "qemuargs": [
-                ["-smbios", "type=1,serial=ds=nocloud-net;instance-id=packer;drive=cloud-data/user-data,format=raw"]
+                ["-smbios", "type=1,serial=ds=nocloud-net;instance-id=packer;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/", "-drive", "file=cloud-data/user-data,format=raw"]
             ],
-            "use_default_display"
             "use_default_display": true
         }
     ],
