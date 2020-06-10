@@ -23,14 +23,7 @@
         "ssh_wait_timeout": "10000s",
         "shutdown_command": "echo 'shutdown -P now' > /tmp/shutdown.sh; sudo -S sh '/tmp/shutdown.sh'",
         "http_directory": "cloud-init/baseos",
-        "http_port_min": 9000,
-        "http_port_max": 9100,
-        "vnc_bind_address": "0.0.0.0",
-        "vnc_port_min": 5900,
-        "vnc_port_max": 5900,
         "qemuargs": [
-          [ "-m", "512M" ],
-          [ "-smp", "2" ],
           [ "-smbios", "type=1,serial=ds=nocloud-net;instance-id=packer;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/" ]
         ]
       }
