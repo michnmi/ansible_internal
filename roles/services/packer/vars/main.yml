@@ -4,3 +4,4 @@ packer_packages:
   - name: "xvnc4viewer"
   - name: "cloud-init"
   - name: "cloud-image-utils"
+  - name: "whois" # For the mkpasswd

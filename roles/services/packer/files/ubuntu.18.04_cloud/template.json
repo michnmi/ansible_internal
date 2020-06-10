@@ -16,10 +16,6 @@
                 [
                     "-smbios",
                     "type=1,serial=ds=nocloud-net;instance-id=packer;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/"
-                ],
-                [
-                    "-drive",
-                    "file=cloud-data/user-data,format=raw"
                 ]
             ],
             "use_default_display": true

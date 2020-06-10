@@ -4,7 +4,7 @@ users:
   - name: packer
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups: users, admin
-    passwd: packer
+    passwd: '$6$rounds=4096$OtGEIRo4AVfo$P2G6oNGUxMduAJrej0eVAA03MVQ5pbz5D9yWZ4LqUgyLL9HlfWz/F4VBgO9Bh.xQYOsH.zqMiRYpNoONw6VR31'
     lock_passwd: false
 apt:
     preserve_sources_list: true
