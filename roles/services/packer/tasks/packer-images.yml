@@ -1,22 +1,8 @@
 ---
-- name: "packer-images: Send template (full ISO) files over to host."
+- name: 'packer-images: Send template of ubuntu cloud image files over to host.'
   copy:
-    dest: "/home/michnmi/"
-    src: "files/ubuntu.18.04_server"
-    owner: "michnmi"
-    group: "michnmi"
-    mode: "0400"
-- name: "packer-images: Send template (1st try at cloud image) files over to host."
-  copy:
-    dest: "/home/michnmi/"
-    src: "files/ubuntu.18.04_cloud"
-    owner: "michnmi"
-    group: "michnmi"
-    mode: "0400"
-- name: "packer-images: Send template (2nd try at cloud image) files over to host."
-  copy:
-    dest: "/home/michnmi/"
-    src: "files/ubuntu.18.04_cloud_2nd_try"
-    owner: "michnmi"
-    group: "michnmi"
-    mode: "0400"
+    dest: '/home/michnmi/'
+    src: 'files/ubuntu.18.04_cloud'
+    owner: 'michnmi'
+    group: 'michnmi'
+    mode: '0400'
