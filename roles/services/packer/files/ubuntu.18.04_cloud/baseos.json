@@ -1,4 +1,5 @@
 {
+    "_comment": "sudo  -u packer  -s /bin/bash; PACKER_LOG=1 packer build  -var-file variables.json baseos.json"
     "description": "CK8S VM based on Ubuntu 18.04 LTS",
     "builders": [
       {
