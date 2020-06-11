@@ -1,6 +1,6 @@
 ---
-- name: 'pre-requirements: Base Package Installation'
-  package:
+- name: 'pre-requirements: Base Package Installation - using apt to use apt-get update'
+  apt:
     state: "{{ item.state | default ('present') }}"
     name: "{{ item.name }}"
   loop: "{{ base_packages }}"

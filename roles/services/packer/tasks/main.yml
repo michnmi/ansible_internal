@@ -1,9 +1,9 @@
 ---
-- name: "main: Prepare host"
-  import_tasks: "pre-requirements.yml"
+- name: 'main: Prepare host'
+  import_tasks: 'pre-requirements.yml'
 
-- name: "main: Download packer"
-  import_tasks: "packer-installation.yml"
+- name: 'main: Download packer'
+  import_tasks: 'packer-installation.yml'
 
-- name: "main: Send Image templates over"
-  import_tasks: "packer-images.yml"
+- name: 'main: Send Image templates over'
+  import_tasks: 'packer-images.yml'
