@@ -1,6 +1,6 @@
 ---
 - name: "Setup packer"
-  hosts: hypervisors
+  hosts: packer
   become: yes
   become_method: sudo
   roles:

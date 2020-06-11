@@ -1,11 +1,11 @@
 ---
-- name: "pre-requirements: Base Package Installation"
+- name: 'pre-requirements: Base Package Installation'
   package:
     state: "{{ item.state | default ('present') }}"
     name: "{{ item.name }}"
   loop: "{{ base_packages }}"
 
-- name: "pre-requirements: Packer host specific packages"
+- name: 'pre-requirements: Packer host specific packages'
   package:
     state: "{{ item.state | default ('present') }}"
     name: "{{ item.name }}"
