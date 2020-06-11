@@ -1,8 +1,7 @@
 ---
 - name: 'packer-images: Send template of ubuntu cloud image files over to host.'
   copy:
-    dest: '/home/michnmi/'
+    dest: "{{ packer_file_location }}"
     src: 'files/ubuntu.18.04_cloud'
-    owner: 'michnmi'
-    group: 'michnmi'
-    mode: '0400'
+    owner: "{{ packer_user }}"
+
