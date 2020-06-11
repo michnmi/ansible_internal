@@ -3,6 +3,7 @@
   apt:
     state: "{{ item.state | default ('present') }}"
     name: "{{ item.name }}"
+    update_cache: yes
   loop: "{{ base_packages }}"
 
 - name: 'pre-requirements: Packer host specific packages'
