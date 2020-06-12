@@ -1,5 +1,5 @@
 {
-    "_comment": "sudo  -u packer  -s /bin/bash; PACKER_LOG=1 packer build  -var-file variables.json baseos.json"
+    "_comment": "sudo  -u packer  -s /bin/bash; PACKER_LOG=1 packer build  -var-file variables.json baseos.json",
     "description": "CK8S VM based on Ubuntu 18.04 LTS",
     "builders": [
       {
@@ -27,6 +27,17 @@
         "qemuargs": [
           [ "-smbios", "type=1,serial=ds=nocloud-net;instance-id=packer;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/" ]
         ]
+      }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "script": "./scripts/initial-setup.sh",
+        "expect_disconnect": true,
+        "environment_vars": [
+          "DEBIAN_FRONTEND=noninteractive"
+        ],
+        "execute_command": "sudo -S bash -c '{{ .Vars }} {{ .Path}}'"
       }
     ]
 }
