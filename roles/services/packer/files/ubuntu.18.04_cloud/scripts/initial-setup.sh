@@ -35,5 +35,5 @@ echo 'Who needs swap, after all ???'
 swapoff -a
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
-echo 'Rebooting to clean up swap'
-reboot
+# echo 'Rebooting to clean up swap'
+# reboot
