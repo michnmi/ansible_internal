@@ -10,5 +10,6 @@ cd /tmp/
 git clone https://github.com/michnmi/ansible_internal
 
 cd ansible_internal
+ls -lR
 ansible-playbook  -i 'localhost' -l localhost playbooks/common.yml
 id michnmi
