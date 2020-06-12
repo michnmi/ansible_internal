@@ -10,6 +10,7 @@ cd /tmp/
 git clone https://github.com/michnmi/ansible_internal
 
 cd ansible_internal
-ls -lR
+git checkout --track origin/CICD-5
+
 ansible-playbook  -i 'localhost' -l localhost playbooks/common.yml
 id michnmi
