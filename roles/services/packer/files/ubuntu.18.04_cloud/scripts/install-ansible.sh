@@ -8,9 +8,9 @@ set -e -x
 ## Set up the repository:
 ### Install packages to allow apt to use a repository over HTTPS
 echo 'Installing Ansible on host'
-sudo apt update
-sudo apt install software-properties-common
+sudo apt-get update -y
+sudo apt-get install -y software-properties-common
 sudo apt-add-repository --yes --update ppa:ansible/ansible
-sudo apt install ansible
+sudo apt-get install -y ansible
 
 ansible -v
