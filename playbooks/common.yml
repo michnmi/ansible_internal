@@ -1,6 +1,6 @@
 ---
 - name: "Common setup"
-  hosts: all
+  hosts: all,localhost
   become: yes
   become_method: sudo
   roles:
