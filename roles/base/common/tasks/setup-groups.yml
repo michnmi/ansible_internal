@@ -1,0 +1,4 @@
+---
+- name: 'setup-groups: No groups yet to add'
+  debug:
+    message: 'No groups yet.'

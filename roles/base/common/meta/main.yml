@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  role_name: "common"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "A set of common tasks for every host in the infrastructure"
+  company: "Home"
+  license: Internal
+  min_ansible_version: 2.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic

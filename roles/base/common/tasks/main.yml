@@ -1,0 +1,6 @@
+---
+- name: 'main: Setup the groups as needed'
+  import_tasks: 'setup-groups.yml'
+
+- name: 'main: Setup the users as needed'
+  import_tasks: 'setup-users.yml'
