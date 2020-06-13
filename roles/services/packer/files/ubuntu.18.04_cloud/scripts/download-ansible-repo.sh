@@ -18,7 +18,6 @@ cd /tmp/
 git clone https://github.com/michnmi/ansible_internal
 
 cd ansible_internal
-git checkout --track origin/CICD-5
 
 ansible-playbook  -i inventories/cloud_vms/hosts.ini -l cloud_vm playbooks/cloud_vm.yml
 id michnmi
