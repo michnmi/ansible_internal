@@ -20,7 +20,7 @@
     enabled: no
     masked: yes
     state: stopped
-    daemon_rolead: yes
+    daemon_reload: yes
   loop: "{{ cloud_vm_disabled_services }}"
 
 - name: 'disable-services: Making sure swap is turned off.'
