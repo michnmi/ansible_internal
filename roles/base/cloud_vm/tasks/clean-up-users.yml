@@ -1,0 +1,6 @@
+---
+- name: 'clean-up-users: Make sure there is noone with uid 1000'
+  user:
+    name: 'ubuntu'
+    state: 'absent'
+    remove: 'yes'

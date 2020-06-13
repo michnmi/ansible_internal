@@ -1,0 +1,3 @@
+---
+- name: 'main: Destroy users that are not needed'
+  include_tasks: 'clean-up-users.yml'
