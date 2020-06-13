@@ -21,7 +21,7 @@
     masked: yes
     state: stopped
     daemon_rolead: yes
-  loop: " {{ cloud_vm_disabled_services }}"
+  loop: "{{ cloud_vm_disabled_services }}"
 
 - name: 'disable-services: Making sure swap is turned off.'
   command: swapoff -a
