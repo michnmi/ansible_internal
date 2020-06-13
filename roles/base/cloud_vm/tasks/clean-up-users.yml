@@ -1,0 +1,4 @@
+---
+- name: 'clean-up-users: Delete users we do not want'
+  debug:
+    msg: 'Pass: Nothing defined so far'

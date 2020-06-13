@@ -1,0 +1,19 @@
+---
+- name: 'setup-users: Setup all users as needed.'
+  user:
+    name: "{{ user.uname }}"
+    uid: "{{ user.uid }}"
+    group: "{{ user.group }}"
+    comment: "{{ user.name }}"
+    shell: "{{ user.shell | default('/bin/bash') }}"
+  loop: "{{ all_users }}"
+  loop_control:
+    loop_var: "user"
+
+- name: "setup-users: Add the public key for each user."
+  authorized_key:
+    user: "{{ user.uname }}"
+    key: "{{ user.ssh_key }}"
+  loop: "{{ all_users }}"
+  loop_control:
+    loop_var: "user"

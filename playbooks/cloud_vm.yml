@@ -1,0 +1,9 @@
+---
+- name: "Base setup for cloud VMs"
+  hosts: localhost
+  become: yes
+  become_method: sudo
+  connection: local
+  roles:
+    - cloud_vm
+    - common
