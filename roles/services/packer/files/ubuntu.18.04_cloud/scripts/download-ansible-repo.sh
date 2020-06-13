@@ -13,7 +13,8 @@ cd ansible_internal
 git checkout --track origin/CICD-5
 
 ps -ef | grep ubuntu
-pkill -9 -U 1000
+id`
+# pkill -9 -U 1000
 
 ansible-playbook  -i inventories/cloud_vms/hosts.ini -l cloud_vm playbooks/cloud_vm.yml
 id michnmi
