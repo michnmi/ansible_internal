@@ -23,9 +23,11 @@
     daemon_rolead: yes
   loop: " {{ cloud_vm_disabled_services }}"
 
-# echo 'Who needs swap, after all ???'
-# swapoff -a
-# sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+- name: 'disable-services: Making sure swap is turned off.'
+  command: swapoff -a
 
-# echo 'Rebooting to clean up swap'
-# reboot
+- name: 'disable-services: Making sure no swap mountpoints exist.'
+  lineinfile:
+    path: /etc/fstab
+    regexp: '\ swap\ '
+    state: absent
