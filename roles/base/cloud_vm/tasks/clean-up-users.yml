@@ -1,6 +1,4 @@
 ---
-- name: 'clean-up-users: Make sure there is noone with uid 1000'
-  user:
-    name: 'ubuntu'
-    state: 'absent'
-    remove: 'yes'
+- name: 'clean-up-users: Delete users we do not want'
+  debug:
+    msg: 'Pass: Nothing defined so far'

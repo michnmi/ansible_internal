@@ -14,6 +14,6 @@
   authorized_key:
     user: "{{ user.uname }}"
     key: "{{ user.ssh_key }}"
-  loop: "{{ pcsops_users }}"
+  loop: "{{ all_users }}"
   loop_control:
     loop_var: "user"
