@@ -3,5 +3,6 @@
   hosts: localhost
   become: yes
   become_method: sudo
+  connection: local
   roles:
     - common
