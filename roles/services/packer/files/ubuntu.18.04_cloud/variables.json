@@ -7,5 +7,5 @@
     "output_vm_name": "baseos.qcow2",
     "output_iso_checksum_path": "/tmp/baseos_sha256.checksums",
   
-    "ssh_username": "michnmi"
+    "ssh_username": "packer"
 }
