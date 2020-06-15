@@ -3,3 +3,5 @@
   include_tasks: 'disable-services.yml'
 - name: 'main: Destroy users that are not needed'
   include_tasks: 'clean-up-users.yml'
+- name: 'main: Clean up before the reboot'
+  include_tasks: 'clean-up-before-reboot.yml'

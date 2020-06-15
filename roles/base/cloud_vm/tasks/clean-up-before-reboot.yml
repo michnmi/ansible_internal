@@ -1,0 +1,20 @@
+---
+- name: 'clean-up-before-reboot: Remove machine-id so it is unique.'
+  copy:
+    content: ''
+    dest: /etc/machine-id
+    force: no
+    group: 'sys'
+    owner: 'root'
+    mode: '0555'
+
+- name: 'clean-up-before-reboot: Delete existing file of machine-id'
+  file:
+    path: '/var/lib/dbus/machine-id'
+    state: absent
+
+- name: 'clean-up-before-reboot: Link this to the empty file.'
+  file:
+    src: '/etc/machine-id'
+    dest: '/var/lib/dbus/machine-id'
+    state: link
