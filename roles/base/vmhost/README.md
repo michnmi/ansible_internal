@@ -55,8 +55,7 @@ This role sets up a host with all the required packages to run `qemu` images and
     The `zpool` that will be `imported` from the disks. 
 
 ### files
-The files that need to be present are the `key` files that will unencrypt the disks. There are two dummy ones now in this role but later on this folder will be empty and the files there will be retrieved from [`Vault`](https://www.vaultproject.io/) at deploy  time. 
-
+ - None
 
 ## Playbooks
 

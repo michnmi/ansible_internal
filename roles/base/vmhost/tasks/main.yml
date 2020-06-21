@@ -4,9 +4,6 @@
 - name: "main: Setup the host networking"
   import_tasks: "host-networking-setup.yml"
 
-- name: "main: Open up the LUKS devices"
-  import_tasks: "host-luks-storage.yml"
-
 - name: "main: Import the zpool if not already there"
   import_tasks: "host-zpool-storage.yml"
 
