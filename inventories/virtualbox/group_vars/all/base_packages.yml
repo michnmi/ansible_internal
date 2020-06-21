@@ -1,0 +1,10 @@
+---
+base_packages:
+  - name: "strace"
+  - name: "vim"  
+  - name: "lsof"
+  - name: "netcat"
+  - name: "nload"
+  - name: "telnet"
+  - name: "chrony"
+  - name: "python-apt"
