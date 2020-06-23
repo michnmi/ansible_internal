@@ -8,7 +8,6 @@ vmhost_packages:
   - name: "virt-manager"
 # Extra packages for host management
   - name: "xutils"
-  - name: "zfsutils-linux"
   - name: "cpu-checker"
 # Ansible related packages and their python3 versions
   - name: "python-libvirt"
