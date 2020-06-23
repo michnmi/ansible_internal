@@ -11,9 +11,8 @@ There are few things to be taken under consideration here:
   02) That storage pool is setup **outside** of this playbook, *manually* by wiping the disks, encrypting them and then creating the `zpool`. That is why this role will **fail** if no disks are presented or now `zpool` exists in those disks. 
 
 The above considerations make this a rather *narrow* role but for my purpose it is sufficient.  
-If a case arises where this is becoming problematic, the `LUKS` and the `zfs` related *tasks* will be moved to different roles. 
 
-This role sets up a host with all the required packages to run `qemu` images and also the auto import of the relevant `zfs` filesystems required to setup the *image* locations. 
+This role sets up a host with all the required packages to run `qemu` images.
 
 ## How To Use
 
@@ -47,12 +46,6 @@ This role sets up a host with all the required packages to run `qemu` images and
   - name: "enp0s8"
     dhcp4: "yes"
 ```
-
-- `LUKS_devices`  
-    An array of disks to be encyrpted. This can either be the `UUID` or some other form of unique identification under `/dev/disk/by-*`
-
-- `vmhost_zpool_name`:  
-    The `zpool` that will be `imported` from the disks. 
 
 ### files
  - None
