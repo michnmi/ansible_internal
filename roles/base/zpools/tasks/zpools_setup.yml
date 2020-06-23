@@ -1,0 +1,20 @@
+---
+# There is no ansible module for managing zpools.
+# So, this is a series of steps to make sure that the zpool is imported if not
+# already there. The understanding is that the zpools should already exist on the disks.
+
+- name: "zpools_setup: Check if the zpools already are there."
+  command: "zpool list -Ho name {{ zpool.name }}"
+  register: result_pool_list
+  ignore_errors: yes
+  loop: "{{ zpool_list }}"
+  loop_control:
+    loop_var: "zpool"
+
+- name: 'zpools_setup: Import the zpools if not already there.'
+  command: "zpool import {{ result.zpool.name }}"
+  loop : "{{ result_pool_list.results }}"
+  loop_control:
+    loop_var: "result"
+  when:
+    - result.rc == 1

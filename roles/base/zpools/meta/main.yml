@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  role_name: "zpools"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "Minimal modular role to take care of zfs and zpool setup"
+  company: "Home"
+  license: Internal
+  min_ansible_version: 2.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic

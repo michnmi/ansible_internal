@@ -1,0 +1,6 @@
+---
+- name: 'main: Prepare the host'
+  import_tasks: 'pre-setup.yml'
+
+- name: 'main: Setup the zpools'
+  import_tasks: 'zpools_setup.yml'
