@@ -1,0 +1,6 @@
+---
+jenkins_packages:
+  - name: 'curl'
+  - name: 'apt-transport-https'
+  - name: 'gnupg'
+  - name: 'openjdk-11-jdk'
