@@ -1,0 +1,11 @@
+---
+# This is not necessarily needed but for now I'll keep it. 
+- name: 'initial-setup: Register the contents of initialAdminPassword'
+  slurp:
+    src: '/var/lib/jenkins/secrets/initialAdminPassword'
+  register: initial_password_file_contents
+
+- name: 'initial-setup: Remove initialAdminPassword'
+  file:
+    dest: '/var/lib/jenkins/secrets/initialAdminPassword'
+    state: 'absent'

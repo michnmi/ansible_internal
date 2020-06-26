@@ -1,0 +1,49 @@
+---
+- name: 'setup-jenkins: Install Jenkins'
+  apt:
+    name: 'jenkins'
+    state: 'present'
+
+- name: 'setup-jenkins: Make sure home exists ({{ jenkins_home }}).'
+  file:
+    path: "{{ jenkins_home }}"
+    state: directory
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: '0755'
+
+# Following the instructions in -> https://jenkins.programmingpedia.net/en/tutorial/7562/jenkins-groovy-scripting
+- name: 'setup-jenkins: Create init scripts directory.'
+  file:
+    path: "{{ jenkins_home }}/init.groovy.d"
+    state: directory
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: '0775'
+
+- name: "setup-jenkins: Manipulate jenkins init file ( {{ jenkins_init_file }})"
+  lineinfile:
+    dest: "{{ jenkins_init_file }}"
+    insertafter: '^JAVA_ARGS='
+    regexp: '^JAVA_ARGS=\"\$JAVA_ARGS '
+    line: 'JAVA_ARGS="$JAVA_ARGS {{ jenkins_java_options }}"'
+    state: present
+
+- name: 'setup-jenkins: Setup admin user/pass'
+  template:
+    src: init.groovy.d_basic-security.groovy.j2
+    dest: "{{ jenkins_home }}/init.groovy.d/basic-security.groovy"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: '0750'
+  no_log: true
+  notify: 'Restart Jenkins'
+
+- name: 'setup-jenkins: Check if this is being setup for the first time.'
+  stat:
+    path: '/var/lib/jenkins/secrets/initialAdminPassword'
+  register: 'initial_password_file_state'
+
+- name: 'setup-jenkins: Load the initial setup tasks'
+  import_tasks: 'initial-setup.yml'
+  when: initial_password_file_state.stat.exists
