@@ -9,3 +9,7 @@
   file:
     dest: '/var/lib/jenkins/secrets/initialAdminPassword'
     state: 'absent'
+
+# This is needed so the jenkins_admin_user has been setup by the security script.
+- name: 'initial-setup: Make sure jenkins is restarted'
+  meta: flush_handlers
