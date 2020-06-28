@@ -47,3 +47,30 @@
 - name: 'setup-jenkins: Load the initial setup tasks'
   import_tasks: 'initial-setup.yml'
   when: initial_password_file_state.stat.exists
+
+- name: 'setup-jenkins: Make sure jenkins is up before loading plugins'
+  uri:
+    url: "http://localhost:8080"
+    method: GET
+    return_content: "yes"
+    timeout: 5
+    body_format: raw
+    follow_redirects: "no"
+    status_code: 200,403
+  register: result
+  until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
+  retries: '5'
+  delay: '3'
+
+- name: 'setup-jenkins: Load the necessary plugins'
+  jenkins_plugin:
+    name: "{{ plugin.name }}"
+    jenkins_home: "{{ jenkins_home }}"
+    state: 'present'
+    updates_url: 'https://updates.jenkins.io'
+    url_username: "{{ jenkins_admin_user }}"
+    url_password: "{{ jenkins_admin_pass }}"
+  loop: "{{ jenkins_plugins }}"
+  loop_control:
+    loop_var: "plugin"
+  notify: 'Restart Jenkins'

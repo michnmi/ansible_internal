@@ -1,12 +1,14 @@
 ---
 jenkins_repo_key: 'https://pkg.jenkins.io/debian-stable/jenkins.io.key'
 jenkins_repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
-jenkins_home: /var/lib/jenkins
+jenkins_home: '/var/lib/jenkins'
 
 jenkins_java_options: "-Djenkins.install.runSetupWizard=false"
-jenkins_user: jenkins
-jenkins_init_file: /etc/default/jenkins
+jenkins_user: 'jenkins'
+jenkins_init_file: '/etc/default/jenkins'
 
 # Default username/password. Should be overriden
 jenkins_admin_user: 'admin'
 jenkins_admin_pass: 'admin'
+
+jenkins_plugins: []
