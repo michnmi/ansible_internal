@@ -1,0 +1,19 @@
+---
+- name: 'pre-setup: Packer host specific packages'
+  package:
+    state: "{{ item.state | default ('present') }}"
+    name: "{{ item.name }}"
+  loop: "{{ packer_packages }}"
+
+- name: 'pre-setup: Create a packer user that has access to kvm'
+  user:
+    name: "{{ packer_user }}"
+    groups: "kvm"
+    create_home: False
+
+- name: 'pre-setup: Create the location for images'
+  file:
+    path: "{{ packer_file_location }}"
+    state: directory
+    owner: "{{ packer_user }}"
+    mode: '0750'
