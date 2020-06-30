@@ -3,8 +3,9 @@
 # So, this is a series of steps to make sure that the zpool is imported if not
 # already there. The understanding is that the zpools should already exist on the disks.
 
+# This is to register a list of zpools if they exist hence 301 doesn't apply.
 - name: "zpools_setup: Check if the zpools already are there."
-  command: "zpool list -Ho name {{ zpool.name }}"
+  command: "zpool list -Ho name {{ zpool.name }}" # noqa 301
   register: result_pool_list
   ignore_errors: yes
   loop: "{{ zpool_list }}"
