@@ -39,6 +39,24 @@
   no_log: true
   notify: 'Restart Jenkins'
 
+- name: 'setup-jenkins: Setup global credentials for github'
+  template:
+    src: init.groovy.d_credentials.groovy.j2
+    dest: "{{ jenkins_home }}/init.groovy.d/credentials.groovy"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: '0750'
+  no_log: false
+  notify: 'Restart Jenkins'
+
+- name: 'setup-jenkins: Setup github configuration'
+  template:
+    src: github-plugin-configuration.xml.j2
+    dest: "{{ jenkins_home }}/github-plugin-configuration.xml"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+  notify: 'Restart Jenkins'
+
 - name: 'setup-jenkins: Check if this is being setup for the first time.'
   stat:
     path: '/var/lib/jenkins/secrets/initialAdminPassword'
@@ -62,6 +80,16 @@
   retries: '5'
   delay: '3'
 
+- name: 'setup-jenkins: Add all jobs as are defined.'
+  jenkins_job:
+    name: "{{ job.name }}"
+    config: "{{ lookup('file', 'files/jobs/' + job.name + '.xml') }}"
+    user: "{{ jenkins_admin_user }}"
+    password: "{{ jenkins_admin_pass }}"
+  loop: "{{ jenkins_jobs }}"
+  loop_control:
+    loop_var: "job"
+
 - name: 'setup-jenkins: Load the necessary plugins'
   jenkins_plugin:
     name: "{{ plugin.name }}"
@@ -74,3 +102,8 @@
   loop_control:
     loop_var: "plugin"
   notify: 'Restart Jenkins'
+
+- name: 'setup-jenkins: Delete all groovy scripts.'
+  file:
+    dest: "{{ jenkins_home }}/init.groovy.d"
+    state: 'absent'

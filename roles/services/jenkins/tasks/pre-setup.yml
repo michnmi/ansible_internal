@@ -16,3 +16,16 @@
     repo: '{{ jenkins_repo }}'
     state: 'present'
     update_cache: true
+
+# This is needed here so we can use python-jenkins
+- name: 'pre-setup: Setup pip3'
+  apt:
+    name: 'python3-pip'
+    state: 'present'
+
+# This is needed here so we can use python-jenkins
+- name: 'pre-setup: Setup python-jenkins'
+  pip:
+    name: 'python-jenkins'
+    state: 'present'
+    executable: pip3
