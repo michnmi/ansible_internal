@@ -38,6 +38,9 @@ TODO_LIST:
 - `jenkins_secret_text_credentials`  
    Default = `[]`  
    The credentials to be used for *Github API* plugins.
+- `jenkins_ssh_credentials`  
+   Default = `[]`  
+   The credentials to be used for `ssh` actions. Primarily for packer.
 - `jenkins_plugins`  
    Default = `[]`  
    The plugins we want on the jenkins server.
