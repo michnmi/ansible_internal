@@ -5,10 +5,10 @@ An ansible role that provisions a system that can act as a [jenkins master](http
 
 ## Purpose
 
-This role will setup the repo for *jenkins* and install it. It will then start it and create an *admin* user for it. 
-TODO: 
-- Setup plugins.
-- Setup jobs and a way to deploy them.
+This role will setup the repo for *jenkins* and install it. It will then start it and create an *admin* user for it. This role expects a box that has `python3` installed.  
+
+TODO_LIST:
+  - TODO: Change the jenkins jobs to be templates instead of files.
 
 ## How To Use
 
@@ -32,21 +32,36 @@ TODO:
 - `jenkins_init_file`  
     Default = `/etc/default/jenkins`  
     The *source* script where all the `init` entries are taken from for starting *jenkins*
+- `jenkins_username_password_credentials`  
+   Default = `[]`  
+   The credentials to be used for *Github* plugins.
+- `jenkins_secret_text_credentials`  
+   Default = `[]`  
+   The credentials to be used for *Github API* plugins.
+- `jenkins_plugins`  
+   Default = `[]`  
+   The plugins we want on the jenkins server.
 
 ### Variables (Required)
 
 - `jenkins_admin_user` and `jenkins_admin_pass`  
-    Default = `admin`  
-    The credentials for the initial *admin* user of the *jenkins* instance. They **should be overriden**
+   Default = `admin`  
+   The credentials for the initial *admin* user of the *jenkins* instance. They **should be overriden**
 
 ### files
 
-- None
+- `jobs/*xml`  
+   The jobs we want our jenkins server to have.  
+   TODO: This should be changed into a template because it should be configure through variables.
 
 ### templates
 
 - `init.groovy.d_basic-security.groovy.j2`  
   The file that's needed according to [these instructions](https://jenkins.programmingpedia.net/en/tutorial/7562/jenkins-groovy-scripting) in order to setup the *admin* user without needing the `initialAdminPassword` file.
+- `github-plugin-configuration.xml.j2`  
+  This file is setting the connection details of the _GitHub API_
+- `init.groovy.d_credentials.groovy.j2`  
+  This file contains the script that creates the Global credentials we need in our jenkins.
 
 ## Playbooks
 
