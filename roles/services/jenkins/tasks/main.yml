@@ -4,3 +4,6 @@
 
 - name: 'main: Setup Jenkins'
   import_tasks: 'setup-jenkins.yml'
+
+- name: 'main: Allow jenkins to run ansible commands'
+  import_tasks: 'setup-ansible.yml'

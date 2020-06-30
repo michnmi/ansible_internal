@@ -11,4 +11,7 @@ jenkins_init_file: '/etc/default/jenkins'
 jenkins_admin_user: 'admin'
 jenkins_admin_pass: 'admin'
 
+jenkins_username_password_credentials: []
+jenkins_secret_text_credentials: []
+
 jenkins_plugins: []
