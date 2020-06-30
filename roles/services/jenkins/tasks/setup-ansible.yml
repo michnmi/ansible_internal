@@ -1,0 +1,6 @@
+---
+- name: 'pre-setup: Setup ansible-lint'
+  pip:
+    name: 'ansible-lint'
+    state: 'present'
+    executable: pip3
