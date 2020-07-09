@@ -102,8 +102,3 @@
   loop_control:
     loop_var: "plugin"
   notify: 'Restart Jenkins'
-
-- name: 'setup-jenkins: Delete all groovy scripts.'
-  file:
-    dest: "{{ jenkins_home }}/init.groovy.d"
-    state: 'absent'
