@@ -3,6 +3,7 @@
   apt:
     name: '{{ item.name }}'
     state: 'present'
+    update_cache: true
   loop: '{{ jenkins_packages }}'
 
 # Following instructions in https://pkg.jenkins.io/debian-stable/
