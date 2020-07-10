@@ -12,12 +12,6 @@
     group: "{{ jenkins_user }}"
     mode: '0755'
 
-- name: 'setup-jenkins: Make sure user has access to kvm group'
-  user:
-    name: "{{ jenkins_user }}"
-    append: true
-    groups: 'kvm'
-
 # Following the instructions in -> https://jenkins.programmingpedia.net/en/tutorial/7562/jenkins-groovy-scripting
 - name: 'setup-jenkins: Create init scripts directory.'
   file:
