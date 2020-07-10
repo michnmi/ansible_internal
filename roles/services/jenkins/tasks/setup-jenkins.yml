@@ -89,6 +89,7 @@
   loop: "{{ jenkins_jobs }}"
   loop_control:
     loop_var: "job"
+  notify: 'Restart Jenkins'
 
 - name: 'setup-jenkins: Load the necessary plugins'
   jenkins_plugin:
