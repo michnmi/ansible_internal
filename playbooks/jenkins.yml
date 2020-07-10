@@ -6,3 +6,5 @@
   roles:
     - jenkins
     - packer
+  vars:
+    - packer_user: 'jenkins'

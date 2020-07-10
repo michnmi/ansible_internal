@@ -9,7 +9,7 @@
   user:
     name: "{{ packer_user }}"
     groups: "kvm"
-    create_home: False
+    append: true
 
 - name: 'pre-setup: Create the location for images'
   file:
