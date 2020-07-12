@@ -1,0 +1,5 @@
+---
+- name: 'main: Prepare host'
+  import_tasks: 'pre-setup.yml'
+- name: 'main: Setup mounts'
+  import_tasks: 'setup_mounts.yml'
