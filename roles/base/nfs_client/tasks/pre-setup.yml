@@ -1,0 +1,7 @@
+---
+- name: 'pre-setup: Install required packages'
+  apt:
+    name: '{{ item.name }}'
+    state: 'present'
+    update_cache: true
+  loop: '{{ nfs_client_packages }}'

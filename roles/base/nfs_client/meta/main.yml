@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  role_name: "nfs_client"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "Setting up a host to mount remote nfs shares"
+  company: "Home"
+  license: Internal
+  min_ansible_version: 2.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
