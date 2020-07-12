@@ -1,0 +1,7 @@
+---
+- name: "Setup nfs mounts"
+  hosts: nfs_client
+  become: yes
+  become_method: sudo
+  roles:
+    - nfs_client
