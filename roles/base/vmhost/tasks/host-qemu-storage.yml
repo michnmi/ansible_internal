@@ -26,3 +26,10 @@
     name: "{{ item }}"
     autostart: yes
   loop: "{{ vmhost_storage_pools }}"
+
+- name: "host-storage: Set the security driver to 'none' in qemu"
+  lineinfile:
+    path: '/etc/libvirt/qemu.conf'
+    insertafter: '#security_driver = "selinux"'
+    line: 'security_driver = "none"'
+  notify: 'Restart libvirt-bin'
