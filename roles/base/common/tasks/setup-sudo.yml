@@ -1,0 +1,7 @@
+---
+- name: 'setup-sudo: Push sudoers under /etc/sudoers.d'
+  copy:
+    src: 'files/etc_sudoers_d_michnmi'
+    dest: '/etc/sudoers.d/michnmi'
+    mode: '0440'
+    owner: 'root'
