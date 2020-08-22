@@ -4,3 +4,6 @@
 
 - name: 'main: Setup the users as needed'
   import_tasks: 'setup-users.yml'
+
+- name: 'main: Setup sudo as needed'
+  import_tasks: 'setup-sudo.yml'
