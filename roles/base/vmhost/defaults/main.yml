@@ -1,5 +1,6 @@
 ---
 vmhost_storage_pools:
+  - "boot"
   - "test"
   - "prod"
   - "default"

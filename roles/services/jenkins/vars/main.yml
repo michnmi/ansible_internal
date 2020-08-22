@@ -4,3 +4,4 @@ jenkins_packages:
   - name: 'apt-transport-https'
   - name: 'gnupg'
   - name: 'openjdk-11-jdk'
+  - name: 'qemu-kvm'
