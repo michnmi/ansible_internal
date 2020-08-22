@@ -10,6 +10,12 @@
     dest: '/var/lib/jenkins/secrets/initialAdminPassword'
     state: 'absent'
 
+- name: 'intial-setup: Allow jenkins to connect to local kvm'
+  user:
+    name: "{{ jenkins_user }}"
+    groups: "kvm"
+    append: true
+
 # This is needed so the jenkins_admin_user has been setup by the security script.
 - name: 'initial-setup: Make sure jenkins is restarted'
   meta: flush_handlers
