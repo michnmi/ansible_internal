@@ -1,0 +1,12 @@
+---
+- name: 'initial-dhcp-setup: Remove cloud-init networking'
+  file:
+    dest: '/etc/netplan/50-cloud-init.yaml'
+    state: absent
+
+- name: 'initial-dhcp-setup: Setup initial dhcp'
+  copy:
+    src: files/etc_netplan_01-netcfg.yaml
+    dest: /etc/netplan/01-netcfg.yaml
+    owner: root
+    mode: 0644
