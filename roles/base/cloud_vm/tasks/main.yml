@@ -3,5 +3,7 @@
   include_tasks: 'disable-services.yml'
 - name: 'main: Destroy users that are not needed'
   include_tasks: 'clean-up-users.yml'
+- name: 'main: Fix initial DHCP of cloud-vm'
+  include_tasks: 'initial-dhcp-setup.yml'
 - name: 'main: Clean up before the reboot'
   include_tasks: 'clean-up-before-reboot.yml'

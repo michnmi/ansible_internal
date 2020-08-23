@@ -1,0 +1,6 @@
+---
+network:
+  ethernets:
+    ens3:
+      dhcp4: on
+  version: 2
