@@ -7,3 +7,6 @@
 
 - name: 'main: Setup sudo as needed'
   import_tasks: 'setup-sudo.yml'
+
+- name: 'main: Setup networking'
+  import_tasks: 'setup-networking.yml'
