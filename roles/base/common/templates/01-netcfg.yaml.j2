@@ -1,0 +1,16 @@
+network:
+  version: 2
+  renderer: networkd  
+  ethernets:
+{% for network in network_interfaces %}
+    {{ network.name }}:
+{% if network.dhcp4 == "yes" %}
+      dhcp4: yes
+{% else %}
+      dhcp4: no
+      addresses: [{{ network.addresses | list | join (',') }}]
+      gateway4: {{ network.gateway4 }}
+      nameservers:
+        addresses: [{{ network.nameservers.addresses | list | join (',') }}]
+{% endif %}
+{% endfor %}

@@ -1,7 +1,0 @@
----
-all_users:
-  - name: "Michalis Michaloliakos"
-    uname: "michnmi"
-    uid: "1000"
-    group: "sudo"
-    ssh_key: "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAAfhGGiiPbkUrLYQtHTtoDBAsvCWVdxErmqeBUH2RWPpaQa15s8tRWabUHf5rosLja1O3YBAuhVjja6ndBeTf6dTQA5Icg435/FE2n9Me//Glqvde0jJNitoJlc+yV77wMLK1m2dmXUJxWy+tkI/oku/O75BWcgr1Po3HrkSbq1uSUIkA== /home/michnmi/.ssh/id_ecdsa_hashicorp"
