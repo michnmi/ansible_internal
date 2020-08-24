@@ -78,7 +78,12 @@
   register: result
   until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
   retries: '5'
-  delay: '3'
+  delay: '6'
+
+- name: 'setup-jenkins: Wait for 30 seconds for plugins to get installed.'
+  wait_for:
+    timeout: 30
+  delegate_to: localhost
 
 - name: 'setup-jenkins: Load the necessary plugins'
   jenkins_plugin:
@@ -109,7 +114,7 @@
   register: result
   until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
   retries: '5'
-  delay: '3'
+  delay: '6'
 
 - name: 'setup-jenkins: Add all jobs as are defined.'
   jenkins_job:
