@@ -1,6 +1,6 @@
 ---
 - name: "Setup jenkins"
-  hosts: jenkins,ubuntu
+  hosts: jenkins,localhost
   become: yes
   become_method: sudo
   roles:
