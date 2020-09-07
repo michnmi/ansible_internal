@@ -6,4 +6,4 @@
 
 - name: "setup-networking: Setup hostname"
   hostname:
-    name: {{ common_hostname }}
+    name: "{{ common_hostname }}"
