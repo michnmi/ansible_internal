@@ -1,9 +1,10 @@
 ---
 - name: "Setup jenkins"
-  hosts: jenkins
+  hosts: jenkins,localhost
   become: yes
   become_method: sudo
   roles:
+    - common
     - jenkins
     - packer
   vars:
