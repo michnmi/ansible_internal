@@ -3,3 +3,7 @@
   template:
     src: "01-netcfg.yaml.j2"
     dest: "/etc/netplan/01-netcfg.yaml"
+
+- name: "setup-networking: Setup hostname"
+  hostname:
+    name: {{ common_hostname }}
