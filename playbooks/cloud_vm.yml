@@ -6,4 +6,3 @@
   connection: local
   roles:
     - cloud_vm
-    - common
