@@ -3,9 +3,9 @@
   file:
     state: directory
     path: "{{ vmhost_storage_path }}/{{ item }}"
-    owner: "root"
-    group: "root"
-    mode: "0711"
+    owner: "libvirt-qemu"
+    group: "kvm"
+    mode: "0770"
   loop: "{{ vmhost_storage_pools }}"
 
 - name: "host-qemu-storage: Define the storage pools (on {{ vmhost_storage_path }})"
@@ -33,3 +33,31 @@
     insertafter: '#security_driver = "selinux"'
     line: 'security_driver = "none"'
   notify: 'Restart libvirt-bin'
+
+- name: "host-storage: Setup ACLs on the 'boot' storage pool"
+  acl:
+    path: "{{ vmhost_storage_path }}/boot"
+    entity: "libvirt-qemu"
+    etype: user
+    permissions: rw
+    default: yes
+    state: present
+
+- name: "host-storage: Allow rssh to scp"
+  lineinfile:
+    dest: '/etc/rssh.conf'
+    regexp: '^#allowscp'
+    line: 'allowscp'
+    state: present
+
+- name: "host-storage: Create a user that has access to the boot storage pool"
+  user:
+    name: "{{ vmhost_storage_boot_user.name }}"
+    group: 'kvm'
+    comment: "CICD-32"
+    shell: '/usr/bin/rssh'
+
+- name: "host-storage: Give that user access through an ssh key"
+  authorized_key:
+    user: "{{ vmhost_storage_boot_user.name }}"
+    key: "{{ vmhost_storage_boot_user.ssh_key }}"
