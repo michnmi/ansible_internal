@@ -10,5 +10,5 @@
     name: "{{ common_hostname }}"
 
 - name: "setup-networking: Apply netplan"
-  command:
-    cmd: /usr/sbin/netplan apply
+  command: # noqa 301 - We don't mind if this commands executes all the time.
+    cmd: warn=no /usr/sbin/netplan apply
