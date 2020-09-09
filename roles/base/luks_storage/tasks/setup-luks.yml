@@ -10,6 +10,7 @@
   loop: '{{ LUKS_devices }}'
   loop_control:
     loop_var: 'LUKS_device'
+  no_log: true
 
 - name: 'setup-luks: Open the LUKS device'
   luks_device:
