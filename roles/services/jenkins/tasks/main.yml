@@ -7,3 +7,6 @@
 
 - name: 'main: Allow jenkins to run ansible commands'
   import_tasks: 'setup-ansible.yml'
+
+- name: 'main: Allow jenkins to run terraform commands'
+  import_tasks: 'setup-terraform.yml'
