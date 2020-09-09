@@ -11,4 +11,4 @@
 
 - name: "setup-networking: Apply netplan"
   command: # noqa 301 - We don't mind if this commands executes all the time.
-    cmd: warn=no /usr/sbin/netplan apply
+    cmd: /usr/sbin/netplan apply
