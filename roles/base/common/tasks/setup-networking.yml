@@ -8,3 +8,7 @@
 - name: "setup-networking: Setup hostname"
   hostname:
     name: "{{ common_hostname }}"
+
+- name: "setup-networking: Apply netplan"
+  command: # noqa 301 - We don't mind if this commands executes all the time.
+    cmd: /usr/sbin/netplan apply
