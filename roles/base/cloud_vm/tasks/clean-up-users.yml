@@ -1,4 +1,17 @@
 ---
+# TODO: Find a different user to use as an automation one. This 
+#       is replicated from the roles/base/common role. 
+- name: 'clean-up-users: This is replicated from the common role.'
+  user:
+    name: 'michnmi'
+    uid: '1000'
+    group: 'sudo'
+
+- name: 'clean-up-users: This is replicated from the common role.'
+  authorized_key:
+    user: 'michnmi'
+    key: '"ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAAfhGGiiPbkUrLYQtHTtoDBAsvCWVdxErmqeBUH2RWPpaQa15s8tRWabUHf5rosLja1O3YBAuhVjja6ndBeTf6dTQA5Icg435/FE2n9Me//Glqvde0jJNitoJlc+yV77wMLK1m2dmXUJxWy+tkI/oku/O75BWcgr1Po3HrkSbq1uSUIkA=='
+
 - name: 'clean-up-users: Delete users we do not want'
   debug:
     msg: 'Pass: Nothing defined so far'
