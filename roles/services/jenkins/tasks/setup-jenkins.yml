@@ -103,7 +103,7 @@
 - name: 'initial-setup: Make sure jenkins is restarted'
   meta: flush_handlers
 
-- name: 'setup-jenkins: Make sure jenkins is up before loading plugins'
+- name: 'setup-jenkins: Make sure jenkins is up before loading jobs'
   uri:
     url: "http://localhost:8080"
     method: GET
