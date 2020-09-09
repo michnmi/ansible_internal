@@ -10,7 +10,7 @@
 - name: 'clean-up-users: This is replicated from the common role.'
   authorized_key:
     user: 'michnmi'
-    key: '"ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAAfhGGiiPbkUrLYQtHTtoDBAsvCWVdxErmqeBUH2RWPpaQa15s8tRWabUHf5rosLja1O3YBAuhVjja6ndBeTf6dTQA5Icg435/FE2n9Me//Glqvde0jJNitoJlc+yV77wMLK1m2dmXUJxWy+tkI/oku/O75BWcgr1Po3HrkSbq1uSUIkA=='
+    key: 'ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAAfhGGiiPbkUrLYQtHTtoDBAsvCWVdxErmqeBUH2RWPpaQa15s8tRWabUHf5rosLja1O3YBAuhVjja6ndBeTf6dTQA5Icg435/FE2n9Me//Glqvde0jJNitoJlc+yV77wMLK1m2dmXUJxWy+tkI/oku/O75BWcgr1Po3HrkSbq1uSUIkA=='
 
 - name: 'clean-up-users: Delete users we do not want'
   debug:
