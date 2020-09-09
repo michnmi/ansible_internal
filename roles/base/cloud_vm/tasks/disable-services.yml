@@ -3,16 +3,19 @@
   copy:
     src: 'files/etc_apt_apt.conf.d_10periodic'
     dest: '/etc/apt/apt.conf.d/10periodic'
+    mode: 0644
 
 - name: 'disable-services: Make sure no automatic updates are configured in apt - try 2'
   copy:
     src: 'files/etc_apt_apt.conf.d_51-disable-unattended-upgrades'
     dest: '/etc/apt/apt.conf.d/51-disable-unattended-upgrades'
+    mode: 0644
 
 - name: 'disable-services: Make sure they are disabled when machine-id is reset for Nomad'
   copy:
     src: 'files/lib_systemd_system-preset_10-disable-unattended-upgrades'
     dest: '/lib/systemd/system-preset/10-disable-unattended-upgrades'
+    mode: 0644
 
 - name: 'disable-services: Making sure all apt timers are never started'
   systemd:
