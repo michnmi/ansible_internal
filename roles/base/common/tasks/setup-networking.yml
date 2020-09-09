@@ -10,5 +10,5 @@
     name: "{{ common_hostname }}"
 
 - name: "setup-networking: Apply netplan"
-  command: 
+  command:
     cmd: /usr/sbin/netplan apply
