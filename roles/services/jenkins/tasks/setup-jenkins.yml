@@ -39,7 +39,7 @@
   no_log: true
   notify: 'Restart Jenkins'
 
-- name: 'setup-jenkins: Setup global credentials for github'
+- name: 'setup-jenkins: Setup global credentials for jenkins'
   template:
     src: init.groovy.d_credentials.groovy.j2
     dest: "{{ jenkins_home }}/init.groovy.d/credentials.groovy"
