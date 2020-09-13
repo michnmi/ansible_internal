@@ -1,4 +1,8 @@
 ---
-- name: 'setup-groups: No groups yet to add'
-  debug:
-    msg: 'No groups yet.'
+- name: 'setup-groups: Setup all groups as needed.'
+  group:
+    name: "{{ group.name }}"
+    gid: "{{ group.gid }}"
+  loop: "{{ all_groups }}"
+  loop_control:
+    loop_var: "group"

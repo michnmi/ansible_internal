@@ -1,2 +1,0 @@
-# make sure michnmi has sudo access as expected
-michnmi ALL=(ALL:ALL) NOPASSWD: ALL
