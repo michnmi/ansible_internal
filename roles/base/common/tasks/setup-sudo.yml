@@ -1,7 +1,7 @@
 ---
 - name: 'setup-sudo: Push sudoers under /etc/sudoers.d'
   copy:
-    src: 'files/etc_sudoers_d_michnmi'
-    dest: '/etc/sudoers.d/michnmi'
+    src: 'files/etc_sudoers_d_91_common'
+    dest: '/etc/sudoers.d/91-common-role-users'
     mode: '0440'
     owner: 'root'
