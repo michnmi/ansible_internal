@@ -42,22 +42,3 @@
     permissions: rw
     default: yes
     state: present
-
-- name: "host-storage: Allow rssh to scp"
-  lineinfile:
-    dest: '/etc/rssh.conf'
-    regexp: '^#allowscp'
-    line: 'allowscp'
-    state: present
-
-- name: "host-storage: Create a user that has access to the boot storage pool"
-  user:
-    name: "{{ vmhost_storage_boot_user.name }}"
-    group: 'kvm'
-    comment: "CICD-32"
-    shell: '/usr/bin/rssh'
-
-- name: "host-storage: Give that user access through an ssh key"
-  authorized_key:
-    user: "{{ vmhost_storage_boot_user.name }}"
-    key: "{{ vmhost_storage_boot_user.ssh_key }}"

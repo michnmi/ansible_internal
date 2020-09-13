@@ -15,5 +15,4 @@ vmhost_packages:
   - name: "python3-libvirt"
   - name: "python3-lxml"
 # Packages to allow sending of qcows to boot from jenkins
-  - name: "rssh"
   - name: "acl"
