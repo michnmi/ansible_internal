@@ -27,6 +27,11 @@
     dest: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64/"
     remote_src: yes
 
+- name: 'setup-jenkins: Install the libraries needed by the plugin'
+  apt:
+    name: 'libvirt-dev'
+    state: 'present'
+
 # Following the instructions in -> https://jenkins.programmingpedia.net/en/tutorial/7562/jenkins-groovy-scripting
 - name: 'setup-jenkins: Create init scripts directory.'
   file:
