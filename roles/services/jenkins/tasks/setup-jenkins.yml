@@ -12,6 +12,21 @@
     group: "{{ jenkins_user }}"
     mode: '0755'
 
+# Following the instructions on https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/docs/migration-13.md (as seen in CICD-37)
+- name: 'setup-jenkins: Create the directory for libvirt terraform plugin'
+  file:
+    path: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64"
+    state: directory
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: '0755'
+
+- name: 'setup-jenkins: Download the libvirt terraform plugin'
+  unarchive:
+    src: 'https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz'
+    dest: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64/"
+    remote_src: yes
+
 # Following the instructions in -> https://jenkins.programmingpedia.net/en/tutorial/7562/jenkins-groovy-scripting
 - name: 'setup-jenkins: Create init scripts directory.'
   file:
