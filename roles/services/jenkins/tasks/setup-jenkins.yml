@@ -23,9 +23,12 @@
 
 - name: 'setup-jenkins: Download the libvirt terraform plugin'
   unarchive:
-    src: 'https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz'
+    src: 'https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz' # noqa 204
     dest: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64/"
     remote_src: yes
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: '0755'
 
 - name: 'setup-jenkins: Install the libraries needed by the plugin'
   apt:
