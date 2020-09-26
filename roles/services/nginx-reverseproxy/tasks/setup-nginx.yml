@@ -64,6 +64,7 @@
   loop_control:
     loop_var: "proxy"
   notify: 'Restart nginx'
+  no_log: true
 
 - name: 'setup-nginx: Setup the links to sites-enabled'
   file:
@@ -74,6 +75,7 @@
   loop_control:
     loop_var: "proxy"
   notify: 'Restart nginx'
+  no_log: true
 
 - name: 'setup-nginx: Setup the certbot directory (should be NET-15)'
   file:
