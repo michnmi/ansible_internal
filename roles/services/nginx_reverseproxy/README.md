@@ -1,5 +1,5 @@
-# Ansible Role: nginx-reverseproxy
-*`roles/services/nginx-reverseproxy`*
+# Ansible Role: nginx_reverseproxy
+*`roles/services/nginx_reverseproxy`*
 
 An ansible role that provisions a system that can run [`nginx`]https://www.nginx.com/) in the mode of a *reverseproxy*.
 

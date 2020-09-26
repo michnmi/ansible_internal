@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: "nginx-reverseproxy"
+  role_name: "nginx_reverseproxy"
   author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
   description: "Allowing a host to run nginx for reverseproxy"
   company: "Home"
