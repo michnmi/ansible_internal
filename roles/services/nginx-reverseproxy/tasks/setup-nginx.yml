@@ -18,14 +18,15 @@
     group: 'root'
     mode: 0755
     state: directory
-  loop: 
+  loop:
     - 'sites-enabled'
     - 'sites-available'
 
 - name: 'setup-nginx: Create the certificates directories'
-  file: 
+  file:
     path: "{{ proxy.ssl_path }}"
     state: directory
+    mode: 0700
   loop: "{{ reverseproxies }}"
   loop_control:
     loop_var: "proxy"
