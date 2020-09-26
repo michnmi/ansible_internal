@@ -1,0 +1,8 @@
+---
+- name: "Setup nginx as a reverseproxy"
+  hosts: network_proxies
+  become: yes
+  become_method: sudo
+  roles:
+    - common
+    - nginx-reverseproxy
