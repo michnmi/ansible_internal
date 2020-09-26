@@ -1,0 +1,9 @@
+---
+- name: 'main: Install dependencies'
+  import_tasks: 'pre-setup.yml'
+
+- name: 'main: Install nginx'
+  import_tasks: 'install-nginx.yml'
+
+- name: 'main: Configure nginx'
+  import_tasks: 'setup-nginx.yml'

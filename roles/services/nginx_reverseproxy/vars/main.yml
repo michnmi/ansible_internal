@@ -1,0 +1,5 @@
+---
+nginx_packages:
+  - name: 'apt-transport-https'
+  - name: 'ca-certificates'
+  - name: 'dirmngr'
