@@ -1,0 +1,3 @@
+# CICD-35 make sure all automation users have sudo access as expected
+michnmi ALL=(ALL) NOPASSWD:ALL
+%automation ALL=(ALL) NOPASSWD:ALL
