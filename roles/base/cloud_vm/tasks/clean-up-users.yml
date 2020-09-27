@@ -36,14 +36,6 @@
     mode: '0440'
     owner: 'root'
 
-- name: 'clean-up-users: Delete sudoers files not needed anymore'
-  file:
-    path: '/etc/sudoers.d/90-cloud-init-users'
-    state: 'absent'
-
 - name: 'clean-up-users: Delete users we do not want'
-  user:
-    name: packer
-    state: absent
-    remove: yes
-
+  debug:
+    msg: 'Pass: Nothing defined so far'
