@@ -27,4 +27,9 @@
   user:
     name: 'packer'
     state: 'absent'
-    remove: yes
+    remove: no
+
+- name: 'setup-suers: Delete packer directory (owned by root) CICD-42'
+  file:
+    path: '/home/packer'
+    state: 'absent'
