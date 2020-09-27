@@ -17,3 +17,14 @@
   loop: "{{ all_users }}"
   loop_control:
     loop_var: "user"
+
+- name: "setup-users: Remove sudoers file no longer needed."
+  file:
+    path: '/etc/sudoers.d/90-cloud-init-users'
+    state: 'absent'
+
+- name: 'setup-users: Remove packer user.'
+  user:
+    name: 'packer'
+    state: 'absent'
+    remove: yes
