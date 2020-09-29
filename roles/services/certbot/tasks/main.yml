@@ -1,0 +1,9 @@
+---
+- name: 'main: Setup certbot base'
+  import_tasks: 'setup-certbot-structure.yml'
+
+- name: 'main: Push the certificates'
+  import_tasks: 'setup-certificates.yml'
+
+- name: 'main: Create the accounts'
+  import_tasks: 'setup-accounts.yml'

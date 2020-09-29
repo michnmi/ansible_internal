@@ -1,0 +1,74 @@
+---
+- name: 'setup-certbot: Install Certbot'
+  apt: 
+    name: 'certbot'
+    state: 'present'
+
+- name: 'setup-certbot: Setup the certbot web root directory'
+  file:
+    path: "{{ certbot_well_known }}"
+    owner: "{{ certbot_web_user }}"
+    group: "{{ certbot_web_user }}"
+    mode: 0755
+    state: 'directory'
+
+- name: 'setup-certbot: Create archive and live directories (need 0700)'
+  file:
+    path: "{{ certbot_cert_path }}/{{ item }}"
+    state: 'directory'
+    mode: 0700
+  loop:
+    - 'archive'
+    - 'live'
+
+- name: 'setup-certbot: Create the archive certificates directories'
+  file:
+    path: "{{ certbot_cert_path }}/archive/{{ domain.name }}"
+    state: directory
+    mode: 0755
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+
+- name: 'setup-certbot: Create the live certificates directories'
+  file:
+    path: "{{ certbot_cert_path }}/live/{{ domain.name }}"
+    state: directory
+    mode: 0755
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+- name: 'setup-certbot: Setup renewal directory'
+  file:
+    path: "{{ certbot_cert_path }}/renewal"
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+    state: 'directory'
+
+- name: 'setup-certbot: Setup renewal configs'
+  template:
+    src: 'templates/etc_letsencrypt_renewal_conf.j2'
+    dest: "{{ certbot_cert_path }}/renewal/{{ domain.name }}.conf"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+- name: 'setup-certbot: Setup accounts (endpoints)'
+  file:
+    path: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}"
+    owner: 'root'
+    group: 'root'
+    mode: 0700
+    state: directory
+  loop: "{{ certbot_accounts }}"
+  loop_control:
+    loop_var: 'account'
