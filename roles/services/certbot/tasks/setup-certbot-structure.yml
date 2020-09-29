@@ -72,3 +72,4 @@
   loop: "{{ certbot_accounts }}"
   loop_control:
     loop_var: 'account'
+  no_log: true
