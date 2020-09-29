@@ -70,3 +70,11 @@
     dest: '/etc/nginx/sites-enabled/default'
     state: link
   notify: 'Restart nginx'
+
+- name: 'setup-nginx: Setup the certbot web root directory'
+  file:
+    path: "{{ certbot_well_known }}"
+    owner: "{{ certbot_web_user }}"
+    group: "{{ certbot_web_user }}"
+    mode: 0755
+    state: 'directory'
