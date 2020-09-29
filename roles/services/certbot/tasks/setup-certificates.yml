@@ -1,0 +1,88 @@
+---
+- name: 'setup-certbot: Populate the archive certificates (cert)'
+  template:
+    src: etc_letsencrypt_certificate_skeletons/cert.pem.j2
+    dest: "{{ certbot_cert_path }}/archive/{{ domain.name }}/cert1.pem"
+    mode: 0644
+    owner: 'root'
+    group: 'root'
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+- name: 'setup-certbot: Populate the archive certificates (chain)'
+  template:
+    src: etc_letsencrypt_certificate_skeletons/chain.pem.j2
+    dest: "{{ certbot_cert_path }}/archive/{{ domain.name }}/chain1.pem"
+    mode: 0644
+    owner: 'root'
+    group: 'root'
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+- name: 'setup-certbot: Populate the archive certificates (fullchain)'
+  template:
+    src: etc_letsencrypt_certificate_skeletons/fullchain.pem.j2
+    dest: "{{ certbot_cert_path }}/archive/{{ domain.name }}/fullchain1.pem"
+    mode: 0644
+    owner: 'root'
+    group: 'root'
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+- name: 'setup-certbot: Populate the archive certificates (privkey)'
+  template:
+    src: etc_letsencrypt_certificate_skeletons/privkey.pem.j2
+    dest: "{{ certbot_cert_path }}/archive/{{ domain.name }}/privkey1.pem"
+    mode: 0644
+    owner: 'root'
+    group: 'root'
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+- name: 'setup-certbot: Populate the live certificates (cert)'
+  file:
+    src: "{{ certbot_cert_path }}/archive/{{ domain.name }}/cert1.pem"
+    dest: "{{ certbot_cert_path }}/live/{{ domain.name }}/cert.pem"
+    state: 'link'
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+- name: 'setup-certbot: Populate the live certificates (chain)'
+  file:
+    src: "{{ certbot_cert_path }}/archive/{{ domain.name }}/chain1.pem"
+    dest: "{{ certbot_cert_path }}/live/{{ domain.name }}/chain.pem"
+    state: 'link'
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+- name: 'setup-certbot: Populate the live certificates (fullchain)'
+  file:
+    src: "{{ certbot_cert_path }}/archive/{{ domain.name }}/fullchain1.pem"
+    dest: "{{ certbot_cert_path }}/live/{{ domain.name }}/fullchain.pem"
+    state: 'link'
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true
+
+- name: 'setup-certbot: Populate the live certificates (privkey)'
+  file:
+    src: "{{ certbot_cert_path }}/archive/{{ domain.name }}/privkey1.pem"
+    dest: "{{ certbot_cert_path }}/live/{{ domain.name }}/privkey.pem"
+    state: 'link'
+  loop: "{{ certbot_certificates }}"
+  loop_control:
+    loop_var: "domain"
+  no_log: true

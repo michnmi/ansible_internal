@@ -1,0 +1,44 @@
+---
+- name: 'setup-certbot: Setup accounts (accounts)'
+  file:
+    path: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}/directory/{{ account.name }}"
+    owner: 'root'
+    group: 'root'
+    mode: 0700
+    state: directory
+  loop: "{{ certbot_accounts }}"
+  loop_control:
+    loop_var: 'account'
+
+- name: 'setup-certbot: Setup accounts (meta.json))'
+  template:
+    src: templates/etc_letsencrypt_accounts/meta.json.j2
+    dest: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}/directory/{{ account.name }}/meta.json"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  loop: "{{ certbot_accounts }}"
+  loop_control:
+    loop_var: 'account'
+
+- name: 'setup-certbot: Setup accounts (private_key.json))'
+  template:
+    src: templates/etc_letsencrypt_accounts/private_key.json.j2
+    dest: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}/directory/{{ account.name }}/private_key.json"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  loop: "{{ certbot_accounts }}"
+  loop_control:
+    loop_var: 'account'
+
+- name: 'setup-certbot: Setup accounts (regr.json))'
+  template:
+    src: templates/etc_letsencrypt_accounts/regr.json.j2
+    dest: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}/directory/{{ account.name }}/regr.json"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  loop: "{{ certbot_accounts }}"
+  loop_control:
+    loop_var: 'account'

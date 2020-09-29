@@ -1,0 +1,15 @@
+# renew_before_expiry = 30 days
+version = {{ domain.version }}
+archive_dir = {{ certbot_cert_path }}/archive/{{ domain.name }}
+cert = {{ certbot_cert_path }}/live/{{ domain.name }}/cert.pem
+privkey = {{ certbot_cert_path }}/live/{{ domain.name }}/privkey.pem
+chain = {{ certbot_cert_path }}/live/{{ domain.name }}/chain.pem
+fullchain = {{ certbot_cert_path }}/live/{{ domain.name }}/fullchain.pem
+
+# Options used in the renewal process
+[renewalparams]
+authenticator = {{ domain.authenticator }}
+account = {{ domain.account }}
+server = {{ domain.server }}
+[[webroot_map]]
+{{ domain.name }} = {{ certbot_well_known }}
