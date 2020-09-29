@@ -8,7 +8,7 @@
     group: 'sudo'
 
 # Adding the noqa here but hopefully we'll be able to get out of this setup soon enough.
-- name: 'clean-up-users: This is replicated from the common role. - michni'
+- name: 'clean-up-users: This is replicated from the common role. - michnmi'
   authorized_key:
     user: 'michnmi'
     key: 'ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAAfhGGiiPbkUrLYQtHTtoDBAsvCWVdxErmqeBUH2RWPpaQa15s8tRWabUHf5rosLja1O3YBAuhVjja6ndBeTf6dTQA5Icg435/FE2n9Me//Glqvde0jJNitoJlc+yV77wMLK1m2dmXUJxWy+tkI/oku/O75BWcgr1Po3HrkSbq1uSUIkA==' # noqa 204
@@ -35,6 +35,11 @@
     dest: '/etc/sudoers.d/91-common-role-users'
     mode: '0440'
     owner: 'root'
+
+- name: 'clean-up-users: Setup a password for root. Only accessible through console'
+  user:
+    name: 'root'
+    password: "{{ root_password }}"
 
 - name: 'clean-up-users: Delete users we do not want'
   debug:
