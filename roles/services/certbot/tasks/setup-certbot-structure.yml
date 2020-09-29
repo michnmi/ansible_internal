@@ -1,6 +1,6 @@
 ---
 - name: 'setup-certbot: Install Certbot'
-  apt: 
+  apt:
     name: 'certbot'
     state: 'present'
 
