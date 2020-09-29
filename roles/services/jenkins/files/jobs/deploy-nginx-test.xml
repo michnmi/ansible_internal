@@ -1,0 +1,159 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.40">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.7.2"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.7.2">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+      <options/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description>A job that deploys an nginx-test</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.83">
+    <script>pipeline {
+    agent any
+    stages {
+        stage(&apos;Check base image status&apos;) {
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: &apos;jenkins-automation-user&apos;,
+                        keyFileVariable: &apos;JENKINS_USER_KEY&apos;,
+                        usernameVariable: &apos;JENKINS_USER_NAME&apos;
+                        )
+                ]) {
+                    sh &apos;cat $JENKINS_USER_KEY &gt; id_ed25519_jenkins&apos;
+                    sh &apos;chmod 600 id_ed25519_jenkins&apos;
+                    sh &apos;sed -i -e \&apos;/^$/d\&apos; id_ed25519_jenkins&apos;
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 \&apos;sudo ls -l /zpools/vmhost_qcow/boot/ubuntu18.04_baseos.qcow2\&apos;&apos;
+                }
+            }
+        }
+        stage(&apos;Get the terraform code&apos;) {
+            steps {
+                checkout([
+                    $class: &apos;GitSCM&apos;, 
+                    branches: [[name: &apos;*/master&apos;]], 
+                    doGenerateSubmoduleConfigurations: false, 
+                    extensions: [], 
+                    submoduleCfg: [], 
+                    userRemoteConfigs: 
+                        [[
+                            credentialsId: &apos;Github credentials&apos;, url: &apos;https://github.com/michnmi/terraform_nginx_internal&apos;]]
+                ])
+            }
+        }
+        stage(&apos;Get current terraform states.&apos;) {
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: &apos;jenkins-automation-user&apos;,
+                        keyFileVariable: &apos;JENKINS_USER_KEY&apos;,
+                        usernameVariable: &apos;JENKINS_USER_NAME&apos;
+                        )
+                ]) {
+                    sh &apos;cat $JENKINS_USER_KEY &gt; id_ed25519_jenkins&apos;
+                    sh &apos;chmod 600 id_ed25519_jenkins&apos;
+                    sh &apos;sed -i -e \&apos;/^$/d\&apos; id_ed25519_jenkins&apos;
+                    sh &apos;rsync -e &quot;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins&quot;  $JENKINS_USER_NAME@192.168.1.65:/zpools/terraform_state/terraform_nginx/test/terraform.tfstate* test/&apos;
+                }
+            }
+        }
+        stage(&apos;Destroy current setup.&apos;) {
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: &apos;jenkins-automation-user&apos;,
+                        keyFileVariable: &apos;JENKINS_USER_KEY&apos;,
+                        usernameVariable: &apos;JENKINS_USER_NAME&apos;
+                        )
+                ]) {
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 \&apos;sudo usermod -aG kvm,libvirt jenkins_automation\&apos;&apos;
+                    sh &apos;cd test/; terraform init ; terraform destroy -auto-approve&apos;
+                }
+            }
+        }
+        stage(&apos;Create base Image&apos;) {
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: &apos;jenkins-automation-user&apos;,
+                        keyFileVariable: &apos;JENKINS_USER_KEY&apos;,
+                        usernameVariable: &apos;JENKINS_USER_NAME&apos;
+                        )
+                ]) {
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 \&apos;sudo cp /zpools/vmhost_qcow/boot/ubuntu18.04_baseos.qcow2 /zpools/vmhost_qcow/test/nginx_base.qcow2 \&apos;&apos;
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 \&apos;sudo chown -R libvirt-qemu:kvm /zpools/vmhost_qcow/test/\&apos;&apos;
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 &quot;sudo sh -c \&apos;chmod 660 /zpools/vmhost_qcow/test/*\&apos;&quot;&apos;
+                }
+            }
+        }
+        stage(&apos;Deploy the VM.&apos;) {
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: &apos;jenkins-automation-user&apos;,
+                        keyFileVariable: &apos;JENKINS_USER_KEY&apos;,
+                        usernameVariable: &apos;JENKINS_USER_NAME&apos;
+                        )
+                ]) {
+                    sh &apos;cd test/; terraform init ; terraform apply -auto-approve&apos;
+                }
+            }
+        }
+        stage(&apos;Send current terraform states.&apos;) {
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: &apos;jenkins-automation-user&apos;,
+                        keyFileVariable: &apos;JENKINS_USER_KEY&apos;,
+                        usernameVariable: &apos;JENKINS_USER_NAME&apos;
+                        )
+                ]) {
+                    sh &apos;pwd;rsync -e &quot;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins&quot;  test/terraform.tfstate* $JENKINS_USER_NAME@192.168.1.65:/zpools/terraform_state/terraform_nginx/test/&apos;
+                }
+            }
+        }
+        stage(&apos;Get the ansible code&apos;) {
+            steps {
+                checkout([
+                    $class: &apos;GitSCM&apos;, 
+                    branches: [[name: &apos;*/master&apos;]], 
+                    doGenerateSubmoduleConfigurations: false, 
+                    extensions: [], 
+                    submoduleCfg: [], 
+                    userRemoteConfigs: 
+                        [[
+                            credentialsId: &apos;Github credentials&apos;, url: &apos;https://github.com/michnmi/ansible_internal&apos;]]
+                ])
+            }
+        }
+        stage(&apos;Run ansible playbook for nginx.&apos;) {
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: &apos;jenkins-automation-user&apos;,
+                        keyFileVariable: &apos;JENKINS_USER_KEY&apos;,
+                        usernameVariable: &apos;JENKINS_USER_NAME&apos;
+                        ),
+                    string(
+                            credentialsId: &apos;Ansible-Vault password&apos;,
+                            variable: &apos;VAULT_PASSWD&apos;
+                        )
+                ]) {
+                    sh &apos;echo &quot;Sleeping for 15s to let VM come up&quot;; sleep 15&apos;
+                    sh &apos;echo $VAULT_PASSWD &gt; VAULT_PASSWD.txt&apos;
+                    sh &apos;ansible-playbook -i  inventories/cloud_vms/hosts.ini  -l nginx_test  playbooks/nginx-reverseproxy.yml  --vault-password-file=VAULT_PASSWD.txt&apos;
+                }
+            }
+        }
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
