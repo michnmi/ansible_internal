@@ -144,9 +144,12 @@
                             variable: &apos;VAULT_PASSWD&apos;
                         )
                 ]) {
+                    sh &apos;cat $JENKINS_USER_KEY &gt; id_ed25519_jenkins&apos;
+                    sh &apos;chmod 600 id_ed25519_jenkins&apos;
+                    sh &apos;sed -i -e \&apos;/^$/d\&apos; id_ed25519_jenkins&apos;
                     sh &apos;echo &quot;Sleeping for 15s to let VM come up&quot;; sleep 15&apos;
                     sh &apos;echo $VAULT_PASSWD &gt; VAULT_PASSWD.txt&apos;
-                    sh &apos;ansible-playbook -i  inventories/cloud_vms/hosts.ini  -l nginx_test  playbooks/nginx-reverseproxy.yml  --vault-password-file=VAULT_PASSWD.txt&apos;
+                    sh &apos;ansible-playbook -u $JENKINS_USER_NAME --private-key=./id_ed25519_jenkins -i  inventories/cloud_vms/hosts.ini  -l nginx_test  playbooks/nginx-reverseproxy.yml  --vault-password-file=VAULT_PASSWD.txt&apos;
                 }
             }
         }
