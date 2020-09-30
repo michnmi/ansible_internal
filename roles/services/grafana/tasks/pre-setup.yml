@@ -1,7 +1,7 @@
 ---
 - name: 'pre-setup: Install required packages'
   apt:
-    name: '{{ item.name }}'
+    name: '{{ item }}'
     state: 'present'
     update_cache: true
   loop: '{{ grafana_packages }}'

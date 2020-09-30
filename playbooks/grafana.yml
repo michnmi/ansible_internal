@@ -1,0 +1,8 @@
+---
+- name: "Setup grafana"
+  hosts: monitoring_grafana
+  become: yes
+  become_method: sudo
+  roles:
+    - common
+    - grafana
