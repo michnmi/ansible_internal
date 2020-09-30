@@ -1,0 +1,5 @@
+---
+- name: 'setup-grafana: Make sure the systemd unit '
+  service:
+    name: 'grafana-server'
+    state: 'started'
