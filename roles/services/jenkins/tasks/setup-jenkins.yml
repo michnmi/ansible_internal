@@ -150,3 +150,18 @@
   loop_control:
     loop_var: "job"
   notify: 'Restart Jenkins'
+
+- name: 'setup-jenkins: Create the .ssh directory for jenkins user'
+  file:
+    path: "{{ jenkins_home }}/.ssh"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: 0700
+
+- name: 'setup-jenkins: Create an .ssh/config for jenkins user'
+  template:
+    src: 'var_lib_jenkins_ssh_config.j2'
+    dest: "{{ jenkins_home }}/.ssh/config"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: 0600

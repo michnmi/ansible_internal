@@ -28,7 +28,7 @@
                     sh &apos;cat $JENKINS_USER_KEY &gt; id_ed25519_jenkins&apos;
                     sh &apos;chmod 600 id_ed25519_jenkins&apos;
                     sh &apos;sed -i -e \&apos;/^$/d\&apos; id_ed25519_jenkins&apos;
-                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 \&apos;sudo ls -l /zpools/vmhost_qcow/boot/ubuntu18.04_baseos.qcow2\&apos;&apos;
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@vmhost01 \&apos;sudo ls -l /zpools/vmhost_qcow/boot/ubuntu18.04_baseos.qcow2\&apos;&apos;
                 }
             }
         }
@@ -71,7 +71,7 @@
                         usernameVariable: &apos;JENKINS_USER_NAME&apos;
                         )
                 ]) {
-                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 \&apos;sudo usermod -aG kvm,libvirt jenkins_automation\&apos;&apos;
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@vmhost01 \&apos;sudo usermod -aG kvm,libvirt jenkins_automation\&apos;&apos;
                     sh &apos;cd test/; terraform init ; terraform destroy -auto-approve&apos;
                 }
             }
@@ -85,9 +85,9 @@
                         usernameVariable: &apos;JENKINS_USER_NAME&apos;
                         )
                 ]) {
-                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 \&apos;sudo cp /zpools/vmhost_qcow/boot/ubuntu18.04_baseos.qcow2 /zpools/vmhost_qcow/test/nginx_base.qcow2 \&apos;&apos;
-                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 \&apos;sudo chown -R libvirt-qemu:kvm /zpools/vmhost_qcow/test/\&apos;&apos;
-                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@192.168.122.1 &quot;sudo sh -c \&apos;chmod 660 /zpools/vmhost_qcow/test/*\&apos;&quot;&apos;
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@vmhost01 \&apos;sudo cp /zpools/vmhost_qcow/boot/ubuntu18.04_baseos.qcow2 /zpools/vmhost_qcow/test/nginx_base.qcow2 \&apos;&apos;
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@vmhost01 \&apos;sudo chown -R libvirt-qemu:kvm /zpools/vmhost_qcow/test/\&apos;&apos;
+                    sh &apos;ssh -o StrictHostKeyChecking=no -i id_ed25519_jenkins $JENKINS_USER_NAME@vmhost01 &quot;sudo sh -c \&apos;chmod 660 /zpools/vmhost_qcow/test/*\&apos;&quot;&apos;
                 }
             }
         }
