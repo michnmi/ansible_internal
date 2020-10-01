@@ -1,5 +1,53 @@
 ---
-- name: 'setup-grafana: Make sure the systemd unit '
+- name: 'setup-grafana: Setup the datasources'
+  copy:
+    dest: '/etc/grafana/provisioning/datasources/ansible-datasources.yml'
+    content: |
+      apiVersion: 1
+      deleteDatasources: []
+      datasources:
+      {{ grafana_datasources | to_nice_yaml }}
+    owner: 'root'
+    group: 'grafana'
+    mode: 0640
+  notify: 'Restart grafana'
+
+- name: 'setup-grafana: Send the dashboards'
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/grafana/provisioning/dashboards/{{ item | basename }}"
+    owner: grafana
+    group: grafana
+    mode: 0640
+  with_fileglob:
+    - 'files/dashboards/*json'
+
+- name: 'setup-grafana: Fix the data source name in the dashboard'
+  replace:
+    dest: "/etc/grafana/provisioning/dashboards/{{ item | basename }}"
+    regexp: '"(?:\${)?DS_[A-Z0-9_-]+(?:})?"'
+    replace: '"{{ grafana_default_datasource }}"'
+  with_fileglob:
+    - 'files/dashboards/*json'
+
+- name: 'setup-grafana: Upload the dashboards'
+  copy:
+    dest: '/etc/grafana/provisioning/dashboards/ansible-dashboards.yml'
+    content: |
+      apiVersion: 1
+      providers:
+       - name: 'default'
+         orgId: 1
+         folder: ''
+         type: file
+         options:
+           path: "/etc/grafana/provisioning/dashboards"
+    owner: 'root'
+    group: 'grafana'
+    mode: 0640
+  notify: 'Restart grafana'
+
+- name: 'setup-grafana: Start the grafana service'
   service:
     name: 'grafana-server'
     state: 'started'
