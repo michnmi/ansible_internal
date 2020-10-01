@@ -1,0 +1,7 @@
+---
+- name: 'pre-setup: Install required packages'
+  apt:
+    name: '{{ item }}'
+    state: 'present'
+    update_cache: true
+  loop: '{{ nextcloud_packages }}'
