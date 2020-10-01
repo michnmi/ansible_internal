@@ -1,0 +1,8 @@
+---
+- name: "Setup nextcloud"
+  hosts: storage_services
+  become: yes
+  become_method: sudo
+  roles:
+    - common
+    - nextcloud

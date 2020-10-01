@@ -1,0 +1,3 @@
+---
+- name: 'main: Install dependencies'
+  import_tasks: 'pre-setup.yml'
