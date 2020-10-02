@@ -1,0 +1,6 @@
+---
+- name: 'main: Setup dependencies'
+  import_tasks: 'pre-setup.yml'
+
+- name: 'main: Install mariadb'
+  import_tasks: 'install-mysql.yml'
