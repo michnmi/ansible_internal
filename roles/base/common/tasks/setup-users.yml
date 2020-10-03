@@ -29,7 +29,7 @@
     state: 'absent'
     remove: no
 
-- name: 'setup-suers: Delete packer directory (owned by root) CICD-42'
+- name: 'setup-users: Delete packer directory (owned by root) CICD-42'
   file:
     path: '/home/packer'
     state: 'absent'
