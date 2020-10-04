@@ -1,3 +1,9 @@
 ---
 - name: 'main: Install dependencies'
   import_tasks: 'pre-setup.yml'
+
+- name: 'main: Install nextcloud'
+  import_tasks: 'configure-apache.yml'
+
+- name: 'main: Install nextcloud'
+  import_tasks: 'install-nextcloud.yml'
