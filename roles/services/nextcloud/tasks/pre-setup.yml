@@ -5,3 +5,9 @@
     state: 'present'
     update_cache: true
   loop: '{{ nextcloud_packages }}'
+
+- name: 'pre-setup: Setup nextcloud user in mysql.'
+  mysql_user:
+    name: "{{ nextcloud_db_user }}"
+    password: "{{ nextcloud_db_pass }}"
+  no_log: true

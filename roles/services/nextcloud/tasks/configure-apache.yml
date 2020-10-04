@@ -1,0 +1,45 @@
+---
+- name: 'configure-apache: Enable APC for php'
+  lineinfile:
+    dest: /etc/php/7.2/cli/php.ini
+    line: "apc.enable_cli = 1"
+    insertbefore: "^; End:$"
+    state: present
+
+- name: 'configure-apache: Enable PHP OPcache for php.ini'
+  lineinfile:
+    dest: /etc/php/7.2/apache2/php.ini
+    regexp: "{{ opcache_line.regexp }}"
+    line: "{{ opcache_line.line }}"
+    state: present
+    backrefs: yes
+  loop: "{{ php_apache_opcache }}"
+  loop_control:
+    loop_var: "opcache_line"
+  notify: 'Reload Apache'
+
+- name: 'configure-apache: Enable related apache2 modules'
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ apache_modules }}"
+  notify: 'Restart Apache'
+
+- name: 'configure-apache: Setup the nextcloud conf in apache'
+  template:
+    src: 'etc_apache2_sites-available_nextcloud.conf.j2'
+    dest: '/etc/apache2/sites-available/nextcloud.conf'
+    mode: 0644
+  notify: 'Reload Apache'
+
+- name: 'configure-apache: Enable nextcloud conf in apache'
+  file:
+    path: '/etc/apache2/sites-enabled/nextcloud.conf'
+    src: '/etc/apache2/sites-available/nextcloud.conf'
+    state: link
+  notify: 'Reload Apache'
+
+- name: 'configure-apache: Disable default conf in apache'
+  file:
+    path: '/etc/apache2/sites-enabled/000-default.conf'
+    state: absent
