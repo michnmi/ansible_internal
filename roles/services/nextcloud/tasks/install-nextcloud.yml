@@ -43,7 +43,7 @@
         --database-pass={{ mysql_root_pass }}
         --admin-user={{ nextcloud_admin_user }}
         --admin-pass={{ nextcloud_admin_pass }}
-        --data-dir={{ nextcloud_data_dir }} 
+        --data-dir={{ nextcloud_data_dir }}
   args:
     chdir: "{{ nextcloud_webroot }}"
   notify: 'Reload Apache'
