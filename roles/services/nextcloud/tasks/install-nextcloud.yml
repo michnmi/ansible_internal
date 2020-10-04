@@ -17,6 +17,9 @@
   unarchive:
     src: 'https://download.nextcloud.com/server/releases/nextcloud-16.0.5.tar.bz2'
     dest: "{{ nextcloud_webroot }}"
+    owner: 'www-data'
+    group: 'www-data'
+    mode: 0750
     remote_src: yes
     extra_opts: [--strip-components=1]
 
@@ -29,7 +32,7 @@
     recurse: yes
     state: directory
 
-- name: 'install-nextcloud: Run the occ installation'
+- name: 'install-nextcloud: Run the occ installation' # noqa 301
   become_user: 'www-data'
   command: >
         php occ maintenance:install
@@ -40,12 +43,12 @@
         --database-pass={{ mysql_root_pass }}
         --admin-user={{ nextcloud_admin_user }}
         --admin-pass={{ nextcloud_admin_pass }}
-        --data-dir={{ nextcloud_data_dir }}
+        --data-dir={{ nextcloud_data_dir }} 
   args:
     chdir: "{{ nextcloud_webroot }}"
   notify: 'Reload Apache'
 
-- name: 'install-nextcloud: Setup the trusted domains'
+- name: 'install-nextcloud: Setup the trusted domains' # noqa 301
   become_user: 'www-data'
   command: >
         php occ config:system:set trusted_domains {{ item.0 }} --value="{{ item.1 | ipwrap }}"
