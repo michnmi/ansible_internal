@@ -5,4 +5,4 @@ jenkins_packages:
   - name: 'gnupg'
   - name: 'openjdk-11-jdk'
   - name: 'qemu-kvm'
-  - name: 'python-netaddr'
+  - name: 'python3-netaddr'
