@@ -1,23 +1,35 @@
 ---
 nextcloud_packages:
   - apache2
-  - libapache2-mod-php7.2
-  - php7.2-gd
-  - php7.2-json
-  - php7.2-mysql
-  - php7.2-curl
-  - php7.2-mbstring
-  - php7.2-intl
-  - php-imagick
-  - php7.2-xml
-  - php7.2-zip
-  - php-apcu
-  - php-imap
-  - php-imagick
-  - php-redis
-  - unzip
   - bzip2
-  - python-netaddr
+  - ffmpeg
+  # - libreoffice
+  - libxml2
+  - libxml2-dev
+  - php
+  - php7.2-xml
+  - php-apcu
+  - php-bcmath
+  - php-bz2
+  - php-common
+  - php-curl
+  - php-dompdf
+  - php-gd
+  - php-gmp
+  - php-imagick
+  - php-imap
+  - php-intl
+  - php-json
+  - php-json-schema
+  - php-mbstring
+  - php-memcached
+  - php-mysql
+  - php-redis
+  - php-services-json
+  - php-smbclient
+  - php-symfony-polyfill-iconv
+  - php-zip
+  - unzip
 
 php_apache_opcache:
   - regexp: 'opcache.enable=0'
