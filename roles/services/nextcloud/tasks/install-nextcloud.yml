@@ -15,7 +15,7 @@
 
 - name: 'install-nextcloud: Download nextcloud'
   unarchive:
-    src: 'https://download.nextcloud.com/server/releases/nextcloud-16.0.5.tar.bz2'
+    src: 'https://github.com/nextcloud/server/archive/v19.0.3.tar.gz'
     dest: "{{ nextcloud_webroot }}"
     owner: 'www-data'
     group: 'www-data'
