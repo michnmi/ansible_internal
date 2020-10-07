@@ -1,10 +1,9 @@
 ---
 - name: 'pre-setup: Install required packages'
   apt:
-    name: '{{ item }}'
+    name: "{{ nextcloud_packages }}"
     state: 'present'
     update_cache: true
-  loop: '{{ nextcloud_packages }}'
 
 - name: 'pre-setup: Setup nextcloud user in mysql.'
   mysql_user:
