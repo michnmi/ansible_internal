@@ -13,15 +13,25 @@
     recurse: yes
     state: directory
 
+# Many times https://download.nextcloud.com is down. I need that artifactory (CICD-33)
 - name: 'install-nextcloud: Download nextcloud'
   unarchive:
-    src: 'https://github.com/nextcloud/server/archive/v19.0.3.tar.gz'
+    src: 'https://download.nextcloud.com/server/releases/nextcloud-19.0.3.tar.bz2'
     dest: "{{ nextcloud_webroot }}"
     owner: 'www-data'
     group: 'www-data'
     mode: 0750
     remote_src: yes
     extra_opts: [--strip-components=1]
+
+# - name: 'install-nextcloud: Temp workaround for above comment'
+#   unarchive:
+#     src: 'files/nextcloud-19.0.3.tar.bz2'
+#     dest: "{{ nextcloud_webroot }}"
+#     owner: 'www-data'
+#     group: 'www-data'
+#     mode: 0750
+#     extra_opts: [--strip-components=1]
 
 - name: 'install-nextcloud: Create nextcloud webroot folder'
   file:
