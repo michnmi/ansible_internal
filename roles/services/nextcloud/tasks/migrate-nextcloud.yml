@@ -3,7 +3,7 @@
   mysql_db:
     name: nextcloud
     state: import
-    target: "{{ nextcloud_migrate_database_path }}/{{nextcloud_migrate_database_file }}"
+    target: "{{ nextcloud_migrate_database_path }}/{{ nextcloud_migrate_database_file }}"
   notify: 'Reload Apache'
 
 - name: 'migrate-nextcloud: Destroy the existing data directory.'
