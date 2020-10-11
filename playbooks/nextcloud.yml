@@ -6,4 +6,5 @@
   roles:
     - common
     - mysql
+    - nfs_client
     - nextcloud
