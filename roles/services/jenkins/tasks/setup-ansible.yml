@@ -1,5 +1,5 @@
 ---
-- name: 'pre-setup: Setup ansible-lint'
+- name: 'setup-ansible: Setup ansible-lint'
   pip:
     name: 'ansible-lint'
     state: 'present'

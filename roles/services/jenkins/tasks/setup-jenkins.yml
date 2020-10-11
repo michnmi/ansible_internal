@@ -157,6 +157,7 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
     mode: 0700
+    state: directory
 
 - name: 'setup-jenkins: Create an .ssh/config for jenkins user'
   template:
