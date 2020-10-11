@@ -6,9 +6,8 @@
 
 - name: "host-installation: QEMU specific Package Installation"
   package:
-    state: "{{ item.state | default ('present') }}"
-    name: "{{ item.name }}"
-  loop: "{{ vmhost_packages }}"
+    name: "{{ vmhost_packages }}"
+    state: 'present'
 
 - name: "host-installation: Reset facts (after libvirt installation, for network bridge)"
   setup:

@@ -1,9 +1,8 @@
 ---
 - name: 'pre-setup: Packer host specific packages'
   package:
-    state: "{{ item.state | default ('present') }}"
-    name: "{{ item.name }}"
-  loop: "{{ packer_packages }}"
+    name: "{{ packer_packages }}"
+    state: 'present'
 
 - name: 'pre-setup: Create a packer user that has access to kvm'
   user:
