@@ -1,7 +1,6 @@
 ---
 - name: 'pre-setup: Install required packages'
   apt:
-    name: '{{ item }}'
+    name: "{{ mysql_packages }}"
     state: 'present'
     update_cache: true
-  loop: '{{ mysql_packages }}'

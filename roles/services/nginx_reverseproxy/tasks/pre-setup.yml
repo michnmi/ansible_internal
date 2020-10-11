@@ -1,10 +1,9 @@
 ---
 - name: 'pre-setup: Install required packages'
   apt:
-    name: '{{ item.name }}'
+    name: "{{ nginx_packages }}"
     state: 'present'
     update_cache: true
-  loop: '{{ nginx_packages }}'
 
 - name: 'pre-setup: Add pgp key for nginx'
   apt_key:

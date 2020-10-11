@@ -1,6 +1,5 @@
 ---
 - name: "pre-setup: Install required packages"
   package:
-    state: "{{ item.state | default ('present') }}"
-    name: "{{ item.name }}"
-  loop: "{{ zpools_packages }}"
+    name: "{{ zpools_packages }}"
+    state: 'present'

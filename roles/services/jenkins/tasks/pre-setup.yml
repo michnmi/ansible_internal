@@ -1,10 +1,9 @@
 ---
 - name: 'pre-setup: Install required packages'
   apt:
-    name: '{{ item.name }}'
+    name: "{{ jenkins_packages }}"
     state: 'present'
     update_cache: true
-  loop: '{{ jenkins_packages }}'
 
 # Following instructions in https://pkg.jenkins.io/debian-stable/
 - name: 'pre-setup: Add jenkins repo key.'
