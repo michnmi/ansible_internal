@@ -9,6 +9,7 @@
   loop: "{{ all_users }}"
   loop_control:
     loop_var: "user"
+  no_log: true
 
 - name: "setup-users: Add the public key for each user."
   authorized_key:
@@ -17,6 +18,7 @@
   loop: "{{ all_users }}"
   loop_control:
     loop_var: "user"
+  no_log: true
 
 - name: "setup-users: Remove sudoers file no longer needed."
   file:
