@@ -3,7 +3,7 @@ nextcloud_packages:
   - apache2
   - bzip2
   - ffmpeg
-  # - libreoffice Removing it for now to make installation faster
+  - libreoffice
   - libxml2
   - libxml2-dev
   - php
