@@ -15,6 +15,7 @@
   apt_repository:
     repo: '{{ jenkins_repo }}'
     state: 'present'
+    mode: 0666
     update_cache: true
 
 # This is needed here so we can use python-jenkins
