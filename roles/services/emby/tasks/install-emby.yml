@@ -1,0 +1,9 @@
+---
+- name: 'install-emby: Install the emby-server binary.'
+  apt:
+    deb: '/tmp/emby-server-deb_4.5.2.0_amd64.deb'
+
+- name: 'install-emby: Clean up the binary'
+  file:
+    dest: '/tmp/emby-server-deb_4.5.2.0_amd64.deb'
+    state: absent
