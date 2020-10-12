@@ -1,0 +1,6 @@
+---
+- name: 'main: Install dependencies'
+  import_tasks: 'pre-setup.yml'
+
+- name: 'main: Install the emby server'
+  import_tasks: 'install-emby.yml'
