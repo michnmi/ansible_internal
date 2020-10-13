@@ -3,7 +3,7 @@
   file:
     dest: "/var/lib/emby/{{ item }}"
     state: absent
-  with_items: 
+  with_items:
     - 'config'
     - 'data'
     - 'metadata'
