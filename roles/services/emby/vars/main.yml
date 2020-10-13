@@ -1,1 +1,3 @@
 ---
+emby_packages:
+  - 'python3-lxml' # Even this is not really needed.

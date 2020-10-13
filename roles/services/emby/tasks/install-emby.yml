@@ -3,6 +3,11 @@
   apt:
     deb: '/tmp/emby-server-deb_4.5.2.0_amd64.deb'
 
+- name: 'install-emby: Stop the service'
+  service:
+    name: 'emby-server'
+    state: 'stopped'
+
 - name: 'install-emby: Clean up the binary'
   file:
     dest: '/tmp/emby-server-deb_4.5.2.0_amd64.deb'

@@ -1,6 +1,12 @@
 ---
+- name: 'pre-setup: Install required packages'
+  apt:
+    name: "{{ emby_packages }}"
+    state: 'present'
+    update_cache: true
+
 - name: 'pre-setup: Download the emby server binary'
   get_url:
     url: 'https://github.com/MediaBrowser/Emby.Releases/releases/download/4.5.2.0/emby-server-deb_4.5.2.0_amd64.deb'
     dest: '/tmp/emby-server-deb_4.5.2.0_amd64.deb'
-    mode: 0666
+    mode: 0600

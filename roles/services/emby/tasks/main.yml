@@ -4,3 +4,7 @@
 
 - name: 'main: Install the emby server'
   import_tasks: 'install-emby.yml'
+
+- name: 'main: Migrate existing installation'
+  import_tasks: 'migrate-emby.yml'
+  when: emby_migrate
