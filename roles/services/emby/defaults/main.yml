@@ -1,1 +1,3 @@
 ---
+emby_migrate: false
+emby_data_dir: ''
