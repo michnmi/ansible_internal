@@ -6,3 +6,4 @@ jenkins_packages:
   - openjdk-11-jdk
   - qemu-kvm
   - python3-netaddr
+  - python3-jmespath
