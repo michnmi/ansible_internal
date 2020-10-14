@@ -1,0 +1,5 @@
+---
+- name: 'install-nextcloud: Remove default apache2 folder.'
+  apt:
+    name: 'prometheus'
+    state: 'present'

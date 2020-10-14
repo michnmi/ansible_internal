@@ -1,0 +1,8 @@
+---
+- name: "Setup prometheus"
+  hosts: prometheus
+  become: yes
+  become_method: sudo
+  roles:
+    - common
+    - prometheus
