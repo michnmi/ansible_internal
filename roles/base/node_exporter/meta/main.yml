@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: "node-exporter"
+  role_name: "node_exporter"
   author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
   description: "Allowing a host to run node-exporter on the box"
   company: "Home"
@@ -10,4 +10,3 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - bionic
- 

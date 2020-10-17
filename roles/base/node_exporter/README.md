@@ -1,7 +1,7 @@
-# Ansible Role: node-exporter
-*`roles/base/node-exporter`*
+# Ansible Role: node_exporter
+*`roles/base/node_exporter`*
 
-An ansible role that allows a host to run [node-exporter](https://github.com/prometheus/node_exporter)
+An ansible role that allows a host to run [node_exporter](https://github.com/prometheus/node_exporter)
 
 ## Purpose
 

@@ -8,7 +8,7 @@
 - name: 'pre-setup: Create the node_exporter user'
   user:
     name: "{{ node_exporter_user }}"
-    groups: 
+    groups:
       - "{{ node_exporter_group }}"
     append: true
     shell: /usr/sbin/nologin
