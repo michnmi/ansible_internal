@@ -1,0 +1,19 @@
+---
+- name: 'configure-node-exporter: Setup systemd service'
+  template:
+    src: etc_systemd_system_node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: 'Restart node_exporter'
+
+
+- name: 'configure-node-exporter: Setup textfile directory'
+  file:
+    path: "{{ node_exporter_textfile_dir }}"
+    state: directory
+    owner: "{{ node_exporter_user }}"
+    group: "{{ node_exporter_group }}"
+    recurse: true
+    mode: 0775

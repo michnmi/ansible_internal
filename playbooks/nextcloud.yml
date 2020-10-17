@@ -5,6 +5,7 @@
   become_method: sudo
   roles:
     - common
+    - node_exporter
     - mysql
     - nfs_client
     - nextcloud

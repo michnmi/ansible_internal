@@ -1,0 +1,9 @@
+---
+- name: 'main: Prepare the installation.'
+  import_tasks: 'pre-setup.yml'
+
+- name: 'main: Prepare the installation.'
+  import_tasks: 'install-node-exporter.yml'
+
+- name: 'main: Configure node-exporter.'
+  import_tasks: 'configure-node-exporter.yml'

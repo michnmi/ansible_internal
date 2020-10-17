@@ -5,6 +5,7 @@
   become_method: sudo
   roles:
     - common
+    - node_exporter
     - luks_storage
     - zpools
     - vmhost

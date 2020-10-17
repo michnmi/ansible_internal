@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  role_name: "node-exporter"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "Allowing a host to run node-exporter on the box"
+  company: "Home"
+  license: Internal
+  min_ansible_version: 2.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+ 
