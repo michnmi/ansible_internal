@@ -1,5 +1,37 @@
 ---
-- name: 'install-nextcloud: Remove default apache2 folder.'
-  apt:
-    name: 'prometheus'
-    state: 'present'
+- name: "install-prometheus: Download prometheus archive. Multiple files - will unzip in separate step"
+  get_url:
+    url: "https://github.com/prometheus/prometheus/releases/download/v2.22.0/prometheus-2.22.0.linux-amd64.tar.gz"
+    dest: '/tmp/'
+    mode: 0700
+
+- name: 'install-prometheus: Untar the binaries'
+  unarchive:
+    src: '/tmp/prometheus-2.22.0.linux-amd64.tar.gz'
+    dest: '/tmp'
+    mode: 0700
+    remote_src: yes
+
+- name: 'install-prometheus: Send prometheus/promtool over to bin'
+  copy:
+    src: "/tmp/prometheus-2.22.0.linux-amd64/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+    remote_src: yes
+  with_items:
+    - 'prometheus'
+    - 'promtool'
+
+- name: 'install-prometheus: Send prometheus console templates'
+  copy:
+    src: "/tmp/prometheus-2.22.0.linux-amd64/{{ item }}"
+    dest: "{{ prometheus_config_dir }}/{{ item }}/"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+    remote_src: yes
+  with_items:
+    - console_libraries
+    - consoles
