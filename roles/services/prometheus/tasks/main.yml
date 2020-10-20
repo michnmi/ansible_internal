@@ -1,3 +1,9 @@
 ---
-- name: 'main: Install prometheus'
+- name: 'main: Prepare the installation.'
+  import_tasks: 'pre-setup.yml'
+
+- name: 'main: Prepare the installation.'
   import_tasks: 'install-prometheus.yml'
+
+- name: 'main: Configure node-exporter.'
+  import_tasks: 'configure-prometheus.yml'

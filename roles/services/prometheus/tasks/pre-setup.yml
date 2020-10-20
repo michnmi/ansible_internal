@@ -1,0 +1,37 @@
+---
+- name: 'pre-setup: Create the prometheus group'
+  group:
+    name: "{{ prometheus_group }}"
+    state: present
+    system: true
+
+- name: 'pre-setup: Create the prometheus user'
+  user:
+    name: "{{ prometheus_user }}"
+    groups:
+      - "{{ prometheus_group }}"
+    append: true
+    shell: /usr/sbin/nologin
+    system: true
+    create_home: false
+    home: "{{ prometheus_db_dir }}"
+
+- name: 'pre-setup: Prometheus data directory'
+  file:
+    path: "{{ prometheus_db_dir }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0755
+
+- name: 'pre-setup: Prometheus configs'
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: "{{ prometheus_group }}"
+    mode: 0770
+  with_items:
+    - "{{ prometheus_config_dir }}"
+    - "{{ prometheus_config_dir }}/rules"
+    - "{{ prometheus_config_dir }}/file_sd"

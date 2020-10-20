@@ -1,0 +1,19 @@
+---
+- name: 'configure-prometheus: Setup systemd service'
+  template:
+    src: 'etc_systemd_system_prometheus.service.j2'
+    dest: '/etc/systemd/system/prometheus.service'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  notify: 'Restart prometheus'
+
+- name: 'configure-prometheus: Create prometheus main config'
+  template:
+    src: 'etc_prometheus_prometheus.yml.j2'
+    dest: "{{ prometheus_config_dir }}/prometheus.yml"
+    force: true
+    owner: root
+    group: prometheus
+    mode: 0640
+  notify: 'Reload prometheus'
