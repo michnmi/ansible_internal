@@ -7,7 +7,7 @@ prometheus_storage_retention:  '6y'
 prometheus_storage_retention_size: 0
 
 prometheus_global:
-  scrape_interval: '60s'
+  scrape_interval: '15s'
   scrape_timeout: '15s'
   evaluation_interval: '15s'
 
@@ -26,9 +26,5 @@ prometheus_scrape_configs:
     static_configs:
       - targets:
           - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9090"
-  - job_name: "node"
-    file_sd_configs:
-      - files:
-          - "{{ prometheus_config_dir }}/file_sd/node.yml"
 
 prometheus_metrics_path: '/metrics'
