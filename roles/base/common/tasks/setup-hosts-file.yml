@@ -1,0 +1,5 @@
+---
+- name: 'setup-hosts-file: This should be temporary until NET-10 is done.'
+  template:
+    src: 'etc_hosts.j2'
+    dest: '/etc/hosts'

@@ -10,3 +10,6 @@
 
 - name: 'main: Setup networking'
   import_tasks: 'setup-networking.yml'
+
+- name: 'main: Setup networking'
+  import_tasks: 'setup-hosts-file.yml'
