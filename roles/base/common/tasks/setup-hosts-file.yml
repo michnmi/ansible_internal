@@ -3,6 +3,6 @@
   template:
     src: 'etc_hosts.j2'
     dest: '/etc/hosts'
-    onwer: 'root'
+    owner: 'root'
     group: 'root'
     mode: 0644
