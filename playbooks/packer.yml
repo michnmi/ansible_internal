@@ -1,7 +1,0 @@
----
-- name: "Setup packer"
-  hosts: packer
-  become: yes
-  become_method: sudo
-  roles:
-    - packer
