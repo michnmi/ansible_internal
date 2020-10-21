@@ -1,0 +1,8 @@
+{{ ansible_managed | comment }}
+
+127.0.0.1 localhost
+127.0.1.1 {{ inventory_hostname }}
+
+{% for host in custom_etc_hosts %}
+{{ host.ip }} {{ host.hostname }}
+{% endfor %}}
