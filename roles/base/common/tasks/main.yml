@@ -13,3 +13,6 @@
 
 - name: 'main: Setup networking'
   import_tasks: 'setup-hosts-file.yml'
+
+- name: 'main: Setup timezone'
+  import_tasks: 'setup-timezone.yml'
