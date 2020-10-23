@@ -14,5 +14,3 @@ vmhost_packages:
   - python-lxml
   - python3-libvirt
   - python3-lxml
-# Packages to allow sending of qcows to boot from jenkins
-  - acl
