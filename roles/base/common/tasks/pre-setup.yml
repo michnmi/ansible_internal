@@ -1,0 +1,6 @@
+---
+- name: 'pre-setup: Install packages needed for all servers.'
+  apt:
+    name: "{{ common_base_packages }}"
+    state: 'present'
+    update_cache: true
