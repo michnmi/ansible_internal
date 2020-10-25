@@ -18,6 +18,16 @@
     loop_var: "opcache_line"
   notify: 'Reload Apache'
 
+- name: 'configure-apache: Enable PHP other options for php.ini'
+  lineinfile:
+    dest: /etc/php/7.2/apache2/php.ini
+    regexp: "^{{ php_option.option }}"
+    line: "{{ php_option.option }} = {{ php_option.value }}"
+  loop: "{{ php_ini_options }}"
+  loop_control:
+    loop_var: "php_option"
+  notify: 'Reload Apache'
+
 - name: 'configure-apache: Enable related apache2 modules'
   apache2_module:
     name: "{{ item }}"
