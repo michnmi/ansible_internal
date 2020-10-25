@@ -53,3 +53,5 @@ apache_modules:
   - env
   - dir
   - mime
+  - remoteip
+  - ssl

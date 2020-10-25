@@ -25,10 +25,23 @@
   loop: "{{ apache_modules }}"
   notify: 'Restart Apache'
 
+- name: 'configure-apache: Disable default conf in apache'
+  file:
+    path: '/etc/apache2/sites-enabled/000-default.conf'
+    state: absent
+  notify: 'Reload Apache'
+
 - name: 'configure-apache: Setup the nextcloud conf in apache'
   template:
     src: 'etc_apache2_sites-available_nextcloud.conf.j2'
     dest: '/etc/apache2/sites-available/nextcloud.conf'
+    mode: 0644
+  notify: 'Reload Apache'
+
+- name: 'configure-apache: Setup the ssl conf in apache'
+  template:
+    src: 'etc_apache2_sites-available_default-ssl.conf.j2'
+    dest: '/etc/apache2/sites-available/default-ssl.conf'
     mode: 0644
   notify: 'Reload Apache'
 
@@ -39,7 +52,9 @@
     state: link
   notify: 'Reload Apache'
 
-- name: 'configure-apache: Disable default conf in apache'
+- name: 'configure-apache: Enable ssl conf in apache'
   file:
-    path: '/etc/apache2/sites-enabled/000-default.conf'
-    state: absent
+    path: '/etc/apache2/sites-enabled/default-ssl.conf'
+    src: '/etc/apache2/sites-available/default-ssl.conf'
+    state: link
+  notify: 'Reload Apache'
