@@ -17,3 +17,8 @@
     group: "{{ node_exporter_group }}"
     recurse: true
     mode: 0775
+
+- name: 'configure-node-exporter: Make sure metrics are available immediately'
+  systemd:
+    name: node_exporter
+    state: restarted
