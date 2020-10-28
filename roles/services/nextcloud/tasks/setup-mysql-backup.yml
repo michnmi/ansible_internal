@@ -1,0 +1,9 @@
+---
+- name: 'setup-mysql-backup: Setup a cronjob to backup the nextcloud database'
+  cron:
+    name: 'Backup the nextcloud database'
+    weekday: '*'
+    minute: '*/30'
+    hour: '*'
+    user: 'jenkins_automation'
+    job: 'sudo -i mysqldump --single-transaction -h localhost -uroot nextcloud > {{ nextcloud_migrate_database_path }}/nextcloud-$(date \+\%Y\%m\%d\%H\%M\%S).sql'
