@@ -8,6 +8,9 @@
 - name: 'main: Install nextcloud'
   import_tasks: 'install-nextcloud.yml'
 
+- name: 'main: Setup Database backup.'
+  import_tasks: 'setup-mysql-backup.yml'
+
 - name: 'main: Migrate existing installation'
   import_tasks: 'migrate-nextcloud.yml'
   when: nextcloud_migrate
