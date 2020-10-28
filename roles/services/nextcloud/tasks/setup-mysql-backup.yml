@@ -6,4 +6,4 @@
     minute: '*/30'
     hour: '*'
     user: 'jenkins_automation'
-    job: 'sudo -i mysqldump --single-transaction -h localhost -uroot nextcloud > {{ nextcloud_migrate_database_path }}/nextcloud-$(date \+\%Y\%m\%d\%H\%M\%S).sql'
+    job: 'sudo -i mysqldump --single-transaction -h localhost -uroot nextcloud > {{ nextcloud_migrate_database_path }}/nextcloud-$(date \+\%Y\%m\%d\%H\%M\%S).sql'  # noqa 204
