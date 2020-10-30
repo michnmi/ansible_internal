@@ -1,6 +1,6 @@
 ---
 - name: "Setup emby"
-  hosts: emby
+  hosts: media_servers
   become: yes
   become_method: sudo
   roles:
