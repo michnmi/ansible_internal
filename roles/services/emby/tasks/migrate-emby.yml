@@ -22,6 +22,14 @@
     - 'plugins'
     - 'root'
 
+- name: 'migrate-emby: Send over the m3u file (TV Tuner)'
+  copy:
+    src: EMBY.m3u
+    dest: "/var/lib/emby/EMBY.m3u"
+    owner: 'emby'
+    group: 'emby'
+    mode: 0400
+
 # Block BEGIN
 # The following block has been commented out As I'll be using the 
 # approach of copying over the folder structure and replacing the original files. 
