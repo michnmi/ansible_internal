@@ -12,23 +12,26 @@
     mode: 0640
   notify: 'Restart grafana'
 
-- name: 'setup-grafana: Send the dashboards'
+- name: 'setup-grafana: Create the dashboard files'
   copy:
-    src: "{{ item }}"
-    dest: "/etc/grafana/provisioning/dashboards/{{ item | basename }}"
+    src: "files/dashboards/{{ dashboard.env }}/{{ dashboard.name }}.json"
+    dest: "/etc/grafana/provisioning/dashboards/{{ dashboard.title }}.json"
     owner: grafana
     group: grafana
     mode: 0640
-  with_fileglob:
-    - 'files/dashboards/*json'
+  loop: "{{ grafana_dashboards }}"
+  loop_control:
+    loop_var: "dashboard"
+
 
 - name: 'setup-grafana: Fix the data source name in the dashboard'
   replace:
-    dest: "/etc/grafana/provisioning/dashboards/{{ item | basename }}"
+    dest: "/etc/grafana/provisioning/dashboards/{{ dashboard.title }}.json"
     regexp: '"(?:\${)?DS_[A-Z0-9_-]+(?:})?"'
     replace: '"{{ grafana_default_datasource }}"'
-  with_fileglob:
-    - 'files/dashboards/*json'
+  loop: "{{ grafana_dashboards }}"
+  loop_control:
+    loop_var: "dashboard"
 
 - name: 'setup-grafana: Upload the dashboards'
   copy:
