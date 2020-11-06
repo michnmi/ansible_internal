@@ -6,4 +6,5 @@ Host *
 {% for host in jenkins_ssh_config%}
 Host {{ host.name }}
     hostname {{ host.hostname }}
+    StrictHostKeyChecking no
 {% endfor %}
