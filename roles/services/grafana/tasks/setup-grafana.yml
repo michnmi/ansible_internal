@@ -23,7 +23,6 @@
   loop_control:
     loop_var: "dashboard"
 
-
 - name: 'setup-grafana: Fix the data source name in the dashboard'
   replace:
     dest: "/etc/grafana/provisioning/dashboards/{{ dashboard.title }}.json"
