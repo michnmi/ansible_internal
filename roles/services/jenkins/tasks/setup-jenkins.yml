@@ -3,6 +3,7 @@
   apt:
     name: 'jenkins'
     state: 'present'
+  ignore_errors: true
 
 - name: 'setup-jenkins: Make sure home exists ({{ jenkins_home }}).'
   file:
@@ -21,20 +22,6 @@
     group: "{{ jenkins_user }}"
     mode: '0755'
 
-- name: 'setup-jenkins: Download the libvirt terraform plugin'
-  unarchive:
-    src: 'https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz' # noqa 204
-    dest: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64/"
-    remote_src: yes
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
-    mode: '0755'
-
-- name: 'setup-jenkins: Install the libraries needed by the plugin'
-  apt:
-    name: 'libvirt-dev'
-    state: 'present'
-
 # Following the instructions in -> https://jenkins.programmingpedia.net/en/tutorial/7562/jenkins-groovy-scripting
 - name: 'setup-jenkins: Create init scripts directory.'
   file:
@@ -50,6 +37,20 @@
     insertafter: '^JAVA_ARGS='
     regexp: '^JAVA_ARGS=\"\$JAVA_ARGS '
     line: 'JAVA_ARGS="$JAVA_ARGS {{ jenkins_java_options }}"'
+    state: present
+
+- name: "setup-jenkins: JENKINS-64212 - JAVA_ALLOWED_VERSIONS fix"
+  lineinfile:
+    dest: "/etc/init.d/jenkins"
+    regexp: '^JAVA_ALLOWED_VERSIONS.*'
+    line: 'JAVA_ALLOWED_VERSIONS=( "1.8" "11" )'
+    state: present
+
+- name: "setup-jenkins: JENKINS-64212 - JAVA_VERSION fix"
+  lineinfile:
+    dest: "/etc/init.d/jenkins"
+    regexp: '^JAVA_VERSION=.*'
+    line: JAVA_VERSION=$($JAVA -version 2>&1 | sed -n ';s/.* version "\([0-9]\{2,\}\|[0-9]\.[0-9]\)\..*".*/\1/p;')
     state: present
 
 - name: 'setup-jenkins: Setup admin user/pass'
@@ -90,23 +91,27 @@
   import_tasks: 'initial-setup.yml'
   when: initial_password_file_state.stat.exists
 
+# This is needed so the plugins are available for the multibranch pipeline jobs.
+- name: 'initial-setup: Make sure jenkins is restarted'
+  meta: flush_handlers
+
 - name: 'setup-jenkins: Make sure jenkins is up before loading plugins'
   uri:
     url: "http://localhost:8080"
     method: GET
     return_content: "yes"
-    timeout: 5
+    timeout: 10
     body_format: raw
     follow_redirects: "no"
     status_code: 200,403
   register: result
   until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
-  retries: '5'
-  delay: '6'
+  retries: '10'
+  delay: '18'
 
-- name: 'setup-jenkins: Wait for 30 seconds for plugins to get installed.'
+- name: 'setup-jenkins: Wait for 60 seconds for plugins to get installed.'
   wait_for:
-    timeout: 30
+    timeout: 60
   delegate_to: localhost
 
 - name: 'setup-jenkins: Load the necessary plugins'
@@ -126,18 +131,32 @@
 - name: 'initial-setup: Make sure jenkins is restarted'
   meta: flush_handlers
 
+- name: 'setup-jenkins: Download the libvirt terraform plugin'
+  unarchive:
+    src: 'https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz' # noqa 204
+    dest: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64/"
+    remote_src: yes
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: '0755'
+
+- name: 'setup-jenkins: Install the libraries needed by the plugin'
+  apt:
+    name: 'libvirt-dev'
+    state: 'present'
+
 - name: 'setup-jenkins: Make sure jenkins is up before loading jobs'
   uri:
     url: "http://localhost:8080"
     method: GET
     return_content: "yes"
-    timeout: 5
+    timeout: 10
     body_format: raw
     follow_redirects: "no"
     status_code: 200,403
   register: result
   until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
-  retries: '5'
+  retries: '10'
   delay: '6'
 
 - name: 'setup-jenkins: Add all jobs as are defined.'
