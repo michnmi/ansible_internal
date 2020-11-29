@@ -1,6 +1,6 @@
 ---
 packer_base_url: 'https://releases.hashicorp.com/packer'
-packer_version: '1.6.4'
+packer_version: '1.6.6'
 packer_arch: 'linux_amd64'
 packer_user: 'packer'
 packer_file_location: '/tmp/packer'
