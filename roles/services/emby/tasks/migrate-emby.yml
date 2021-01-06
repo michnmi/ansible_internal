@@ -95,3 +95,5 @@
   service:
     name: 'emby-server'
     state: 'restarted'
+    enabled: true
+    daemon_reload: yes

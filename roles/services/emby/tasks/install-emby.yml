@@ -8,6 +8,12 @@
     name: 'emby-server'
     state: 'stopped'
 
+- name: 'install-emby: Edit unit file to restart on failure'
+  lineinfile:
+    dest: "/usr/lib/systemd/system/emby-server.service"
+    insertafter: 'RestartForceExitStatus=3'
+    line: "Restart=on-failure"
+
 - name: 'install-emby: Clean up the binary'
   file:
     dest: '/tmp/emby-server-deb_4.5.2.0_amd64.deb'
