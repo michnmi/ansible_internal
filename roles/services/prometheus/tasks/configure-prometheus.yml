@@ -30,3 +30,10 @@
     mode: 0640
   with_dict: "{{ prometheus_targets }}"
   when: prometheus_targets != {}
+
+- name: 'configure-prometheus: Make sure the service is started and enabled'
+  systemd:
+    daemon_reload: true
+    name: prometheus
+    state: started
+    enabled: true
