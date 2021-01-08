@@ -55,7 +55,15 @@
     regexp: '.token_rotation_interval_minutes = 10'
     replace: 'token_rotation_interval_minutes = 10080'
 
+- name: 'setup-grafana: Setup the admin password'
+  replace:
+    dest: '/etc/grafana/grafana.ini'
+    regexp: ';admin_password = admin'
+    replace: 'admin_password = {{ grafana_admin_password }}'
+  notify: 'Restart grafana'
+
 - name: 'setup-grafana: Start the grafana service'
   service:
     name: 'grafana-server'
     state: 'started'
+    enabled: true
