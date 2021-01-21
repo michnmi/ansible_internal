@@ -1,0 +1,7 @@
+---
+- name: "Setup JIRA monitoring"
+  hosts: jira
+  become: yes
+  become_method: sudo
+  roles:
+    - node_exporter
