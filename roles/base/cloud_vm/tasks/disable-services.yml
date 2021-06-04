@@ -35,3 +35,13 @@
     path: /etc/fstab
     regexp: '\ swap\ '
     state: absent
+
+- name: Update all packages to their latest version
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes
