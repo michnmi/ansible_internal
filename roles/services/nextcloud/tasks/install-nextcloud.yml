@@ -65,3 +65,11 @@
   args:
     chdir: "{{ nextcloud_webroot }}"
   with_indexed_items: "{{ nextcloud_trusted_domains }}"
+
+- name: 'install-nextcloud: Setup the trusted proxies' # noqa 301
+  become_user: 'www-data'
+  command: >
+        php occ config:system:set trusted_proxies {{ item.0 }} --value="{{ item.1 | ipwrap }}"
+  args:
+    chdir: "{{ nextcloud_webroot }}"
+  with_indexed_items: "{{ nextcloud_trusted_proxies }}"
