@@ -21,5 +21,6 @@
 				SSLOptions +StdEnvVars
 		</Directory>
 		RedirectMatch {{ nextcloud_ssl_redirectmatch }}
+        RemoteIPHeader X-Real-IP
 	</VirtualHost>
 </IfModule>
