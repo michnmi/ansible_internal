@@ -12,5 +12,5 @@
 
 - name: 'install-grafana: Install grafana'
   package:
-    name: 'grafana'
+    name: "grafana-{{grafana_version}}"
     state: 'present'
