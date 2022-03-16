@@ -8,3 +8,6 @@
 - name: 'main: Migrate existing installation'
   import_tasks: 'migrate-emby.yml'
   when: emby_migrate
+
+- name: 'main: Config rest EMBY related things.'
+  import_tasks: 'config-emby.yml'
