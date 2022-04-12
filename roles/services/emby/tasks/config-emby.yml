@@ -6,8 +6,8 @@
     minute: "0"
     hour: "0"
     job: "cd /var/lib/emby; \
-      wget {{ epg_data.url }}{{ epg_data.filename }} ;\
-        gunzip {{ epg_data.filename }} ;\
+      wget {{ epg_data.url }}{{ epg_data.filename }}.gz ;\
+        gunzip -f {{ epg_data.filename }}.gz ;\
         chown emby:emby  {{ epg_data.filename }} ;\
         chmod 400 {{ epg_data.filename }}"
   when: epg_data_gather
