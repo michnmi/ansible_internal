@@ -1,3 +1,4 @@
 ---
 emby_migrate: false
 emby_data_dir: ''
+emby_version: '4.7.6.0'
