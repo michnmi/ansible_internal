@@ -8,3 +8,6 @@
 - name: 'main: Migrate existing installation'
   import_tasks: 'migrate-emby.yml'
   when: emby_migrate
+
+- name: 'main: Setup openvpn'
+  import_tasks: 'openvpn-emby.yml'
