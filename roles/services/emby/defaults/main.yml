@@ -2,3 +2,5 @@
 emby_migrate: false
 emby_data_dir: ''
 emby_version: '4.7.6.0'
+
+openvpn_configs: "/tmp/ipvanish_configs"

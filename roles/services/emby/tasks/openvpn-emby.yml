@@ -1,0 +1,68 @@
+---
+- name: "openvpn-emby: Create a temporary directory for ipvanish files"
+  file:
+    path: "{{ openvpn_configs }}"
+    state: directory
+    mode: 0700
+
+- name: "openvpn-emby: Download IPVANISH files"
+  get_url:
+    url: "https://configs.ipvanish.com/configs/configs.zip"
+    dest: "{{ openvpn_configs }}/"
+    mode: 0700
+
+- name: "openvpn-emby: Untar the ovpn and certificate"
+  unarchive:
+    src: "{{ openvpn_configs }}/configs.zip"
+    dest: "{{ openvpn_configs }}/"
+    mode: 0700
+    remote_src: yes
+
+- name: "openvpn-emby: Setup the files we need (ovpn)."
+  copy:
+    src: "{{ openvpn_configs }}/{{ endpoint }}.ovpn"
+    dest: "/etc/openvpn/client/{{ endpoint }}.conf"
+    owner: "root"
+    group: "root"
+    mode: 0400
+    remote_src: yes
+  loop: "{{ ovpn_endpoints }}"
+  loop_control:
+    loop_var: "endpoint"
+
+- name: "openvpn-emby: Setup the files we need (cert)."
+  copy:
+    src: "{{ openvpn_configs }}/ca.ipvanish.com.crt"
+    dest: "/etc/openvpn/client/ca.ipvanish.com.crt"
+    owner: "root"
+    group: "root"
+    mode: 0400
+    remote_src: yes
+
+- name: "openvpn-emby: Delete the directory"
+  file:
+    path: "{{ openvpn_configs }}"
+    state: absent
+
+- name: "openvpn-emby: Setup auth-user-pass"
+  template:
+    src: "auth-user-pass.j2"
+    dest: "/etc/openvpn/client/auth-user-pass"
+    owner: "root"
+    group: "root"
+    mode: 0400
+
+- name: "openvpn-emby: Update conf files with auth-user-pass"
+  replace:
+    dest: "/etc/openvpn/client/{{ endpoint }}.conf"
+    regexp: "auth-user-pass"
+    replace: "auth-user-pass /etc/openvpn/client/auth-user-pass"
+  loop: "{{ ovpn_endpoints }}"
+  loop_control:
+    loop_var: "endpoint"
+
+- name: "openvpn-emby: Start openvpn with default endpoint"
+  systemd:
+    name: "openvpn-client@{{ ovpn_default_endpoint }}.service"
+    state: started
+    enabled: yes
