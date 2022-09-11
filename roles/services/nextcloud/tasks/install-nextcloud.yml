@@ -16,7 +16,7 @@
 # Many times https://download.nextcloud.com is down. I need that artifactory (CICD-33)
 - name: 'install-nextcloud: Download nextcloud'
   unarchive:
-    src: 'https://download.nextcloud.com/server/releases/nextcloud-19.0.13.tar.bz2'
+    src: 'https://download.nextcloud.com/server/releases/nextcloud-20.0.14.tar.bz2'
     dest: "{{ nextcloud_webroot }}"
     owner: 'www-data'
     group: 'www-data'
