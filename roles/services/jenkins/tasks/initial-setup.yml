@@ -18,6 +18,7 @@
 
 # This is needed so the jenkins_admin_user has been setup by the security script.
 - name: 'initial-setup: Make sure jenkins is restarted'
-  service:
-    name: 'jenkins'
-    state: 'restarted'
+  systemd:
+    daemon_reload: true
+    name: "jenkins"
+    state: "restarted"
