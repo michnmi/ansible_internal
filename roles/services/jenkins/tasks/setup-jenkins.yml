@@ -152,6 +152,15 @@
     mode: 0644
   notify: 'Restart Jenkins'
 
+- name: 'setup-jenkins: Setup Slack configuration'
+  template:
+    src: jenkins.plugins.slack.SlackNotifier.xml.j2
+    dest: "{{ jenkins_home }}/jenkins.plugins.slack.SlackNotifier.xml"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: 0644
+  notify: 'Restart Jenkins'
+
 - name: 'setup-jenkins: Add all jobs as are defined.'
   jenkins_job:
     name: "{{ job.name }}"
