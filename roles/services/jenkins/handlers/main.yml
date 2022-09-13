@@ -1,5 +1,6 @@
 ---
-- name: 'Restart Jenkins'
-  service:
-    name: 'jenkins'
-    state: 'restarted'
+- name: "Restart Jenkins"
+  systemd:
+    daemon_reload: true
+    name: "jenkins"
+    state: "restarted"
