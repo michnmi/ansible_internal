@@ -179,11 +179,6 @@
     group: "{{ jenkins_user }}"
     mode: 0600
 
-- name: 'setup-jenkins: Remove credentials.groovy'
-  file:
-    dest: "{{ jenkins_home }}/init.groovy.d/credentials.groovy"
-    state: 'absent'
-
 - name: 'setup-jenkins: Remove basic-security.groovy'
   file:
     dest: "{{ jenkins_home }}/init.groovy.d/basic-security.groovy"
