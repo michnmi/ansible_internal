@@ -1,46 +1,46 @@
 ---
-# TODO: Find a different user to use as an automation one. This 
-#       is replicated from the roles/base/common role. 
-- name: 'clean-up-users: This is replicated from the common role. - michnmi'
+# TODO: Find a different user to use as an automation one. This
+#       is replicated from the roles/base/common role.
+- name: "clean-up-users: This is replicated from the common role. - michnmi"
   user:
-    name: 'michnmi'
-    uid: '1000'
-    group: 'sudo'
+    name: "michnmi"
+    uid: "1000"
+    group: "sudo"
 
 # Adding the noqa here but hopefully we'll be able to get out of this setup soon enough.
-- name: 'clean-up-users: This is replicated from the common role. - michnmi'
+- name: "clean-up-users: This is replicated from the common role. - michnmi"
   authorized_key:
-    user: 'michnmi'
-    key: 'ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAAfhGGiiPbkUrLYQtHTtoDBAsvCWVdxErmqeBUH2RWPpaQa15s8tRWabUHf5rosLja1O3YBAuhVjja6ndBeTf6dTQA5Icg435/FE2n9Me//Glqvde0jJNitoJlc+yV77wMLK1m2dmXUJxWy+tkI/oku/O75BWcgr1Po3HrkSbq1uSUIkA==' # noqa 204
+    user: "michnmi"
+    key: "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAAfhGGiiPbkUrLYQtHTtoDBAsvCWVdxErmqeBUH2RWPpaQa15s8tRWabUHf5rosLja1O3YBAuhVjja6ndBeTf6dTQA5Icg435/FE2n9Me//Glqvde0jJNitoJlc+yV77wMLK1m2dmXUJxWy+tkI/oku/O75BWcgr1Po3HrkSbq1uSUIkA==" # noqa 204
 
-- name: 'clean-up-users: This is replicated from the common role. - automation (group)'
+- name: "clean-up-users: This is replicated from the common role. - automation (group)"
   group:
     name: "automation"
-    gid: '5000'
+    gid: "5000"
 
-- name: 'clean-up-users: This is replicated from the common role. - jenkins_automation'
+- name: "clean-up-users: This is replicated from the common role. - jenkins_automation"
   user:
-    name: 'jenkins_automation'
-    uid: '5001'
-    group: 'automation'
+    name: "jenkins_automation"
+    uid: "5001"
+    group: "automation"
 
-- name: 'clean-up-users: This is replicated from the common role. - jenkins_automation'
+- name: "clean-up-users: This is replicated from the common role. - jenkins_automation"
   authorized_key:
-    user: 'jenkins_automation'
-    key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEMP68U00kNcTtf3UWM6UYk97UjOMrPXhsu1jqlxgYc5 jenkins_automation CICD-42' # noqa 204
+    user: "jenkins_automation"
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEMP68U00kNcTtf3UWM6UYk97UjOMrPXhsu1jqlxgYc5 jenkins_automation CICD-42" # noqa 204
 
-- name: 'clean-up-users: This is replicated from the common role. - sudoers'
+- name: "clean-up-users: This is replicated from the common role. - sudoers"
   copy:
-    src: 'files/etc_sudoers_d_91_common'
-    dest: '/etc/sudoers.d/91-common-role-users'
-    mode: '0440'
-    owner: 'root'
+    src: "files/etc_sudoers_d_91_common"
+    dest: "/etc/sudoers.d/91-common-role-users"
+    mode: "0440"
+    owner: "root"
 
-- name: 'clean-up-users: Setup a password for root. Only accessible through console'
+- name: "clean-up-users: Setup a password for root. Only accessible through console"
   user:
-    name: 'root'
+    name: "root"
     password: "{{ root_password }}"
 
-- name: 'clean-up-users: Delete users we do not want'
+- name: "clean-up-users: Delete users we do not want"
   debug:
-    msg: 'Pass: Nothing defined so far'
+    msg: "Pass: Nothing defined so far"
