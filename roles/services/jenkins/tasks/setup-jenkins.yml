@@ -31,26 +31,18 @@
     group: "{{ jenkins_user }}"
     mode: '0775'
 
-- name: "setup-jenkins: Manipulate jenkins init file ( {{ jenkins_init_file }})"
+- name: "setup-jenkins: Manipulate jenkins systemd file ({{ jenkins_systemd_file }}) - JAVA_OPTS"
   lineinfile:
-    dest: "{{ jenkins_init_file }}"
-    insertafter: '^JAVA_ARGS='
-    regexp: '^JAVA_ARGS=\"\$JAVA_ARGS '
-    line: 'JAVA_ARGS="$JAVA_ARGS {{ jenkins_java_options }}"'
+    dest: "{{ jenkins_systemd_file }}"
+    regexp: '^#TimeoutStartSec=90'
+    line: "TimeoutStartSec={{ jenkins_startup_timeout }}"
     state: present
 
-- name: "setup-jenkins: JENKINS-64212 - JAVA_ALLOWED_VERSIONS fix"
+- name: "setup-jenkins: Manipulate jenkins systemd file ({{ jenkins_systemd_file }}) - timeout"
   lineinfile:
-    dest: "/etc/init.d/jenkins"
-    regexp: '^JAVA_ALLOWED_VERSIONS.*'
-    line: 'JAVA_ALLOWED_VERSIONS=( "1.8" "11" )'
-    state: present
-
-- name: "setup-jenkins: JENKINS-64212 - JAVA_VERSION fix"
-  lineinfile:
-    dest: "/etc/init.d/jenkins"
-    regexp: '^JAVA_VERSION=.*'
-    line: JAVA_VERSION=$($JAVA -version 2>&1 | sed -n ';s/.* version "\([0-9]\{2,\}\|[0-9]\.[0-9]\)\..*".*/\1/p;')
+    dest: "{{ jenkins_systemd_file }}"
+    regexp: '^Environment="JAVA_OPTS='
+    line: "{{ jenkins_java_options }}"
     state: present
 
 - name: 'setup-jenkins: Setup admin user/pass'
@@ -61,25 +53,6 @@
     group: "{{ jenkins_user }}"
     mode: '0750'
   no_log: true
-  notify: 'Restart Jenkins'
-
-- name: 'setup-jenkins: Setup global credentials for jenkins'
-  template:
-    src: init.groovy.d_credentials.groovy.j2
-    dest: "{{ jenkins_home }}/init.groovy.d/credentials.groovy"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
-    mode: '0750'
-  no_log: false
-  notify: 'Restart Jenkins'
-
-- name: 'setup-jenkins: Setup github configuration'
-  template:
-    src: github-plugin-configuration.xml.j2
-    dest: "{{ jenkins_home }}/github-plugin-configuration.xml"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
-    mode: 0644
   notify: 'Restart Jenkins'
 
 - name: 'setup-jenkins: Check if this is being setup for the first time.'
@@ -109,9 +82,9 @@
   retries: '10'
   delay: '18'
 
-- name: 'setup-jenkins: Wait for 60 seconds for plugins to get installed.'
+- name: 'setup-jenkins: Wait for 90 seconds for plugins to get installed.'
   wait_for:
-    timeout: 60
+    timeout: 90
   delegate_to: localhost
 
 - name: 'setup-jenkins: Load the necessary plugins'
@@ -122,6 +95,7 @@
     updates_url: 'https://updates.jenkins.io'
     url_username: "{{ jenkins_admin_user }}"
     url_password: "{{ jenkins_admin_pass }}"
+    timeout: 60
   loop: "{{ jenkins_plugins }}"
   loop_control:
     loop_var: "plugin"
@@ -159,6 +133,25 @@
   retries: '10'
   delay: '6'
 
+- name: 'setup-jenkins: Setup global credentials for jenkins'
+  template:
+    src: init.groovy.d_credentials.groovy.j2
+    dest: "{{ jenkins_home }}/init.groovy.d/credentials.groovy"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: '0750'
+  no_log: false
+  notify: 'Restart Jenkins'
+
+- name: 'setup-jenkins: Setup github configuration'
+  template:
+    src: github-plugin-configuration.xml.j2
+    dest: "{{ jenkins_home }}/github-plugin-configuration.xml"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: 0644
+  notify: 'Restart Jenkins'
+
 - name: 'setup-jenkins: Add all jobs as are defined.'
   jenkins_job:
     name: "{{ job.name }}"
@@ -185,3 +178,13 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
     mode: 0600
+
+- name: 'setup-jenkins: Remove credentials.groovy'
+  file:
+    dest: "{{ jenkins_home }}/init.groovy.d/credentials.groovy"
+    state: 'absent'
+
+- name: 'setup-jenkins: Remove basic-security.groovy'
+  file:
+    dest: "{{ jenkins_home }}/init.groovy.d/basic-security.groovy"
+    state: 'absent'
