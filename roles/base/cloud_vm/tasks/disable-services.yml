@@ -1,23 +1,23 @@
 ---
-- name: 'disable-services: Make sure no automatic updates are configured in apt'
+- name: "disable-services: Make sure no automatic updates are configured in apt"
   copy:
-    src: 'files/etc_apt_apt.conf.d_10periodic'
-    dest: '/etc/apt/apt.conf.d/10periodic'
+    src: "files/etc_apt_apt.conf.d_10periodic"
+    dest: "/etc/apt/apt.conf.d/10periodic"
     mode: 0644
 
-- name: 'disable-services: Make sure no automatic updates are configured in apt - try 2'
+- name: "disable-services: Make sure no automatic updates are configured in apt - try 2"
   copy:
-    src: 'files/etc_apt_apt.conf.d_51-disable-unattended-upgrades'
-    dest: '/etc/apt/apt.conf.d/51-disable-unattended-upgrades'
+    src: "files/etc_apt_apt.conf.d_51-disable-unattended-upgrades"
+    dest: "/etc/apt/apt.conf.d/51-disable-unattended-upgrades"
     mode: 0644
 
-- name: 'disable-services: Make sure they are disabled when machine-id is reset for Nomad'
+- name: "disable-services: Make sure they are disabled when machine-id is reset for Nomad"
   copy:
-    src: 'files/lib_systemd_system-preset_10-disable-unattended-upgrades'
-    dest: '/lib/systemd/system-preset/10-disable-unattended-upgrades'
+    src: "files/lib_systemd_system-preset_10-disable-unattended-upgrades"
+    dest: "/lib/systemd/system-preset/10-disable-unattended-upgrades"
     mode: 0644
 
-- name: 'disable-services: Making sure all apt timers are never started'
+- name: "disable-services: Making sure all apt timers are never started"
   systemd:
     name: "{{ item.name }}"
     enabled: no
@@ -27,10 +27,10 @@
   loop: "{{ cloud_vm_disabled_services }}"
 
 # This is happening on a cloud vm of ubuntu. It will always have swap.
-- name: 'disable-services: Making sure swap is turned off.'
-  command: swapoff -a # noqa 301
+- name: "disable-services: Making sure swap is turned off."
+  command: swapoff -a # noqa 12
 
-- name: 'disable-services: Making sure no swap mountpoints exist.'
+- name: "disable-services: Making sure no swap mountpoints exist."
   lineinfile:
     path: /etc/fstab
     regexp: '\ swap\ '
