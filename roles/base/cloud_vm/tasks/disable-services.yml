@@ -28,7 +28,7 @@
 
 # This is happening on a cloud vm of ubuntu. It will always have swap.
 - name: "disable-services: Making sure swap is turned off."
-  command: swapoff -a # noqa 12
+  command: swapoff -a # noqa no-changed-when
 
 - name: "disable-services: Making sure no swap mountpoints exist."
   lineinfile:
