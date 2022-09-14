@@ -2,6 +2,7 @@
 <github-plugin-configuration plugin="github@1.30.0">
   <configs>
 {% for credential in jenkins_secret_text_credentials %}
+{% if credential['name'] == 'Github API creds' %}
     <github-server-config>
       <name>{{ credential['name'] }}</name>
       <apiUrl>https://api.github.com</apiUrl>
@@ -9,5 +10,6 @@
       <credentialsId>{{ credential['name'] }}</credentialsId>
       <clientCacheSize>20</clientCacheSize>
     </github-server-config>
+{% endif %}
 {% endfor %}
   </configs>
