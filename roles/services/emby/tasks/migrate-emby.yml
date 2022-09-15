@@ -1,46 +1,46 @@
 ---
-- name: 'migrate-emby: Destroy current config directories'
+- name: "migrate-emby: Destroy current config directories"
   file:
     dest: "/var/lib/emby/{{ item }}"
     state: absent
   with_items:
-    - 'config'
-    - 'data'
-    - 'metadata'
-    - 'plugins'
-    - 'root'
+    - "config"
+    - "data"
+    - "metadata"
+    - "plugins"
+    - "root"
 
-- name: 'migrate-emby: Link the new directories'
+- name: "migrate-emby: Link the new directories"
   file:
     src: "{{ emby_data_dir }}/{{ item }}"
     dest: "/var/lib/emby/{{ item }}"
-    state: 'link'
+    state: "link"
   with_items:
-    - 'config'
-    - 'data'
-    - 'metadata'
-    - 'plugins'
-    - 'root'
+    - "config"
+    - "data"
+    - "metadata"
+    - "plugins"
+    - "root"
 
-- name: 'migrate-emby: Send over the m3u file (TV Tuner)'
+- name: "migrate-emby: Send over the m3u file (TV Tuner)"
   copy:
     src: EMBY.m3u
-    dest: '/var/lib/emby/EMBY.m3u'
-    owner: 'emby'
-    group: 'emby'
+    dest: "/var/lib/emby/EMBY.m3u"
+    owner: "emby"
+    group: "emby"
     mode: 0400
 
-- name: 'migrate-emby: Send over the mock certs (https)'
+- name: "migrate-emby: Send over the mock certs (https)"
   unarchive:
-    src: 'files/certs.tgz'
-    dest: '/var/lib/emby/'
+    src: "files/certs.tgz"
+    dest: "/var/lib/emby/"
     mode: 0700
-    owner: 'emby'
-    group: 'emby'
+    owner: "emby"
+    group: "emby"
 
 # Block BEGIN
-# The following block has been commented out As I'll be using the 
-# approach of copying over the folder structure and replacing the original files. 
+# The following block has been commented out As I'll be using the
+# approach of copying over the folder structure and replacing the original files.
 # I'm keeping it here though in case it's needed some other time.
 
 # - name: 'migrate-emby: Setup the premiere key.'
@@ -91,9 +91,9 @@
 
 # Block END
 
-- name: 'migrate-emby: Restart the service'
+- name: "migrate-emby: Restart the service"
   service:
-    name: 'emby-server'
-    state: 'restarted'
+    name: "emby-server"
+    state: "restarted"
     enabled: true
     daemon_reload: yes

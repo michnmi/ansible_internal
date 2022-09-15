@@ -1,23 +1,23 @@
 ---
-# This is not necessarily needed but for now I'll keep it. 
-- name: 'initial-setup: Register the contents of initialAdminPassword'
+# This is not necessarily needed but for now I'll keep it.
+- name: "initial-setup: Register the contents of initialAdminPassword"
   slurp:
-    src: '/var/lib/jenkins/secrets/initialAdminPassword'
+    src: "/var/lib/jenkins/secrets/initialAdminPassword"
   register: initial_password_file_contents
 
-- name: 'initial-setup: Remove initialAdminPassword'
+- name: "initial-setup: Remove initialAdminPassword"
   file:
-    dest: '/var/lib/jenkins/secrets/initialAdminPassword'
-    state: 'absent'
+    dest: "/var/lib/jenkins/secrets/initialAdminPassword"
+    state: "absent"
 
-- name: 'intial-setup: Allow jenkins to connect to local kvm'
+- name: "intial-setup: Allow jenkins to connect to local kvm"
   user:
     name: "{{ jenkins_user }}"
     groups: "kvm"
     append: true
 
 # This is needed so the jenkins_admin_user has been setup by the security script.
-- name: 'initial-setup: Make sure jenkins is restarted'
+- name: "initial-setup: Make sure jenkins is restarted"
   systemd:
     daemon_reload: true
     name: "jenkins"
