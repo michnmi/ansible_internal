@@ -3,7 +3,7 @@
   apt:
     name: 'jenkins'
     state: 'present'
-  ignore_errors: true
+  ignore_errors: true # noqa ignore-errors
 
 - name: 'setup-jenkins: Make sure home exists ({{ jenkins_home }}).'
   file:
