@@ -1,7 +1,12 @@
 ---
-# CICD-63: Changed this to apt ansible-lint as ansible is installed with custom build.
-- name: 'setup-ansible: Setup ansible-lint'
-  apt:
+- name: "setup-ansible: Install ansible."
+  pip:
+    name: "ansible"
+    state: "present"
+    executable: "pip3"
+
+- name: "setup-ansible: Install ansible-lint."
+  pip:
     name: "ansible-lint"
-    state: 'present'
-    update_cache: true
+    state: "present"
+    executable: "pip3"
