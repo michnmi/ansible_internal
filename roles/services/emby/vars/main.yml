@@ -11,4 +11,4 @@ ovpn_endpoints:
   - "ipvanish-DE-Frankfurt-fra-a01"
   - "ipvanish-MY-Kuala-Lumpur-kul-c11"
 
-ovpn_default_endpoint: "ipvanish-DE-Frankfurt-fra-a01"
+ovpn_default_endpoint: "ipvanish-BE-Brussels-bru-c01"
