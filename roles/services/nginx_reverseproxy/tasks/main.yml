@@ -7,3 +7,6 @@
 
 - name: 'main: Configure nginx'
   import_tasks: 'setup-nginx.yml'
+
+- name: 'main: Renew Certificates'
+  import_tasks: 'renew-certs.yml'
