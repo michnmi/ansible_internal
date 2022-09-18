@@ -1,40 +1,40 @@
 ---
-- name: 'setup-jenkins: Install Jenkins'
+- name: "setup-jenkins: Install Jenkins"
   apt:
-    name: 'jenkins'
-    state: 'present'
+    name: "jenkins"
+    state: "present"
   ignore_errors: true # noqa ignore-errors
 
-- name: 'setup-jenkins: Make sure home exists ({{ jenkins_home }}).'
+- name: "setup-jenkins: Make sure home exists ({{ jenkins_home }})."
   file:
     path: "{{ jenkins_home }}"
     state: directory
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
-    mode: '0755'
+    mode: "0755"
 
 # Following the instructions on https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/docs/migration-13.md (as seen in CICD-37)
-- name: 'setup-jenkins: Create the directory for libvirt terraform plugin'
+- name: "setup-jenkins: Create the directory for libvirt terraform plugin"
   file:
     path: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64"
     state: directory
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
-    mode: '0755'
+    mode: "0755"
 
 # Following the instructions in -> https://jenkins.programmingpedia.net/en/tutorial/7562/jenkins-groovy-scripting
-- name: 'setup-jenkins: Create init scripts directory.'
+- name: "setup-jenkins: Create init scripts directory."
   file:
     path: "{{ jenkins_home }}/init.groovy.d"
     state: directory
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
-    mode: '0775'
+    mode: "0775"
 
 - name: "setup-jenkins: Manipulate jenkins systemd file ({{ jenkins_systemd_file }}) - JAVA_OPTS"
   lineinfile:
     dest: "{{ jenkins_systemd_file }}"
-    regexp: '^#TimeoutStartSec=90'
+    regexp: "^#TimeoutStartSec=90"
     line: "TimeoutStartSec={{ jenkins_startup_timeout }}"
     state: present
 
@@ -45,30 +45,39 @@
     line: "{{ jenkins_java_options }}"
     state: present
 
-- name: 'setup-jenkins: Setup admin user/pass'
+- name: "setup-jenkins: Setup admin user/pass"
   template:
     src: init.groovy.d_basic-security.groovy.j2
     dest: "{{ jenkins_home }}/init.groovy.d/basic-security.groovy"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
-    mode: '0750'
+    mode: "0750"
   no_log: true
-  notify: 'Restart Jenkins'
+  notify: "Restart Jenkins"
 
-- name: 'setup-jenkins: Check if this is being setup for the first time.'
+- name: "setup-jenkins: Check if this is being setup for the first time."
   stat:
-    path: '/var/lib/jenkins/secrets/initialAdminPassword'
-  register: 'initial_password_file_state'
+    path: "/var/lib/jenkins/secrets/initialAdminPassword"
+  register: "initial_password_file_state"
 
-- name: 'setup-jenkins: Load the initial setup tasks'
-  import_tasks: 'initial-setup.yml'
+- name: "setup-jenkins: Load the initial setup tasks"
+  import_tasks: "initial-setup.yml"
   when: initial_password_file_state.stat.exists
 
+- name: "setup-jenkins: Setup the LocationConfiguration.xml"
+  template:
+    src: "jenkins.model.JenkinsLocationConfiguration.xml.j2"
+    dest: "{{ jenkins_home }}/jenkins.model.JenkinsLocationConfiguration.xml"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_user }}"
+    mode: "0644"
+  notify: "Restart Jenkins"
+
 # This is needed so the plugins are available for the multibranch pipeline jobs.
-- name: 'initial-setup: Make sure jenkins is restarted'
+- name: "initial-setup: Make sure jenkins is restarted"
   meta: flush_handlers
 
-- name: 'setup-jenkins: Make sure jenkins is up before loading plugins'
+- name: "setup-jenkins: Make sure jenkins is up before loading plugins"
   uri:
     url: "http://localhost:8080"
     method: GET
@@ -79,47 +88,47 @@
     status_code: 200,403
   register: result
   until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
-  retries: '10'
-  delay: '18'
+  retries: "10"
+  delay: "18"
 
-- name: 'setup-jenkins: Wait for 90 seconds for plugins to get installed.'
+- name: "setup-jenkins: Wait for 90 seconds for plugins to get installed."
   wait_for:
     timeout: 90
   delegate_to: localhost
 
-- name: 'setup-jenkins: Load the necessary plugins'
+- name: "setup-jenkins: Load the necessary plugins"
   jenkins_plugin:
     name: "{{ plugin.name }}"
     jenkins_home: "{{ jenkins_home }}"
-    state: 'present'
-    updates_url: 'https://updates.jenkins.io'
+    state: "present"
+    updates_url: "https://updates.jenkins.io"
     url_username: "{{ jenkins_admin_user }}"
     url_password: "{{ jenkins_admin_pass }}"
     timeout: 60
   loop: "{{ jenkins_plugins }}"
   loop_control:
     loop_var: "plugin"
-  notify: 'Restart Jenkins'
+  notify: "Restart Jenkins"
 
 # This is needed so the plugins are available for the multibranch pipeline jobs.
-- name: 'initial-setup: Make sure jenkins is restarted'
+- name: "initial-setup: Make sure jenkins is restarted"
   meta: flush_handlers
 
-- name: 'setup-jenkins: Download the libvirt terraform plugin'
+- name: "setup-jenkins: Download the libvirt terraform plugin"
   unarchive:
-    src: 'https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz' # noqa 204
+    src: "https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz" # noqa 204
     dest: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64/"
     remote_src: yes
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
-    mode: '0755'
+    mode: "0755"
 
-- name: 'setup-jenkins: Install the libraries needed by the plugin'
+- name: "setup-jenkins: Install the libraries needed by the plugin"
   apt:
-    name: 'libvirt-dev'
-    state: 'present'
+    name: "libvirt-dev"
+    state: "present"
 
-- name: 'setup-jenkins: Make sure jenkins is up before loading jobs'
+- name: "setup-jenkins: Make sure jenkins is up before loading jobs"
   uri:
     url: "http://localhost:8080"
     method: GET
@@ -130,38 +139,38 @@
     status_code: 200,403
   register: result
   until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
-  retries: '10'
-  delay: '6'
+  retries: "10"
+  delay: "6"
 
-- name: 'setup-jenkins: Setup global credentials for jenkins'
+- name: "setup-jenkins: Setup global credentials for jenkins"
   template:
     src: init.groovy.d_credentials.groovy.j2
     dest: "{{ jenkins_home }}/init.groovy.d/credentials.groovy"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
-    mode: '0750'
+    mode: "0750"
   no_log: false
-  notify: 'Restart Jenkins'
+  notify: "Restart Jenkins"
 
-- name: 'setup-jenkins: Setup github configuration'
+- name: "setup-jenkins: Setup github configuration"
   template:
     src: github-plugin-configuration.xml.j2
     dest: "{{ jenkins_home }}/github-plugin-configuration.xml"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
     mode: 0644
-  notify: 'Restart Jenkins'
+  notify: "Restart Jenkins"
 
-- name: 'setup-jenkins: Setup Slack configuration'
+- name: "setup-jenkins: Setup Slack configuration"
   template:
     src: jenkins.plugins.slack.SlackNotifier.xml.j2
     dest: "{{ jenkins_home }}/jenkins.plugins.slack.SlackNotifier.xml"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
     mode: 0644
-  notify: 'Restart Jenkins'
+  notify: "Restart Jenkins"
 
-- name: 'setup-jenkins: Add all jobs as are defined.'
+- name: "setup-jenkins: Add all jobs as are defined."
   jenkins_job:
     name: "{{ job.name }}"
     config: "{{ lookup('file', 'files/jobs/' + job.name + '.xml') }}"
@@ -170,9 +179,9 @@
   loop: "{{ jenkins_jobs }}"
   loop_control:
     loop_var: "job"
-  notify: 'Restart Jenkins'
+  notify: "Restart Jenkins"
 
-- name: 'setup-jenkins: Create the .ssh directory for jenkins user'
+- name: "setup-jenkins: Create the .ssh directory for jenkins user"
   file:
     path: "{{ jenkins_home }}/.ssh"
     owner: "{{ jenkins_user }}"
@@ -180,15 +189,15 @@
     mode: 0700
     state: directory
 
-- name: 'setup-jenkins: Create an .ssh/config for jenkins user'
+- name: "setup-jenkins: Create an .ssh/config for jenkins user"
   template:
-    src: 'var_lib_jenkins_ssh_config.j2'
+    src: "var_lib_jenkins_ssh_config.j2"
     dest: "{{ jenkins_home }}/.ssh/config"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_user }}"
     mode: 0600
 
-- name: 'setup-jenkins: Remove basic-security.groovy'
+- name: "setup-jenkins: Remove basic-security.groovy"
   file:
     dest: "{{ jenkins_home }}/init.groovy.d/basic-security.groovy"
-    state: 'absent'
+    state: "absent"
