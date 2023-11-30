@@ -3,7 +3,7 @@
   cron:
     name: 'Backup the nextcloud database'
     weekday: '*'
-    minute: '*'
+    minute: '30'
     hour: '12'
     user: 'jenkins_automation'
     job: 'sudo -i mysqldump --single-transaction -h localhost -uroot nextcloud > {{ nextcloud_migrate_database_path }}/nextcloud-$(date \+\%Y\%m\%d\%H\%M\%S).sql'  # noqa 204
