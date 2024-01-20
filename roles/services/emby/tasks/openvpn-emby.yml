@@ -64,5 +64,5 @@
 - name: "openvpn-emby: Start openvpn with default endpoint"
   systemd:
     name: "openvpn-client@{{ ovpn_default_endpoint }}.service"
-    state: started
-    enabled: yes
+    state: stopped
+    enabled: no
