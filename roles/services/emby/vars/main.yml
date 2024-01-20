@@ -4,11 +4,8 @@ emby_packages:
   - 'openvpn'
 
 ovpn_endpoints:
-  - "ipvanish-EE-Tallinn-tll-c03"
   - "ipvanish-IS-Reykjavik-rkv-c01"
-  - "ipvanish-BE-Brussels-bru-c01"
-  - "ipvanish-CA-Toronto-tor-a01"
   - "ipvanish-DE-Frankfurt-fra-a01"
   - "ipvanish-MY-Kuala-Lumpur-kul-c11"
 
-ovpn_default_endpoint: "ipvanish-BE-Brussels-bru-c01"
+ovpn_default_endpoint: "ipvanish-IS-Reykjavik-rkv-c01"
