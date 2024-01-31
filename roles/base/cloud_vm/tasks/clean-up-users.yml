@@ -11,7 +11,7 @@
 - name: "clean-up-users: This is replicated from the common role. - michnmi"
   authorized_key:
     user: "michnmi"
-    key: "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAAfhGGiiPbkUrLYQtHTtoDBAsvCWVdxErmqeBUH2RWPpaQa15s8tRWabUHf5rosLja1O3YBAuhVjja6ndBeTf6dTQA5Icg435/FE2n9Me//Glqvde0jJNitoJlc+yV77wMLK1m2dmXUJxWy+tkI/oku/O75BWcgr1Po3HrkSbq1uSUIkA==" # noqa 204
+    key: "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAAfhGGiiPbkUrLYQtHTtoDBAsvCWVdxErmqeBUH2RWPpaQa15s8tRWabUHf5rosLja1O3YBAuhVjja6ndBeTf6dTQA5Icg435/FE2n9Me//Glqvde0jJNitoJlc+yV77wMLK1m2dmXUJxWy+tkI/oku/O75BWcgr1Po3HrkSbq1uSUIkA== \necdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIJXg6YhfPQr6U164LNcafHBcDKEQ7VslUgvopx7/Z0QtV6XYjxblUjXhzns4j42NbQcW68rTRUxZnqPE3K2qFI= michnmi@W2WY2VR9Y1" # noqa 204
 
 - name: "clean-up-users: This is replicated from the common role. - automation (group)"
   group:
