@@ -1,0 +1,10 @@
+---
+- name: "Setup splunk"
+  hosts: splunk
+  become: yes
+  become_method: sudo
+  roles:
+    - common
+    - node_exporter
+    - nfs_client
+    - splunk
