@@ -6,6 +6,7 @@
   roles:
     - common
     - node_exporter
+    - splunk_forwarder
     - mysql
     - nfs_client
     - nextcloud
