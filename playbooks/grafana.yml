@@ -6,4 +6,5 @@
   roles:
     - common
     - node_exporter
+    - splunk_forwarder
     - grafana

@@ -1,0 +1,9 @@
+{{ ansible_managed | comment }}
+
+[tcpout]
+defaultGroup = default-autolb-group
+
+[tcpout:default-autolb-group]
+server = {{ splunkforwarder_server }}
+
+[tcpout-server://{{ splunkforwarder_server }}]

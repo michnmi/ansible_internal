@@ -6,5 +6,6 @@
   roles:
     - common
     - node_exporter
+    - splunk_forwarder
     - nfs_client
     - emby
