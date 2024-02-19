@@ -1,0 +1,7 @@
+{{ ansible_managed | comment }}
+
+{% for input_src in splunkforwarder_logs %}
+[monitor://{{ input_src }}]
+disabled = false
+
+{% endfor %}

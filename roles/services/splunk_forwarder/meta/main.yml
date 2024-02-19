@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  role_name: "splunk_forwarder"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "Setting up universal forwarder."
+  company: "Home"
+  license: Internal
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
