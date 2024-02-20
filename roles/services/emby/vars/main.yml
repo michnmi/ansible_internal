@@ -2,6 +2,7 @@
 emby_packages:
   - 'python3-lxml' # Even this is not really needed
   - 'openvpn'
+  - 'vlc' # adding this for ad-hoc streams.
 
 ovpn_endpoints:
   - "ipvanish-IS-Reykjavik-rkv-c01"
