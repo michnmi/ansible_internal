@@ -1,12 +1,12 @@
 ---
 - name: "Setup nextcloud"
   hosts: storage_services
-  become: yes
+  become: true
   become_method: sudo
   roles:
     - common
     - node_exporter
-    - splunk_forwarder
     - mysql
     - nfs_client
     - nextcloud
+    - splunk_forwarder

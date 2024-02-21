@@ -1,7 +1,7 @@
 ---
 - name: "Base setup for cloud VMs"
   hosts: localhost
-  become: yes
+  become: true
   become_method: sudo
   connection: local
   roles:

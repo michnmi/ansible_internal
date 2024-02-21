@@ -1,10 +1,10 @@
 ---
 - name: "Setup grafana"
   hosts: monitoring_grafana
-  become: yes
+  become: true
   become_method: sudo
   roles:
     - common
     - node_exporter
-    - splunk_forwarder
     - grafana
+    - splunk_forwarder

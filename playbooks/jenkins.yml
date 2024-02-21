@@ -1,7 +1,7 @@
 ---
 - name: "Setup jenkins"
   hosts: jenkins
-  become: yes
+  become: true
   become_method: sudo
   roles:
     - common

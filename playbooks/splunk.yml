@@ -1,7 +1,7 @@
 ---
 - name: "Setup splunk"
   hosts: splunk
-  become: yes
+  become: true
   become_method: sudo
   roles:
     - common

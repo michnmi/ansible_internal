@@ -1,11 +1,11 @@
 ---
 - name: "Setup prometheus"
   hosts: prometheus
-  become: yes
+  become: true
   become_method: sudo
   roles:
     - common
     - node_exporter
-    - splunk_forwarder
     - nfs_client
     - prometheus
+    - splunk_forwarder

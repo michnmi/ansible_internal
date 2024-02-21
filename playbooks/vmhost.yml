@@ -1,7 +1,7 @@
 ---
 - name: "Setup the VM Hosts"
   hosts: hypervisors
-  become: yes
+  become: true
   become_method: sudo
   roles:
     - common
