@@ -4,3 +4,5 @@ emby_data_dir: ''
 emby_version: '4.8.0.80'
 
 openvpn_configs: "/tmp/ipvanish_configs"
+
+setup_iptv: false

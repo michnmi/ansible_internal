@@ -1,0 +1,16 @@
+---
+- name: "setup-iptv: Send over the m3u file (TV Tuner)"
+  copy:
+    src: IPTV_original.m3u
+    dest: "/var/lib/emby/IPTV_original.m3u"
+    owner: "emby"
+    group: "automation"
+    mode: 0440
+
+- name: "setup-iptv: Setup the m3u parsing script in the path"
+  copy:
+    src: parse_m3u.py
+    dest: "/usr/bin/parse_m3u"
+    owner: "root"
+    group: "root"
+    mode: 0755
