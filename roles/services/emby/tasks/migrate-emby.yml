@@ -22,14 +22,6 @@
     - "plugins"
     - "root"
 
-- name: "migrate-emby: Send over the m3u file (TV Tuner)"
-  copy:
-    src: EMBY.m3u
-    dest: "/var/lib/emby/EMBY.m3u"
-    owner: "emby"
-    group: "emby"
-    mode: 0400
-
 - name: "migrate-emby: Send over the mock certs (https)"
   unarchive:
     src: "files/certs.tgz"
@@ -37,59 +29,6 @@
     mode: 0700
     owner: "emby"
     group: "emby"
-
-# Block BEGIN
-# The following block has been commented out As I'll be using the
-# approach of copying over the folder structure and replacing the original files.
-# I'm keeping it here though in case it's needed some other time.
-
-# - name: 'migrate-emby: Setup the premiere key.'
-#   template:
-#     src: 'var_lib_emby_config_mb.lic.j2'
-#     dest: '/var/lib/emby/config/mb.lic'
-#     owner: 'emby'
-#     group: 'emby'
-#     mode: 0600
-
-# - name: 'migrate-emby: Disable the Wizard'
-#   xml:
-#     path: '/var/lib/emby/config/system.xml'
-#     xpath: '/ServerConfiguration/IsStartupWizardCompleted'
-#     value: 'true'
-
-# - name: 'migrate-emby: Setup the Backup plugin - directory.'
-#   file:
-#     dest: '/var/lib/emby/plugins'
-#     owner: 'emby'
-#     group: 'emby'
-#     mode: 0755
-#     state: 'directory'
-
-# - name: 'migrate-emby: Setup the Backup plugin - directory (configurations).'
-#   file:
-#     dest: '/var/lib/emby/plugins/configurations'
-#     owner: 'emby'
-#     group: 'emby'
-#     mode: 0755
-#     state: 'directory'
-
-# - name: 'migrate-emby: Setup the Backup plugin - dll.'
-#   copy:
-#     src: 'files/MBBackup.dll.enc'
-#     dest: '/var/lib/emby/plugins/MBBackup.dll'
-#     owner: 'emby'
-#     group: 'emby'
-#     mode: 0644
-
-# - name: 'migrate-emby: Setup the Backup plugin - configuration.'
-#   template:
-#     src: 'var_lib_emby_plugins_configurations_MBBackup.xml.j2'
-#     dest: '/var/lib/emby/plugins/configurations/MBBackup.xml'
-#     owner: 'emby'
-#     group: 'emby'
-#     mode: 0644
-
-# Block END
 
 - name: "migrate-emby: Restart the service"
   service:

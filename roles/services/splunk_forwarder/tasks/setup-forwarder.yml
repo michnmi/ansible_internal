@@ -50,7 +50,7 @@
   with_items: "{{ splunkforwarder_logs }}"
 
 - name: "setup-forwarder: Setup outputs"
-  ansible.builtin.template:
+  template:
     src: templates/outputs.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/outputs.conf
     owner: "{{ splunkforwarder_user }}"

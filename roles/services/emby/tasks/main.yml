@@ -9,5 +9,9 @@
   import_tasks: 'migrate-emby.yml'
   when: emby_migrate
 
+- name: 'main: Setup IPTV'
+  import_tasks: 'setup-iptv.yml'
+  when: setup_iptv
+
 - name: 'main: Setup openvpn'
   import_tasks: 'openvpn-emby.yml'
