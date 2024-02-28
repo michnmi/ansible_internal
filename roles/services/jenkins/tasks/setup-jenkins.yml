@@ -95,6 +95,7 @@
   wait_for:
     timeout: 90
   delegate_to: localhost
+  become: false
 
 - name: "setup-jenkins: Load the necessary plugins"
   jenkins_plugin:

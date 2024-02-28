@@ -1,5 +1,5 @@
 ---
-jenkins_repo_key: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
+jenkins_repo_key: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
 jenkins_repo: "deb https://pkg.jenkins.io/debian-stable binary/"
 jenkins_home: "/var/lib/jenkins"
 
