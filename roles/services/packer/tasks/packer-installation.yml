@@ -5,3 +5,15 @@
     dest: '/usr/local/bin'
     remote_src: yes
     mode: 0655
+
+# A better way will be to move from json to HCL2 and use https://developer.hashicorp.com/packer/integrations/hashicorp/qemu#installation
+- name: 'packer-installation: Setup qemu plugin'
+  command:
+    argv:
+      - "/usr/local/bin/packer"
+      - "plugins"
+      - "install"
+      - "github.com/hashicorp/qemu"
+    creates: "/var/lib/jenkins/.config/packer/plugins/github.com/hashicorp/qemu/packer-plugin-qemu_v1.0.10_x5.0_linux_amd64"
+  become: true
+  become_user: jenkins
