@@ -7,3 +7,4 @@ jenkins_packages:
   - qemu-kvm
   - python3-netaddr
   - python3-jmespath
+  - libguestfs-tools
