@@ -1,6 +1,6 @@
 ---
 - name: 'pre-setup: Install packages needed for all servers.'
   apt:
-    name: "{{ common_base_packages }}"
+    name: "{{ common_base_packages + ['python-apt'] if ansible_distribution_version is version('18.04', '=') else common_base_packages }}"
     state: 'present'
     update_cache: true
