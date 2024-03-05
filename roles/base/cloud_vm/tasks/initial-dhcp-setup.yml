@@ -6,7 +6,7 @@
 
 - name: "initial-dhcp-setup: Update the name if we're in Ubuntu 22.04"
   set_fact:
-    net_interface: "enp1s3" # interface name for Ubuntu 22.04
+    net_interface: "enp0s3" # interface name for Ubuntu 22.04
   when: ansible_distribution_version is version('22.04', '=')
 
 - name: "initial-dhcp-setup: Remove cloud-init networking"
