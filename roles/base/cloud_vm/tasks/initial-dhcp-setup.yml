@@ -1,12 +1,22 @@
 ---
-- name: 'initial-dhcp-setup: Remove cloud-init networking'
+- name: "initial-dhcp-setup: Set default interface name"
+  set_fact:
+    net_interface: "ens3" # default to the interface name for Ubuntu 18.04
+  when: ansible_distribution_version is version('18.04', '=')
+
+- name: "initial-dhcp-setup: Update the name if we're in Ubuntu 22.04"
+  set_fact:
+    net_interface: "enp1s0" # interface name for Ubuntu 22.04
+  when: ansible_distribution_version is version('22.04', '=')
+
+- name: "initial-dhcp-setup: Remove cloud-init networking"
   file:
-    dest: '/etc/netplan/50-cloud-init.yaml'
+    dest: "/etc/netplan/50-cloud-init.yaml"
     state: absent
 
-- name: 'initial-dhcp-setup: Setup initial dhcp'
-  copy:
-    src: files/etc_netplan_01-netcfg.yaml
+- name: "initial-dhcp-setup: Setup initial dhcp"
+  template:
+    src: templates/etc_netplan_01-netcfg.yaml.j2
     dest: /etc/netplan/01-netcfg.yaml
     owner: root
     mode: 0644
