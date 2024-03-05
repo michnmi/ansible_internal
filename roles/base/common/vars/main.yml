@@ -7,5 +7,4 @@ common_base_packages:
   - 'nload'
   - 'telnet'
   - 'chrony'
-  - 'python-apt'
   - 'atop'
