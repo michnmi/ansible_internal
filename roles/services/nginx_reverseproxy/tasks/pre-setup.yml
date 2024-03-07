@@ -10,9 +10,10 @@
     id: '573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62'
     url: 'http://nginx.org/keys/nginx_signing.key'
 
+# This now is hardcoded to Ubuntu 22
 - name: 'pre-setup: Setup nginx repository'
   apt_repository:
     filename: 'nginx'
-    repo: 'deb [arch=amd64] https://nginx.org/packages/mainline/ubuntu/ bionic nginx'
+    repo: 'deb [arch=amd64] https://nginx.org/packages/mainline/ubuntu/ jammy nginx'
     update_cache: yes
     mode: 0644
