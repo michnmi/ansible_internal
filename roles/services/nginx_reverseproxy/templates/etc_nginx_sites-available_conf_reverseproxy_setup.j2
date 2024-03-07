@@ -1,8 +1,7 @@
  server {
-	listen   {{ proxy.port }};
+	listen   {{ proxy.port }} ssl;
 	server_name {{ proxy.name }};
 
-	ssl on;
 	ssl_certificate {{ proxy.ssl_certificate }};
 	ssl_certificate_key {{ proxy.ssl_certificate_key }};
 
