@@ -73,3 +73,12 @@
   args:
     chdir: "{{ nextcloud_webroot }}"
   with_indexed_items: "{{ nextcloud_trusted_proxies }}"
+
+- name: 'install-nextcloud: Setup a cronjob to generate previews'
+  cron:
+    name: 'Generate previews for everything'
+    weekday: '*'
+    minute: '*/10'
+    hour: '*'
+    user: 'www-data'
+    job: 'php ./nextcloud/occ preview:pre-generate'
