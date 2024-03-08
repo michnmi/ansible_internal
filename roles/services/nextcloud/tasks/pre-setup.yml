@@ -1,9 +1,22 @@
 ---
+- name: 'pre-setup: CICD-76 - add repository for php7.4'
+  apt_repository:
+    repo: 'ppa:ondrej/php'
+    state: 'present'
+    mode: 0644
+    update_cache: true
+
 - name: 'pre-setup: Install required packages'
   apt:
     name: "{{ nextcloud_packages }}"
     state: 'present'
     update_cache: true
+
+- name: 'pre-setup: Setup php 7.4 as php'
+  file:
+    src: "/usr/bin/php7.4"
+    dest: "/etc/alternatives/php"
+    state: 'link'
 
 - name: 'pre-setup: Setup nextcloud user in mysql.'
   mysql_user:
