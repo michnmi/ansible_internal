@@ -9,3 +9,4 @@ common_base_packages:
   - 'chrony'
   - 'atop'
   - 'acl'
+  - 'net-tools'
