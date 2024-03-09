@@ -1,14 +1,14 @@
 ---
 - name: 'configure-apache: Enable APC for php'
   lineinfile:
-    dest: /etc/php/7.4/cli/php.ini
+    dest: /etc/php/8.2/cli/php.ini
     line: "apc.enable_cli = 1"
     insertbefore: "^; End:$"
     state: present
 
 - name: 'configure-apache: Enable PHP OPcache for php.ini'
   lineinfile:
-    dest: /etc/php/7.4/apache2/php.ini
+    dest: /etc/php/8.2/apache2/php.ini
     regexp: "{{ opcache_line.regexp }}"
     line: "{{ opcache_line.line }}"
     state: present
@@ -20,7 +20,7 @@
 
 - name: 'configure-apache: Enable PHP other options for php.ini'
   lineinfile:
-    dest: /etc/php/7.4/apache2/php.ini
+    dest: /etc/php/8.2/apache2/php.ini
     regexp: "^{{ php_option.option }}"
     line: "{{ php_option.option }} = {{ php_option.value }}"
   loop: "{{ php_ini_options }}"

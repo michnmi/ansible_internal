@@ -1,5 +1,5 @@
 ---
-- name: 'pre-setup: CICD-76 - add repository for php7.4'
+- name: 'pre-setup: CICD-76/STOR-82 - add repository for php8.2'
   apt_repository:
     repo: 'ppa:ondrej/php'
     state: 'present'
@@ -12,9 +12,9 @@
     state: 'present'
     update_cache: true
 
-- name: 'pre-setup: Setup php 7.4 as php'
+- name: 'pre-setup: Setup php 8.2 as php'
   file:
-    src: "/usr/bin/php7.4"
+    src: "/usr/bin/php8.2"
     dest: "/etc/alternatives/php"
     state: 'link'
 
