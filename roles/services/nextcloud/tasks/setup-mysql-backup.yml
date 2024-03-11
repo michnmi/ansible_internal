@@ -7,3 +7,12 @@
     hour: '12'
     user: 'jenkins_automation'
     job: 'sudo -i mysqldump --single-transaction -h localhost -uroot nextcloud > {{ nextcloud_migrate_database_path }}/nextcloud-$(date \+\%Y\%m\%d\%H\%M\%S).sql'  # noqa 204
+
+- name: 'setup-mysql-backup: Setup a cronjob to delete old backups'
+  cron:
+    name: 'Delete old backups'
+    weekday: '1'
+    minute: '30'
+    hour: '5'
+    user: 'jenkins_automation'
+    job: 'sudo -i find /mnt/nextcloud_database/ -type f -name nextcloud-\*.sql -exec rm {} \;'
