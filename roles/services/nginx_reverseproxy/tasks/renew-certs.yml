@@ -2,3 +2,4 @@
 - name: "renew-certs: Make sure certs are renewed in deploy."
   command: certbot renew # noqa 301
   notify: "Restart nginx"
+  when: ansible_hostname != "nginx_test"
