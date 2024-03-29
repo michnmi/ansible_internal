@@ -33,5 +33,5 @@
   file:
     path: /var/lib/emby/EMBY.m3u
     owner: "emby"
-    group: "emby"
-    mode: 0400
+    group: "automation"
+    mode: 0440
