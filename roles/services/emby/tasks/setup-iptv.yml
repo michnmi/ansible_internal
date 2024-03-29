@@ -35,3 +35,10 @@
     owner: "emby"
     group: "automation"
     mode: 0440
+
+- name: "setup-iptv: Update permissions of var/lib/emby"
+  file:
+    path: /var/lib/emby/
+    owner: "emby"
+    group: "automation"
+    mode: 0750
