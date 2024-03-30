@@ -10,3 +10,4 @@ common_base_packages:
   - 'atop'
   - 'acl'
   - 'net-tools'
+  - 'rsyslog'

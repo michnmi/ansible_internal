@@ -3,15 +3,13 @@ vmhost_packages:
 # Basic packages for QEMU/KVM
   - bridge-utils
   - qemu-kvm
-  - libvirt-bin
+  - libvirt-clients
   - libguestfs-tools
   - virt-manager
 # Extra packages for host management
   - xutils
   - cpu-checker
 # Ansible related packages and their python3 versions
-  - python-libvirt
-  - python-lxml
   - python3-libvirt
   - python3-lxml
 # I want this for EMBY
