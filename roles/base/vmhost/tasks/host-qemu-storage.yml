@@ -32,4 +32,4 @@
     path: '/etc/libvirt/qemu.conf'
     insertafter: '#security_driver = "selinux"'
     line: 'security_driver = "none"'
-  notify: 'Restart libvirt-bin'
+  notify: 'Restart libvirtd'
