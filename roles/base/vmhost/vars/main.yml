@@ -17,3 +17,4 @@ vmhost_packages:
 # I want this for the filetransfer work
   - nfs-common 
   - unrar
+  - mkvtoolnix
