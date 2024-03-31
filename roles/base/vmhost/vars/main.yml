@@ -14,3 +14,5 @@ vmhost_packages:
   - python3-lxml
 # I want this for EMBY
   - ffmpeg
+# I want this for transcoding as well
+  - nfs-common 
