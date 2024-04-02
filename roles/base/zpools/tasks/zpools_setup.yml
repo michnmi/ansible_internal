@@ -4,17 +4,17 @@
 # already there. The understanding is that the zpools should already exist on the disks.
 
 # This is to register a list of zpools if they exist hence 301 doesn't apply.
-- name: "zpools_setup: Check if the zpools already are there."
-  command: "zpool list -Ho name {{ zpool.name }}" # noqa 301
+- name: "Zpools_setup: Check if the zpools already are there."
+  ansible.builtin.command: "zpool list -Ho name {{ zpool.name }}" # noqa no-changed-when
   register: result_pool_list
-  ignore_errors: yes
+  ignore_errors: true
   loop: "{{ zpool_list }}"
   loop_control:
     loop_var: "zpool"
 
-- name: 'zpools_setup: Import the zpools if not already there.'
-  command: "zpool import {{ result.zpool.name }}"
-  loop : "{{ result_pool_list.results }}"
+- name: 'Zpools_setup: Import the zpools if not already there.'
+  ansible.builtin.command: "zpool import {{ result.zpool.name }}" # noqa no-changed-when
+  loop: "{{ result_pool_list.results }}"
   loop_control:
     loop_var: "result"
   when:

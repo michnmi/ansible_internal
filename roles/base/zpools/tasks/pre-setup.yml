@@ -1,5 +1,5 @@
 ---
-- name: "pre-setup: Install required packages"
-  package:
+- name: "Pre-setup: Install required packages"
+  ansible.builtin.package:
     name: "{{ base_zpools_packages }}"
     state: 'present'
