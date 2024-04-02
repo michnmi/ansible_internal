@@ -24,7 +24,7 @@
     masked: true
     state: stopped
     daemon_reload: true
-  loop: "{{ cloud_vm_disabled_services }}"
+  loop: "{{ base_cloud_vm_disabled_services }}"
 
 # This is happening on a cloud vm of ubuntu. It will always have swap.
 - name: 'Disable-services: Making sure swap is turned off.'
