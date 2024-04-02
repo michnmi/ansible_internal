@@ -1,4 +1,4 @@
 ---
-cloud_vm_disabled_services:
+base_cloud_vm_disabled_services:
   - name: 'apt-daily.timer'
   - name: 'apt-daily-upgrade.timer'

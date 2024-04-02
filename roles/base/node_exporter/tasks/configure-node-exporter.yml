@@ -1,25 +1,25 @@
 ---
-- name: 'configure-node-exporter: Setup systemd service'
-  template:
+- name: 'Configure-node-exporter: Setup systemd service'
+  ansible.builtin.template:
     src: etc_systemd_system_node_exporter.service.j2
     dest: /etc/systemd/system/node_exporter.service
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   notify: 'Restart node_exporter'
 
 
-- name: 'configure-node-exporter: Setup textfile directory'
-  file:
+- name: 'Configure-node-exporter: Setup textfile directory'
+  ansible.builtin.file:
     path: "{{ node_exporter_textfile_dir }}"
     state: directory
     owner: "{{ node_exporter_user }}"
     group: "{{ node_exporter_group }}"
     recurse: true
-    mode: 0775
+    mode: '0775'
 
-- name: 'configure-node-exporter: Make sure metrics are available immediately'
-  systemd:
+- name: 'Configure-node-exporter: Make sure metrics are available immediately'
+  ansible.builtin.systemd:
     name: node_exporter
     state: restarted
     daemon_reload: true

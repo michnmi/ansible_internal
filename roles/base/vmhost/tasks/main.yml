@@ -1,8 +1,9 @@
-- name: "main: Installation"
-  import_tasks: "host-installation.yml"
+---
+- name: "Main: Installation"
+  ansible.builtin.import_tasks: "host-installation.yml"
 
-- name: "main: Setup the host networking"
-  import_tasks: "host-networking-setup.yml"
+- name: "Main: Setup the host networking"
+  ansible.builtin.import_tasks: "host-networking-setup.yml"
 
-- name: "main: Setup the storage location for qemu"
-  import_tasks: "host-qemu-storage.yml"
+- name: "Main: Setup the storage location for qemu"
+  ansible.builtin.import_tasks: "host-qemu-storage.yml"

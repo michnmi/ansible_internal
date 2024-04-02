@@ -1,47 +1,47 @@
 ---
-- name: 'disable-services: Make sure no automatic updates are configured in apt'
-  copy:
+- name: 'Disable-services: Make sure no automatic updates are configured in apt'
+  ansible.builtin.copy:
     src: 'files/etc_apt_apt.conf.d_10periodic'
     dest: '/etc/apt/apt.conf.d/10periodic'
-    mode: 0644
+    mode: '0644'
 
-- name: 'disable-services: Make sure no automatic updates are configured in apt - try 2'
-  copy:
+- name: 'Disable-services: Make sure no automatic updates are configured in apt - try 2'
+  ansible.builtin.copy:
     src: 'files/etc_apt_apt.conf.d_51-disable-unattended-upgrades'
     dest: '/etc/apt/apt.conf.d/51-disable-unattended-upgrades'
-    mode: 0644
+    mode: '0644'
 
-- name: 'disable-services: Make sure they are disabled when machine-id is reset for Nomad'
-  copy:
+- name: 'Disable-services: Make sure they are disabled when machine-id is reset for Nomad'
+  ansible.builtin.copy:
     src: 'files/lib_systemd_system-preset_10-disable-unattended-upgrades'
     dest: '/lib/systemd/system-preset/10-disable-unattended-upgrades'
-    mode: 0644
+    mode: '0644'
 
-- name: 'disable-services: Making sure all apt timers are never started'
-  systemd:
+- name: 'Disable-services: Making sure all apt timers are never started'
+  ansible.builtin.systemd:
     name: "{{ item.name }}"
-    enabled: no
-    masked: yes
+    enabled: true
+    masked: true
     state: stopped
-    daemon_reload: yes
+    daemon_reload: true
   loop: "{{ cloud_vm_disabled_services }}"
 
 # This is happening on a cloud vm of ubuntu. It will always have swap.
-- name: 'disable-services: Making sure swap is turned off.'
-  command: swapoff -a # noqa 301
+- name: 'Disable-services: Making sure swap is turned off.'
+  ansible.builtin.command: swapoff -a # noqa no-changed-when
 
-- name: 'disable-services: Making sure no swap mountpoints exist.'
-  lineinfile:
+- name: 'Disable-services: Making sure no swap mountpoints exist.'
+  ansible.builtin.lineinfile:
     path: /etc/fstab
     regexp: '\ swap\ '
     state: absent
 
-- name: Update all packages to their latest version
-  apt:
+- name: 'Disable-services: Update all packages to their latest version'
+  ansible.builtin.apt:
     name: "*"
-    state: latest # noqa 403
-    update_cache: yes
+    state: latest # noqa package-latest
+    update_cache: true
 
-- name: Remove dependencies that are no longer required
-  apt:
-    autoremove: yes
+- name: 'Disable-services: Remove dependencies that are no longer required'
+  ansible.builtin.apt:
+    autoremove: true

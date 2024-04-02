@@ -1,20 +1,20 @@
 ---
-- name: 'clean-up-before-reboot: Remove machine-id so it is unique.'
-  copy:
+- name: 'Clean-up-before-reboot: Remove machine-id so it is unique.'
+  ansible.builtin.copy:
     content: ''
     dest: /etc/machine-id
-    force: no
+    force: false
     group: 'sys'
     owner: 'root'
     mode: '0555'
 
-- name: 'clean-up-before-reboot: Delete existing file of machine-id'
-  file:
+- name: 'Clean-up-before-reboot: Delete existing file of machine-id'
+  ansible.builtin.file:
     path: '/var/lib/dbus/machine-id'
     state: absent
 
-- name: 'clean-up-before-reboot: Link this to the empty file.'
-  file:
+- name: 'Clean-up-before-reboot: Link this to the empty file.'
+  ansible.builtin.file:
     src: '/etc/machine-id'
     dest: '/var/lib/dbus/machine-id'
     state: link

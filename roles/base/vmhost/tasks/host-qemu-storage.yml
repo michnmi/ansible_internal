@@ -6,26 +6,26 @@
     owner: "libvirt-qemu"
     group: "kvm"
     mode: "0770"
-  loop: "{{ vmhost_storage_pools }}"
+  loop: "{{ base_vmhost_storage_pools }}"
 
 - name: "host-qemu-storage: Define the storage pools (on {{ vmhost_storage_path }})"
   virt_pool:
     command: define
     name: "{{ item }}"
     xml: "{{ lookup('template', 'storage.xml.j2') }}"
-  loop: "{{ vmhost_storage_pools }}"
+  loop: "{{ base_vmhost_storage_pools }}"
 
 - name: "host-qemu-storage: Activate the storage pools"
   virt_pool:
     state: active
     name: "{{ item }}"
-  loop: "{{ vmhost_storage_pools }}"
+  loop: "{{ base_vmhost_storage_pools }}"
 
 - name: "host-qemu-storage: Set the storage pools to autostart"
   virt_pool:
     name: "{{ item }}"
     autostart: yes
-  loop: "{{ vmhost_storage_pools }}"
+  loop: "{{ base_vmhost_storage_pools }}"
 
 - name: "host-qemu-storage: Set the security driver to 'none' in qemu"
   lineinfile:

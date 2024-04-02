@@ -1,5 +1,5 @@
 ---
-luks_storage_packages:
+base_luks_storage_packages:
 # Basic packages for luks_device
   - cryptsetup
   - util-linux

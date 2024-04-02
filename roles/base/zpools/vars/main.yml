@@ -1,5 +1,5 @@
 ---
-zpools_packages:
+base_zpools_packages:
 # Basic packages for zfs manipulation
   - zfsutils-linux
   - zfs-initramfs

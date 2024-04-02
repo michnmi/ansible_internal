@@ -5,7 +5,7 @@ galaxy_info:
   description: "Minimal modular role to take care of LUKS setup"
   company: "Home"
   license: Internal
-  min_ansible_version: 2.9
+  min_ansible_version: '2.9'
   platforms:
     - name: Ubuntu
       versions:

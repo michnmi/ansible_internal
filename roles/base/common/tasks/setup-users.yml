@@ -1,7 +1,7 @@
 ---
-- name: 'setup-users: Setup all users as needed.'
-  user:
-    name: "{{ user.uname }}"
+- name: 'Setup-users: Setup all users as needed.'
+  ansible.builtin.user:
+    user: "{{ user.uname }}"
     uid: "{{ user.uid }}"
     group: "{{ user.group }}"
     comment: "{{ user.name }}"
@@ -11,8 +11,8 @@
     loop_var: "user"
   no_log: true
 
-- name: "setup-users: Add the public key for each user."
-  authorized_key:
+- name: "Setup-users: Add the public key for each user."
+  ansible.posix.authorized_key:
     user: "{{ user.uname }}"
     key: "{{ user.ssh_key }}"
   loop: "{{ all_users }}"
@@ -20,18 +20,18 @@
     loop_var: "user"
   no_log: true
 
-- name: "setup-users: Remove sudoers file no longer needed."
-  file:
+- name: "Setup-users: Remove sudoers file no longer needed."
+  ansible.builtin.file:
     path: '/etc/sudoers.d/90-cloud-init-users'
     state: 'absent'
 
-- name: 'setup-users: Remove packer user.'
-  user:
-    name: 'packer'
+- name: 'Setup-users: Remove packer user.'
+  ansible.builtin.user:
+    user: 'packer'
     state: 'absent'
-    remove: no
+    remove: false
 
-- name: 'setup-users: Delete packer directory (owned by root) CICD-42'
-  file:
+- name: 'Setup-users: Delete packer directory (owned by root) CICD-42'
+  ansible.builtin.file:
     path: '/home/packer'
     state: 'absent'

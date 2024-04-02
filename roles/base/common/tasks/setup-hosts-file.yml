@@ -1,8 +1,8 @@
 ---
-- name: 'setup-hosts-file: This should be temporary until NET-10 is done.'
-  template:
+- name: 'Setup-hosts-file: This should be temporary until NET-10 is done.'
+  ansible.builtin.template:
     src: 'etc_hosts.j2'
     dest: '/etc/hosts'
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'

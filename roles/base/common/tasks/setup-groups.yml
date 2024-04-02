@@ -1,6 +1,6 @@
 ---
-- name: 'setup-groups: Setup all groups as needed.'
-  group:
+- name: 'Setup-groups: Setup all groups as needed.'
+  ansible.builtin.group:
     name: "{{ group.name }}"
     gid: "{{ group.gid }}"
   loop: "{{ all_groups }}"

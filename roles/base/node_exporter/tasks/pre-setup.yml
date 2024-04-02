@@ -1,13 +1,13 @@
 ---
-- name: 'pre-setup: Create the node_exporter group'
-  group:
+- name: 'Pre-setup: Create the node_exporter group'
+  ansible.builtin.group:
     name: "{{ node_exporter_group }}"
     state: present
     system: true
 
-- name: 'pre-setup: Create the node_exporter user'
-  user:
-    name: "{{ node_exporter_user }}"
+- name: 'Pre-setup: Create the node_exporter user'
+  ansible.builtin.user:
+    user: "{{ node_exporter_user }}"
     groups:
       - "{{ node_exporter_group }}"
     append: true

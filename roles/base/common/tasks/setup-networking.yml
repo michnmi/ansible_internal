@@ -1,14 +1,14 @@
 ---
-- name: "setup-networking: Setup host interfaces"
-  template:
+- name: "Setup-networking: Setup host interfaces"
+  ansible.builtin.template:
     src: "01-netcfg.yaml.j2"
     dest: "/etc/netplan/01-netcfg.yaml"
-    mode: 0644
+    mode: '0644'
 
-- name: "setup-networking: Setup hostname"
-  hostname:
+- name: "Setup-networking: Setup hostname"
+  ansible.builtin.hostname:
     name: "{{ common_hostname }}"
 
-- name: "setup-networking: Apply netplan"
-  command: # noqa 301 - We don't mind if this commands executes all the time.
+- name: "Setup-networking: Apply netplan"
+  ansible.builtin.command: # noqa no-changed-when - We don't mind if this commands executes all the time.
     cmd: /usr/sbin/netplan apply

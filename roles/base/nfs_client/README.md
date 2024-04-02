@@ -11,11 +11,11 @@ This role will be setting up `NFS` mount points on a server. It will not be sett
 
 ### Variables (Defaults)
 
-- `nfs_mount_base_mountpoint`  
+- `base_nfs_mount_base_mountpoint`  
    Default value : `mnt`
    The directory under the mount points will exist
 
-- `nfs_mounts`  
+- `base_nfs_mounts`  
    Default value : `[]`
    An array of mount points with this structure: 
    

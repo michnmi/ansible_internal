@@ -1,14 +1,14 @@
 ---
-- name: "host-networking-setup: Setup IP Forwarding"
-  sysctl:
+- name: "Host-networking-setup: Setup IP Forwarding"
+  ansible.posix.sysctl:
     state: present
     name: "net.ipv4.ip_forward"
     value: "1"
-    sysctl_set: yes
-    reload: yes
+    sysctl_set: true
+    reload: true
 
-- name: "host-networking-setup: Setup host interfaces"
-  template:
+- name: "Host-networking-setup: Setup host interfaces"
+  ansible.builtin.template:
     src: "01-netcfg.yaml.j2"
     dest: "/etc/netplan/01-netcfg.yaml"
-    mode: 0644
+    mode: '0644'

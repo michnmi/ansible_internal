@@ -1,16 +1,16 @@
 ---
-- name: 'setup-timezone: Delete current /etc/localtime'
-  file:
+- name: 'Setup-timezone: Delete current /etc/localtime'
+  ansible.builtin.file:
     dest: '/etc/localtime'
     state: 'absent'
 
-- name: 'setup-timezone: Setup the timezone to be UTC'
-  file:
+- name: 'Setup-timezone: Setup the timezone to be UTC'
+  ansible.builtin.file:
     src: '/usr/share/zoneinfo/Etc/UTC'
     dest: '/etc/localtime'
     state: 'link'
 
-- name: 'setup-timezone: Restart rsyslog'
-  service:
+- name: 'Setup-timezone: Restart rsyslog'
+  ansible.builtin.service:
     name: 'rsyslog'
     state: 'restarted'

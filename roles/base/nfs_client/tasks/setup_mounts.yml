@@ -1,13 +1,13 @@
 ---
 - name: 'setup_mounts: Mount the various shares'
-  mount:
+  ansible.posix.mount:
     state: mounted
-    name: "{{ nfs_mount_base_mountpoint }}/{{ mount.mount_point }}"
+    name: "{{ base_nfs_mount_base_mountpoint }}/{{ mount.mount_point }}"
     src: "{{ mount.server }}:/{{ mount.share_name }}"
     fstype: "{{ mount.filesystem }}"
     opts: "{{ mount.opts }}"
     dump: '0'
     passno: '0'
-  loop: "{{ nfs_mounts }}"
+  loop: "{{ base_nfs_mounts }}"
   loop_control:
     loop_var: "mount"
