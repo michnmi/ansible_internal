@@ -20,7 +20,7 @@
 - name: 'Disable-services: Making sure all apt timers are never started'
   ansible.builtin.systemd:
     name: "{{ item.name }}"
-    enabled: true
+    enabled: false
     masked: true
     state: stopped
     daemon_reload: true
