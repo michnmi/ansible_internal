@@ -3,8 +3,9 @@ jenkins_packages:
   - curl
   - apt-transport-https
   - gnupg
-  - openjdk-11-jdk
+  - openjdk-21-jdk
   - qemu-kvm
   - python3-netaddr
   - python3-jmespath
   - libguestfs-tools
+  - genisoimage

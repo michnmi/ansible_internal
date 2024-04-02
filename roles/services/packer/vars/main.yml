@@ -1,4 +1,3 @@
 packer_packages:
   - unzip
   - qemu-kvm
-  - xvnc4viewer
