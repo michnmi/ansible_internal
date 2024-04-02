@@ -1,6 +1,6 @@
 ---
-- name: "migrate-emby: Destroy current config directories"
-  file:
+- name: "Migrate-emby: Destroy current config directories"
+  ansible.builtin.file:
     dest: "/var/lib/emby/{{ item }}"
     state: absent
   with_items:
@@ -10,9 +10,9 @@
     - "plugins"
     - "root"
 
-- name: "migrate-emby: Link the new directories"
-  file:
-    src: "{{ emby_data_dir }}/{{ item }}"
+- name: "Migrate-emby: Link the new directories"
+  ansible.builtin.file:
+    src: "{{ base_emby_data_dir }}/{{ item }}"
     dest: "/var/lib/emby/{{ item }}"
     state: "link"
   with_items:
@@ -22,17 +22,17 @@
     - "plugins"
     - "root"
 
-- name: "migrate-emby: Send over the mock certs (https)"
-  unarchive:
+- name: "Migrate-emby: Send over the mock certs (https)"
+  ansible.builtin.unarchive:
     src: "files/certs.tgz"
     dest: "/var/lib/emby/"
-    mode: 0700
+    mode: '0700'
     owner: "emby"
     group: "emby"
 
-- name: "migrate-emby: Restart the service"
-  service:
+- name: "Migrate-emby: Restart the service"
+  ansible.builtin.service:
     name: "emby-server"
     state: "restarted"
     enabled: true
-    daemon_reload: yes
+    daemon_reload: true

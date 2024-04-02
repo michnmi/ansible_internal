@@ -1,68 +1,68 @@
 ---
-- name: "openvpn-emby: Create a temporary directory for ipvanish files"
-  file:
-    path: "{{ openvpn_configs }}"
+- name: "Openvpn-emby: Create a temporary directory for ipvanish files"
+  ansible.builtin.file:
+    path: "{{ base_openvpn_configs }}"
     state: directory
-    mode: 0700
+    mode: '0700'
 
-- name: "openvpn-emby: Download IPVANISH files"
-  get_url:
+- name: "Openvpn-emby: Download IPVANISH files"
+  ansible.builtin.get_url:
     url: "https://configs.ipvanish.com/configs/configs.zip"
-    dest: "{{ openvpn_configs }}/"
-    mode: 0700
+    dest: "{{ base_openvpn_configs }}/"
+    mode: '0700'
 
-- name: "openvpn-emby: Untar the ovpn and certificate"
-  unarchive:
-    src: "{{ openvpn_configs }}/configs.zip"
-    dest: "{{ openvpn_configs }}/"
-    mode: 0700
-    remote_src: yes
+- name: "Openvpn-emby: Untar the ovpn and certificate"
+  ansible.builtin.unarchive:
+    src: "{{ base_openvpn_configs }}/configs.zip"
+    dest: "{{ base_openvpn_configs }}/"
+    mode: '0700'
+    remote_src: true
 
-- name: "openvpn-emby: Setup the files we need (ovpn)."
-  copy:
-    src: "{{ openvpn_configs }}/{{ endpoint }}.ovpn"
+- name: "Openvpn-emby: Setup the files we need (ovpn)."
+  ansible.builtin.copy:
+    src: "{{ base_openvpn_configs }}/{{ endpoint }}.ovpn"
     dest: "/etc/openvpn/client/{{ endpoint }}.conf"
     owner: "root"
     group: "root"
-    mode: 0400
-    remote_src: yes
-  loop: "{{ ovpn_endpoints }}"
+    mode: '0400'
+    remote_src: true
+  loop: "{{ base_ovpn_endpoints }}"
   loop_control:
     loop_var: "endpoint"
 
-- name: "openvpn-emby: Setup the files we need (cert)."
-  copy:
-    src: "{{ openvpn_configs }}/ca.ipvanish.com.crt"
+- name: "Openvpn-emby: Setup the files we need (cert)."
+  ansible.builtin.copy:
+    src: "{{ base_openvpn_configs }}/ca.ipvanish.com.crt"
     dest: "/etc/openvpn/client/ca.ipvanish.com.crt"
     owner: "root"
     group: "root"
-    mode: 0400
-    remote_src: yes
+    mode: '0400'
+    remote_src: true
 
-- name: "openvpn-emby: Delete the directory"
-  file:
-    path: "{{ openvpn_configs }}"
+- name: "Openvpn-emby: Delete the directory"
+  ansible.builtin.file:
+    path: "{{ base_openvpn_configs }}"
     state: absent
 
-- name: "openvpn-emby: Setup auth-user-pass"
-  template:
+- name: "Openvpn-emby: Setup auth-user-pass"
+  ansible.builtin.template:
     src: "auth-user-pass.j2"
     dest: "/etc/openvpn/client/auth-user-pass"
     owner: "root"
     group: "root"
-    mode: 0400
+    mode: '0400'
 
-- name: "openvpn-emby: Update conf files with auth-user-pass"
-  replace:
+- name: "Openvpn-emby: Update conf files with auth-user-pass"
+  ansible.builtin.replace:
     dest: "/etc/openvpn/client/{{ endpoint }}.conf"
     regexp: "auth-user-pass"
     replace: "auth-user-pass /etc/openvpn/client/auth-user-pass"
-  loop: "{{ ovpn_endpoints }}"
+  loop: "{{ base_ovpn_endpoints }}"
   loop_control:
     loop_var: "endpoint"
 
-- name: "openvpn-emby: Start openvpn with default endpoint"
-  systemd:
-    name: "openvpn-client@{{ ovpn_default_endpoint }}.service"
+- name: "Openvpn-emby: Start openvpn with default endpoint"
+  ansible.builtin.systemd:
+    name: "openvpn-client@{{ base_ovpn_default_endpoint }}.service"
     state: stopped
-    enabled: no
+    enabled: false

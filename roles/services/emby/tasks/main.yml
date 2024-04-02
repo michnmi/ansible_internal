@@ -1,17 +1,17 @@
 ---
-- name: 'main: Install dependencies'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Install dependencies'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Install the emby server'
-  import_tasks: 'install-emby.yml'
+- name: 'Main: Install the emby server'
+  ansible.builtin.import_tasks: 'install-emby.yml'
 
-- name: 'main: Migrate existing installation'
-  import_tasks: 'migrate-emby.yml'
-  when: emby_migrate
+- name: 'Main: Migrate existing installation'
+  ansible.builtin.import_tasks: 'migrate-emby.yml'
+  when: base_emby_migrate
 
-- name: 'main: Setup IPTV'
-  import_tasks: 'setup-iptv.yml'
-  when: setup_iptv
+- name: 'Main: Setup IPTV'
+  ansible.builtin.import_tasks: 'setup-iptv.yml'
+  when: base_setup_iptv
 
-- name: 'main: Setup openvpn'
-  import_tasks: 'openvpn-emby.yml'
+- name: 'Main: Setup openvpn'
+  ansible.builtin.import_tasks: 'openvpn-emby.yml'

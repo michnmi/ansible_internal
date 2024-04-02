@@ -1,44 +1,44 @@
 ---
-- name: "setup-iptv: Send over the m3u file (TV Tuner)"
-  copy:
+- name: "Setup-iptv: Send over the m3u file (TV Tuner)"
+  ansible.builtin.copy:
     src: IPTV_original.m3u
     dest: "/var/lib/emby/IPTV_original.m3u"
     owner: "root"
     group: "automation"
-    mode: 0440
+    mode: '0440'
 
-- name: "setup-iptv: Setup the m3u parsing script in the path"
-  copy:
+- name: "Setup-iptv: Setup the m3u parsing script in the path"
+  ansible.builtin.copy:
     src: parse_m3u.py
     dest: "/usr/bin/parse_m3u"
     owner: "root"
     group: "root"
-    mode: 0755
+    mode: '0755'
 
-- name: "setup-iptv: Select the channels that we want"
-  template:
+- name: "Setup-iptv: Select the channels that we want"
+  ansible.builtin.template:
     src: "templates/list_of_channels.txt.j2"
     dest: "/tmp/list_of_channels.txt"
     owner: "emby"
     group: "automation"
-    mode: 0440
+    mode: '0440'
     remote_src: false
 
-- name: "setup-iptv: Create EMBY.m3u"
-  command:
+- name: "Setup-iptv: Create EMBY.m3u"
+  ansible.builtin.command:
     cmd: /usr/bin/parse_m3u --m3u8_file /var/lib/emby/IPTV_original.m3u --channel_names_file /tmp/list_of_channels.txt --output_format extinf --output_file /var/lib/emby/EMBY.m3u
     creates: "/var/lib/emby/EMBY.m3u"
 
-- name: "setup-iptv: Update permissions of EMBY.m3u"
-  file:
+- name: "Setup-iptv: Update permissions of EMBY.m3u"
+  ansible.builtin.file:
     path: /var/lib/emby/EMBY.m3u
     owner: "emby"
     group: "automation"
-    mode: 0440
+    mode: '0440'
 
-- name: "setup-iptv: Update permissions of var/lib/emby"
-  file:
+- name: "Setup-iptv: Update permissions of var/lib/emby"
+  ansible.builtin.file:
     path: /var/lib/emby/
     owner: "emby"
     group: "automation"
-    mode: 0750
+    mode: '0750'

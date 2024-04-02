@@ -1,12 +1,12 @@
 ---
-- name: "pre-setup: Install required packages"
-  apt:
-    name: "{{ emby_packages }}"
+- name: "Pre-setup: Install required packages"
+  ansible.builtin.apt:
+    name: "{{ base_emby_packages }}"
     state: "present"
     update_cache: true
 
-- name: "pre-setup: Download the emby server binary"
-  get_url:
-    url: "https://github.com/MediaBrowser/Emby.Releases/releases/download/{{ emby_version }}/emby-server-deb_{{ emby_version }}_amd64.deb"
-    dest: "/tmp/emby-server-deb_{{ emby_version }}_amd64.deb"
-    mode: 0600
+- name: "Pre-setup: Download the emby server binary"
+  ansible.builtin.get_url:
+    url: "https://github.com/MediaBrowser/Emby.Releases/releases/download/{{ base_base_emby_version }}/emby-server-deb_{{ base_emby_version }}_amd64.deb"
+    dest: "/tmp/emby-server-deb_{{ base_emby_version }}_amd64.deb"
+    mode: '0600'
