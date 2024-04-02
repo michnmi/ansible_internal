@@ -15,6 +15,6 @@ base_vmhost_packages:
 # I want this for EMBY
   - ffmpeg
 # I want this for the filetransfer work
-  - nfs-common 
+  - nfs-common
   - unrar
   - mkvtoolnix

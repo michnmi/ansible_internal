@@ -1,5 +1,5 @@
 ---
-- name: 'setup_mounts: Mount the various shares'
+- name: 'Setup_mounts: Mount the various shares'
   ansible.posix.mount:
     state: mounted
     name: "{{ base_nfs_mount_base_mountpoint }}/{{ mount.mount_point }}"

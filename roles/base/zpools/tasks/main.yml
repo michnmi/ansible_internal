@@ -1,6 +1,6 @@
 ---
-- name: 'main: Prepare the host'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Prepare the host'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Setup the zpools'
-  import_tasks: 'zpools_setup.yml'
+- name: 'Main: Setup the zpools'
+  ansible.builtin.import_tasks: 'zpools_setup.yml'

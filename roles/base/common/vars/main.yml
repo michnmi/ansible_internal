@@ -1,5 +1,5 @@
 ---
-common_base_packages:
+base_common_base_packages:
   - 'strace'
   - 'vim'
   - 'lsof'
