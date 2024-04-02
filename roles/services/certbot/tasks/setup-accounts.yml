@@ -1,47 +1,47 @@
 ---
-- name: 'setup-accounts: Setup accounts (accounts)'
-  file:
+- name: 'Setup-accounts: Setup accounts (accounts)'
+  ansible.builtin.file:
     path: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}/directory/{{ account.name }}"
     owner: 'root'
     group: 'root'
-    mode: 0700
+    mode: '0700'
     state: directory
   loop: "{{ certbot_accounts }}"
   loop_control:
     loop_var: 'account'
   no_log: true
 
-- name: 'setup-accounts: Setup accounts (meta.json))'
-  template:
+- name: 'Setup-accounts: Setup accounts (meta.json))'
+  ansible.builtin.template:
     src: templates/etc_letsencrypt_accounts/meta.json.j2
     dest: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}/directory/{{ account.name }}/meta.json"
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   loop: "{{ certbot_accounts }}"
   loop_control:
     loop_var: 'account'
   no_log: true
 
-- name: 'setup-accounts: Setup accounts (private_key.json))'
-  template:
+- name: 'Setup-accounts: Setup accounts (private_key.json))'
+  ansible.builtin.template:
     src: templates/etc_letsencrypt_accounts/private_key.json.j2
     dest: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}/directory/{{ account.name }}/private_key.json"
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   loop: "{{ certbot_accounts }}"
   loop_control:
     loop_var: 'account'
   no_log: true
 
-- name: 'setup-accounts: Setup accounts (regr.json))'
-  template:
+- name: 'Setup-accounts: Setup accounts (regr.json))'
+  ansible.builtin.template:
     src: templates/etc_letsencrypt_accounts/regr.json.j2
     dest: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}/directory/{{ account.name }}/regr.json"
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   loop: "{{ certbot_accounts }}"
   loop_control:
     loop_var: 'account'
