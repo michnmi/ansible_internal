@@ -1,8 +1,9 @@
-- name: "host-installation: QEMU specific Package Installation"
-  package:
-    name: "{{ vmhost_packages }}"
+---
+- name: "Host-installation: QEMU specific Package Installation"
+  ansible.builtin.package:
+    name: "{{ base_vmhost_packages }}"
     state: 'present'
 
-- name: "host-installation: Reset facts (after libvirt installation, for network bridge)"
-  setup:
+- name: "Host-installation: Reset facts (after libvirt installation, for network bridge)"
+  ansible.builtin.setup:
     gather_subset: all

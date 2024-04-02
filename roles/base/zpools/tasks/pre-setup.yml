@@ -1,5 +1,5 @@
 ---
 - name: "pre-setup: Install required packages"
   package:
-    name: "{{ zpools_packages }}"
+    name: "{{ base_zpools_packages }}"
     state: 'present'

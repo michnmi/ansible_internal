@@ -5,7 +5,7 @@ galaxy_info:
   description: "Tasks to be performed in a cloud_vm to clean it up through Packer"
   company: "Home"
   license: Internal
-  min_ansible_version: 2.9
+  min_ansible_version: "2.9"
   platforms:
     - name: Ubuntu
       versions:

@@ -1,5 +1,5 @@
 ---
-nfs_mounts:
+base_nfs_mounts:
   - name: 'server1_mount1'
     server: 'vb_nfs_server01'
     share_name: 'data/share1'

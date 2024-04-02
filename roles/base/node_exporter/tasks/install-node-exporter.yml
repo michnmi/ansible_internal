@@ -1,25 +1,12 @@
 ---
-#- name: 'pre-setup: Download and untar the node_exporter archive'
-#  unarchive:
-#    src: 'https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz'
-#    dest: '/usr/bin'
-#    mode: 0755
-#    owner: 'root'
-#    group: 'root'
-#    remote_src: 'yes'
-#    extra_opts:
-#      - '--strip-components=1'
-#      - 'node_exporter-1.7.0.linux-amd64/node_exporter'
-
 # Presumambly that's not needed CICD-80
-- name: 'pre-setup: Send and untar the node_exporter archive'
-  unarchive:
+- name: 'Pre-setup: Send and untar the node_exporter archive'
+  ansible.builtin.unarchive:
     src: "files/node_exporter-1.7.0.linux-amd64.tar.gz"
     dest: '/usr/bin'
-    mode: 0755
+    mode: '0755'
     owner: 'root'
     group: 'root'
     extra_opts:
       - '--strip-components=1'
       - 'node_exporter-1.7.0.linux-amd64/node_exporter'
-

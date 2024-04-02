@@ -18,10 +18,10 @@ This role sets up a host with all the required packages to run `qemu` images.
 
 ### Variables (Defaults)
 
-- `vmhost_storage_path`  
+- `base_vmhost_storage_path`  
         Default: `"/zpools/vmhost_qcow"`  
         Where the `storage pools` will exist. 
-- `vmhost_storage_pools`  
+- `base_vmhost_storage_pools`  
         Default: `["test", "prod", "default"]`  
         How the `storage pools` will be named
 

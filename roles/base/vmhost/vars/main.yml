@@ -1,5 +1,5 @@
 ---
-vmhost_packages:
+base_vmhost_packages:
 # Basic packages for QEMU/KVM
   - bridge-utils
   - qemu-kvm

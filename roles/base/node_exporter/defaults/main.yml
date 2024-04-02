@@ -1,10 +1,10 @@
 ---
-node_exporter_group: 'node-exporter'
-node_exporter_user: 'node-exporter'
-node_exporter_textfile_dir: '/var/lib/node_exporter'
-node_exporter_enabled_collectors:
+base_node_exporter_group: 'node-exporter'
+base_node_exporter_user: 'node-exporter'
+base_node_exporter_textfile_dir: '/var/lib/node_exporter'
+base_node_exporter_enabled_collectors:
   - 'systemd'
   - textfile:
-      directory: "{{ node_exporter_textfile_dir }}"
+      directory: "{{ base_node_exporter_textfile_dir }}"
 
-node_exporter_disabled_collectors: []
+base_node_exporter_disabled_collectors: []

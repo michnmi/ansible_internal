@@ -1,5 +1,5 @@
 ---
-- name: "pre-setup: Install required packages"
-  package:
-    name: "{{ luks_storage_packages }}"
+- name: "Pre-setup: Install required packages"
+  ansible.builtin.package:
+    name: "{{ base_luks_storage_packages }}"
     state: 'present'

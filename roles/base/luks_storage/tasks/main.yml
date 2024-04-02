@@ -1,6 +1,6 @@
 ---
-- name: 'main: Prepare the host'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Prepare the host'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Setup the LUKS disks'
-  import_tasks: 'setup-luks.yml'
+- name: 'Main: Setup the LUKS disks'
+  ansible.builtin.import_tasks: 'setup-luks.yml'

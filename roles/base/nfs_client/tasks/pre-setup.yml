@@ -1,6 +1,6 @@
 ---
-- name: 'pre-setup: Install required packages'
-  apt:
-    name: '{{ nfs_client_packages }}'
+- name: 'Pre-setup: Install required packages'
+  ansible.builtin.apt:
+    name: '{{ base_nfs_client_packages }}'
     state: 'present'
     update_cache: true

@@ -1,6 +1,6 @@
 ---
-- name: 'setup-luks: Send the keyfile over to the target machine.'
-  copy:
+- name: 'Setup-luks: Send the keyfile over to the target machine.'
+  ansible.builtin.copy:
     dest: '/root/{{ LUKS_device.name }}_key'
     owner: 'root'
     group: 'root'
@@ -12,8 +12,8 @@
     loop_var: 'LUKS_device'
   no_log: true
 
-- name: 'setup-luks: Open the LUKS device'
-  luks_device:
+- name: 'Setup-luks: Open the LUKS device'
+  community.crypto.luks_device:
     device: '/dev/disk/by-id/{{ LUKS_device.name }}'
     state: 'opened'
     name: '{{ LUKS_device.name }}'
@@ -23,8 +23,8 @@
     loop_var: 'LUKS_device'
   no_log: true
 
-- name: 'setup-luks: Setup crypptab'
-  crypttab:
+- name: 'Setup-luks: Setup crypptab'
+  community.general.crypttab:
     name: '{{ LUKS_device.name }}'
     backing_device: '/dev/disk/by-id/{{ LUKS_device.name }}'
     password: '/root/{{ LUKS_device.name }}_key'

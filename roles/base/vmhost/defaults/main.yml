@@ -1,10 +1,10 @@
 ---
-vmhost_storage_pools:
+base_vmhost_storage_pools:
   - "boot"
   - "test"
   - "prod"
   - "default"
 
-vmhost_storage_boot_user:
+base_vmhost_storage_boot_user:
   name: 'jenkins_boot'
   ssh_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTmYbJfGtDiRMVN9UOgbXq8XuIBN/Yjhqzl+Z2TLdyjGfPpMyraVl3v4f3lt5Fsf9a+gpt87JpZYYrtfUOwXfy0W6+OeAoWuG+xOSRq2gfA7H+aijcYSqYQJaEk6YMkcrMqyKVK6KYIErkNOrprJjzwO+gEJINuOPl4k6s8vPPN3YCBYjC7ApC42UkXx3wrl/julGYHAFg9Z2TMsQmi6u0+YzXtJhykrk9MgtpcFRhfyeRguz6XZYqEksD5iwk5M2wUR2t8hKCH6Vo7lpmF5FSlMEhwqH/Z6B3u40/jU8p1VKt1d19HAzOid9m5x59rnSw7n49FNeQBNDBNemt5T0v CICD-32'
