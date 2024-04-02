@@ -1,12 +1,12 @@
 ---
-emby_packages:
+base_emby_packages:
   - 'python3-lxml' # Even this is not really needed
   - 'openvpn'
   - 'vlc' # adding this for ad-hoc streams.
 
-ovpn_endpoints:
+base_ovpn_endpoints:
   - "ipvanish-IS-Reykjavik-rkv-c01"
   - "ipvanish-DE-Frankfurt-fra-a01"
   - "ipvanish-MY-Kuala-Lumpur-kul-c11"
 
-ovpn_default_endpoint: "ipvanish-IS-Reykjavik-rkv-c01"
+base_ovpn_default_endpoint: "ipvanish-IS-Reykjavik-rkv-c01"

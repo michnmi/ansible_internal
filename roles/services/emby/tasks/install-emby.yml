@@ -1,20 +1,20 @@
 ---
-- name: 'install-emby: Install the emby-server binary.'
-  apt:
-    deb: '/tmp/emby-server-deb_{{ emby_version }}_amd64.deb'
+- name: 'Install-emby: Install the emby-server binary.'
+  ansible.builtin.apt:
+    deb: '/tmp/emby-server-deb_{{ base_emby_version }}_amd64.deb'
 
-- name: 'install-emby: Stop the service'
-  service:
+- name: 'Install-emby: Stop the service'
+  ansible.builtin.service:
     name: 'emby-server'
     state: 'stopped'
 
-- name: 'install-emby: Edit unit file to restart on failure'
-  lineinfile:
+- name: 'Install-emby: Edit unit file to restart on failure'
+  ansible.builtin.lineinfile:
     dest: "/usr/lib/systemd/system/emby-server.service"
     insertafter: 'RestartForceExitStatus=3'
     line: "Restart=on-failure"
 
-- name: 'install-emby: Clean up the binary'
-  file:
-    dest: '/tmp/emby-server-deb_{{ emby_version }}_amd64.deb'
+- name: 'Install-emby: Clean up the binary'
+  ansible.builtin.file:
+    dest: '/tmp/emby-server-deb_{{ base_emby_version }}_amd64.deb'
     state: absent

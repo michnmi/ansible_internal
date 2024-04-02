@@ -1,73 +1,73 @@
 ---
-- name: 'setup-certbot-structure: Install Certbot'
-  apt:
+- name: 'Setup-certbot-structure: Install Certbot'
+  ansible.builtin.apt:
     name: 'certbot'
     state: 'present'
 
-- name: 'setup-certbot-structure: Setup the certbot web root directory'
-  file:
+- name: 'Setup-certbot-structure: Setup the certbot web root directory'
+  ansible.builtin.file:
     path: "{{ certbot_well_known }}"
     owner: 'root'
     group: 'root'
-    mode: 0755
+    mode: '0755'
     state: 'directory'
 
-- name: 'setup-certbot-structure: Create archive and live directories (need 0700)'
-  file:
+- name: 'Setup-certbot-structure: Create archive and live directories (need 0700)'
+  ansible.builtin.file:
     path: "{{ certbot_cert_path }}/{{ item }}"
     state: 'directory'
-    mode: 0700
+    mode: '0700'
   loop:
     - 'archive'
     - 'live'
 
-- name: 'setup-certbot-structure: Create the archive certificates directories'
-  file:
+- name: 'Setup-certbot-structure: Create the archive certificates directories'
+  ansible.builtin.file:
     path: "{{ certbot_cert_path }}/archive/{{ domain.name }}"
     state: directory
-    mode: 0755
+    mode: '0755'
   loop: "{{ certbot_certificates }}"
   loop_control:
     loop_var: "domain"
   no_log: true
 
 
-- name: 'setup-certbot-structure: Create the live certificates directories'
-  file:
+- name: 'Setup-certbot-structure: Create the live certificates directories'
+  ansible.builtin.file:
     path: "{{ certbot_cert_path }}/live/{{ domain.name }}"
     state: directory
-    mode: 0755
+    mode: '0755'
   loop: "{{ certbot_certificates }}"
   loop_control:
     loop_var: "domain"
   no_log: true
 
-- name: 'setup-certbot-structure: Setup renewal directory'
-  file:
+- name: 'Setup-certbot-structure: Setup renewal directory'
+  ansible.builtin.file:
     path: "{{ certbot_cert_path }}/renewal"
     owner: 'root'
     group: 'root'
-    mode: 0755
+    mode: '0755'
     state: 'directory'
 
-- name: 'setup-certbot-structure: Setup renewal configs'
-  template:
+- name: 'Setup-certbot-structure: Setup renewal configs'
+  ansible.builtin.template:
     src: 'templates/etc_letsencrypt_renewal_conf.j2'
     dest: "{{ certbot_cert_path }}/renewal/{{ domain.name }}.conf"
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   loop: "{{ certbot_certificates }}"
   loop_control:
     loop_var: "domain"
   no_log: true
 
-- name: 'setup-certbot-structure: Setup accounts (endpoints)'
-  file:
+- name: 'Setup-certbot-structure: Setup accounts (endpoints)'
+  ansible.builtin.file:
     path: "{{ certbot_cert_path }}/accounts/{{ account.endpoint }}"
     owner: 'root'
     group: 'root'
-    mode: 0700
+    mode: '0700'
     state: directory
   loop: "{{ certbot_accounts }}"
   loop_control:

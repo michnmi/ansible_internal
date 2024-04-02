@@ -1,9 +1,9 @@
 ---
-- name: 'main: Setup certbot base'
-  import_tasks: 'setup-certbot-structure.yml'
+- name: 'Main: Setup certbot base'
+  ansible.builtin.import_tasks: 'setup-certbot-structure.yml'
 
-- name: 'main: Push the certificates'
-  import_tasks: 'setup-certificates.yml'
+- name: 'Main: Push the certificates'
+  ansible.builtin.import_tasks: 'setup-certificates.yml'
 
-- name: 'main: Create the accounts'
-  import_tasks: 'setup-accounts.yml'
+- name: 'Main: Create the accounts'
+  ansible.builtin.import_tasks: 'setup-accounts.yml'
