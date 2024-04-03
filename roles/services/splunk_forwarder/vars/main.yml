@@ -1,4 +1,4 @@
 ---
-splunk_forwarder_packages:
+services_splunk_forwarder_packages:
   - 'acl'
 

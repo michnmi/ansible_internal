@@ -1,12 +1,12 @@
 ---
-- name: "pre-setup: Download the package"
-  get_url:
+- name: "Pre-setup: Download the package"
+  ansible.builtin.get_url:
     url: "https://download.splunk.com/products/universalforwarder/releases/9.2.0.1/linux/splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz"
     dest: "/tmp/splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz"
-    mode: 0700
+    mode: '0700'
 
-- name: 'pre-setup: Install packages needed setup.'
-  apt:
-    name: "{{ splunk_forwarder_packages }}"
+- name: 'Pre-setup: Install packages needed setup.'
+  ansible.builtin.apt:
+    name: "{{ services_splunk_forwarder_packages }}"
     state: 'present'
     update_cache: true

@@ -1,5 +1,5 @@
 ---
-- name: 'main: Prepare host'
-  import_tasks: 'pre-setup.yml'
-- name: 'main: Setup forwarder'
-  import_tasks: 'setup-forwarder.yml'
+- name: 'Main: Prepare host'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
+- name: 'Main: Setup forwarder'
+  ansible.builtin.import_tasks: 'setup-forwarder.yml'
