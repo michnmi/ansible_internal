@@ -1,3 +1,3 @@
 ---
-- name: 'main: Prepare host'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Prepare host'
+  ansible.builtin.import_tasks: 'pre-setup.yml'

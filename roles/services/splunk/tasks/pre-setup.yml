@@ -1,6 +1,6 @@
 ---
-- name: "pre-setup: Download splunk server"
-  get_url:
+- name: "Pre-setup: Download splunk server"
+  ansible.builtin.get_url:
     url: "https://download.splunk.com/products/splunk/releases/9.1.3/linux/splunk-9.1.3-d95b3299fa65-linux-2.6-amd64.deb"
     dest: "/tmp"
-    mode: 0700
+    mode: '0700'
