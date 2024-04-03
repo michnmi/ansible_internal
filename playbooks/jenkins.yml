@@ -9,4 +9,4 @@
     - jenkins
     - packer
   vars:
-    - packer_user: 'jenkins'
+    - services_packer_user: 'jenkins'

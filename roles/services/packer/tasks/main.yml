@@ -1,6 +1,6 @@
 ---
-- name: 'main: Prepare host'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Prepare host'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Download packer'
-  import_tasks: 'packer-installation.yml'
+- name: 'Main: Download packer'
+  ansible.builtin.import_tasks: 'packer-installation.yml'

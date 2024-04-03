@@ -10,11 +10,11 @@ This role will download and setup `packer` in `/usr/local/bin`, from its release
 ## How To Use
 
 ### Variables (Defaults)
-- `packer_base_url`  
+- `services_packer_base_url`  
     Default = `"https://releases.hashicorp.com/packer"`
-- `packer_version`  
+- `services_packer_version`  
     Default = `"1.5.5"`
-- `packer_arch`  
+- `services_packer_arch`  
     Default = `"linux_amd64"`
 
 ### Variables (Required)
