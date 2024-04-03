@@ -1,37 +1,37 @@
 ---
-- name: 'pre-setup: Create the prometheus group'
-  group:
-    name: "{{ prometheus_group }}"
+- name: 'Pre-setup: Create the prometheus group'
+  ansible.builtin.group:
+    name: "{{ services_prometheus_group }}"
     state: present
     system: true
 
-- name: 'pre-setup: Create the prometheus user'
-  user:
-    name: "{{ prometheus_user }}"
+- name: 'Pre-setup: Create the prometheus user'
+  ansible.builtin.user:
+    user: "{{ services_prometheus_user }}"
     groups:
-      - "{{ prometheus_group }}"
+      - "{{ services_prometheus_group }}"
     append: true
     shell: /usr/sbin/nologin
     system: true
     create_home: false
-    home: "{{ prometheus_db_dir }}"
+    home: "{{ services_prometheus_db_dir }}"
 
-- name: 'pre-setup: Prometheus data directory'
-  file:
-    path: "{{ prometheus_db_dir }}"
+- name: 'Pre-setup: Prometheus data directory'
+  ansible.builtin.file:
+    path: "{{ services_prometheus_db_dir }}"
     state: directory
-    owner: "{{ prometheus_user }}"
-    group: "{{ prometheus_group }}"
-    mode: 0755
+    owner: "{{ services_prometheus_user }}"
+    group: "{{ services_prometheus_group }}"
+    mode: '0755'
 
-- name: 'pre-setup: Prometheus configs'
-  file:
+- name: 'Pre-setup: Prometheus configs'
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: root
-    group: "{{ prometheus_group }}"
-    mode: 0770
+    group: "{{ services_prometheus_group }}"
+    mode: '0770'
   with_items:
-    - "{{ prometheus_config_dir }}"
-    - "{{ prometheus_config_dir }}/rules"
-    - "{{ prometheus_config_dir }}/file_sd"
+    - "{{ services_prometheus_config_dir }}"
+    - "{{ services_prometheus_config_dir }}/rules"
+    - "{{ services_prometheus_config_dir }}/file_sd"

@@ -1,38 +1,38 @@
 ---
-- name: 'configure-prometheus: Setup systemd service'
-  template:
+- name: 'Configure-prometheus: Setup systemd service'
+  ansible.builtin.template:
     src: 'etc_systemd_system_prometheus.service.j2'
     dest: '/etc/systemd/system/prometheus.service'
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   notify: 'Restart prometheus'
 
-- name: 'configure-prometheus: Create prometheus main config'
-  template:
+- name: 'Configure-prometheus: Create prometheus main config'
+  ansible.builtin.template:
     src: 'etc_prometheus_prometheus.yml.j2'
-    dest: "{{ prometheus_config_dir }}/prometheus.yml"
+    dest: "{{ services_prometheus_config_dir }}/prometheus.yml"
     force: true
     owner: root
     group: prometheus
-    mode: 0640
+    mode: '0640'
   notify: 'Reload prometheus'
 
-- name: 'configure-prometheus: Setup static targets files'
-  copy:
+- name: 'Configure-prometheus: Setup static targets files'
+  ansible.builtin.copy:
     content: |
       #jinja2: lstrip_blocks: True
       {{ item.value | to_nice_yaml(indent=2) }}
-    dest: "{{ prometheus_config_dir }}/file_sd/{{ item.key }}.yml"
+    dest: "{{ services_prometheus_config_dir }}/file_sd/{{ item.key }}.yml"
     force: true
     owner: root
     group: prometheus
-    mode: 0640
+    mode: '0640'
   with_dict: "{{ prometheus_targets }}"
   when: prometheus_targets != {}
 
-- name: 'configure-prometheus: Make sure the service is started and enabled'
-  systemd:
+- name: 'Configure-prometheus: Make sure the service is started and enabled'
+  ansible.builtin.systemd:
     daemon_reload: true
     name: prometheus
     state: started

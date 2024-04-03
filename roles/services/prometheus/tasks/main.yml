@@ -1,9 +1,9 @@
 ---
-- name: 'main: Prepare the installation.'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Prepare the installation.'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Prepare the installation.'
-  import_tasks: 'install-prometheus.yml'
+- name: 'Main: Prepare the installation.'
+  ansible.builtin.import_tasks: 'install-prometheus.yml'
 
-- name: 'main: Configure node-exporter.'
-  import_tasks: 'configure-prometheus.yml'
+- name: 'Main: Configure node-exporter.'
+  ansible.builtin.import_tasks: 'configure-prometheus.yml'

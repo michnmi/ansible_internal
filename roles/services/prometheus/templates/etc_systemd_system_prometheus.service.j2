@@ -11,12 +11,12 @@ User=prometheus
 Group=prometheus
 ExecReload=/bin/kill -HUP $MAINPID
 ExecStart=/usr/local/bin/prometheus \
-  --config.file={{ prometheus_config_dir }}/prometheus.yml \
-  --storage.tsdb.path={{ prometheus_db_dir }} \
-  --storage.tsdb.retention.time={{ prometheus_storage_retention }} \
-  --storage.tsdb.retention.size={{ prometheus_storage_retention_size }} \
-  --web.console.libraries={{ prometheus_config_dir }}/console_libraries \
-  --web.console.templates={{ prometheus_config_dir }}/consoles \
+  --config.file={{ services_prometheus_config_dir }}/prometheus.yml \
+  --storage.tsdb.path={{ services_prometheus_db_dir }} \
+  --storage.tsdb.retention.time={{ services_prometheus_storage_retention }} \
+  --storage.tsdb.retention.size={{ services_prometheus_storage_retention_size }} \
+  --web.console.libraries={{ services_prometheus_config_dir }}/console_libraries \
+  --web.console.templates={{ services_prometheus_config_dir }}/consoles \
   --web.listen-address="0.0.0.0:9090" \
   --web.external-url=""
 
@@ -32,7 +32,7 @@ RemoveIPC=true
 RestrictSUIDSGID=true
 #SystemCallFilter=@signal @timer
 
-ReadWritePaths={{ prometheus_db_dir }}
+ReadWritePaths={{ services_prometheus_db_dir }}
 
 PrivateUsers=true
 ProtectControlGroups=true

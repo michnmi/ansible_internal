@@ -1,37 +1,37 @@
 ---
-- name: "install-prometheus: Download prometheus archive. Multiple files - will unzip in separate step"
-  get_url:
+- name: "Install-prometheus: Download prometheus archive. Multiple files - will unzip in separate step"
+  ansible.builtin.get_url:
     url: "https://github.com/prometheus/prometheus/releases/download/v2.22.0/prometheus-2.22.0.linux-amd64.tar.gz"
     dest: '/tmp/'
-    mode: 0700
+    mode: '0700'
 
-- name: 'install-prometheus: Untar the binaries'
-  unarchive:
+- name: 'Install-prometheus: Untar the binaries'
+  ansible.builtin.unarchive:
     src: '/tmp/prometheus-2.22.0.linux-amd64.tar.gz'
     dest: '/tmp'
-    mode: 0700
-    remote_src: yes
+    mode: '0700'
+    remote_src: true
 
-- name: 'install-prometheus: Send prometheus/promtool over to bin'
-  copy:
+- name: 'Install-prometheus: Send prometheus/promtool over to bin'
+  ansible.builtin.copy:
     src: "/tmp/prometheus-2.22.0.linux-amd64/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
     owner: 'root'
     group: 'root'
-    mode: 0755
-    remote_src: yes
+    mode: '0755'
+    remote_src: true
   with_items:
     - 'prometheus'
     - 'promtool'
 
-- name: 'install-prometheus: Send prometheus console templates'
-  copy:
+- name: 'Install-prometheus: Send prometheus console templates'
+  ansible.builtin.copy:
     src: "/tmp/prometheus-2.22.0.linux-amd64/{{ item }}"
-    dest: "{{ prometheus_config_dir }}/{{ item }}/"
+    dest: "{{ services_prometheus_config_dir }}/{{ item }}/"
     owner: 'root'
     group: 'root'
-    mode: 0644
-    remote_src: yes
+    mode: '0644'
+    remote_src: true
   with_items:
     - console_libraries
     - consoles

@@ -1,30 +1,30 @@
 ---
-prometheus_group: 'prometheus'
-prometheus_user: 'prometheus'
-prometheus_db_dir: '/var/lib/prometheus'
-prometheus_config_dir: '/etc/prometheus'
-prometheus_storage_retention:  '6y'
-prometheus_storage_retention_size: 0
+services_prometheus_group: 'prometheus'
+services_prometheus_user: 'prometheus'
+services_prometheus_db_dir: '/var/lib/prometheus'
+services_prometheus_config_dir: '/etc/prometheus'
+services_prometheus_storage_retention:  '6y'
+services_prometheus_storage_retention_size: 0
 
-prometheus_global:
+services_prometheus_global:
   scrape_interval: '15s'
   scrape_timeout: '15s'
   evaluation_interval: '15s'
 
-prometheus_external_labels:
+services_prometheus_external_labels:
   environment: "{{ ansible_fqdn | default(ansible_host) | default(inventory_hostname) }}"
 
-prometheus_remote_write: []
-prometheus_remote_read: [] # Will be needing this for the old data.
+services_prometheus_remote_write: []
+services_prometheus_remote_read: [] # Will be needing this for the old data.
 
-prometheus_alertmanager_config: '' # Will be defining this later on.
+services_prometheus_alertmanager_config: '' # Will be defining this later on.
 
 # This is taken directly from cloudalchemy/ansible-prometheus. I'll take a look at some point.
-prometheus_scrape_configs:
+services_prometheus_scrape_configs:
   - job_name: "prometheus"
-    metrics_path: "{{ prometheus_metrics_path }}"
+    metrics_path: "{{ services_prometheus_metrics_path }}"
     static_configs:
       - targets:
           - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9090"
 
-prometheus_metrics_path: '/metrics'
+services_prometheus_metrics_path: '/metrics'
