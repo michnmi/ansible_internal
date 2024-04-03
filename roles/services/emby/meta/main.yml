@@ -5,7 +5,7 @@ galaxy_info:
   description: "Allowing a host to run an emby server"
   company: "Home"
   license: Internal
-  min_ansible_version: 2.9
+  min_ansible_version: '2.9'
   platforms:
     - name: Ubuntu
       versions:
