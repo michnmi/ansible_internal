@@ -12,7 +12,7 @@
     regexp: "{{ opcache_line.regexp }}"
     line: "{{ opcache_line.line }}"
     state: present
-    backrefs: yes
+    backrefs: true
   loop: "{{ services_php_apache_opcache }}"
   loop_control:
     loop_var: "opcache_line"

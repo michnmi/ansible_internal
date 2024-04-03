@@ -10,7 +10,7 @@
     mode: '0750'
     owner: 'www-data'
     group: 'www-data'
-    recurse: yes
+    recurse: true
     state: directory
 
 # Many times https://download.nextcloud.com is down. I need that artifactory (CICD-33)
@@ -21,7 +21,7 @@
     owner: 'www-data'
     group: 'www-data'
     mode: '0750'
-    remote_src: yes
+    remote_src: true
     extra_opts: [--strip-components=1]
 
 - name: 'Install-nextcloud: Create nextcloud webroot folder'
@@ -30,12 +30,12 @@
     mode: '0750'
     owner: 'www-data'
     group: 'www-data'
-    recurse: yes
+    recurse: true
     state: directory
 
 - name: 'Install-nextcloud: Run the occ installation'
   become_user: 'www-data'
-  command: >
+  ansible.builtin.command: >
         php occ maintenance:install
         --database='mysql'
         --database-host='localhost'
@@ -49,17 +49,17 @@
     chdir: "{{ services_nextcloud_webroot }}"
   notify: 'Reload Apache'
 
-- name: 'Install-nextcloud: Setup the trusted domains' # noqa 301
+- name: 'Install-nextcloud: Setup the trusted domains' # noqa no-changed-when
   become_user: 'www-data'
-  command: >
+  ansible.builtin.command: >
         php occ config:system:set trusted_domains {{ item.0 }} --value="{{ item.1 | ipwrap }}"
   args:
     chdir: "{{ services_nextcloud_webroot }}"
   with_indexed_items: "{{ nextcloud_trusted_domains }}"
 
-- name: 'Install-nextcloud: Setup the trusted proxies' # noqa 301
+- name: 'Install-nextcloud: Setup the trusted proxies' # noqa no-changed-when
   become_user: 'www-data'
-  command: >
+  ansible.builtin.command: >
         php occ config:system:set trusted_proxies {{ item.0 }} --value="{{ item.1 | ipwrap }}"
   args:
     chdir: "{{ services_nextcloud_webroot }}"
