@@ -1,18 +1,18 @@
 ---
-- name: "setup-forwarder: Create Splunk group"
+- name: "Setup-forwarder: Create Splunk group"
   ansible.builtin.group:
     name: "{{ splunkforwarder_user }}"
     gid: '5997'
     state: present
 
-- name: "setup-forwarder: Create Splunk user"
+- name: "Setup-forwarder: Create Splunk user"
   ansible.builtin.user:
     user: "{{ splunkforwarder_user }}"
     group: "{{ splunkforwarder_user }}"
     uid: '5997'
     state: present
 
-- name: "setup-forwarder: Untar the splunk package"
+- name: "Setup-forwarder: Untar the splunk package"
   ansible.builtin.unarchive:
     remote_src: true
     src: "/tmp/splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz"
@@ -20,7 +20,7 @@
     owner: "{{ splunkforwarder_user }}"
     group: "{{ splunkforwarder_user }}"
 
-- name: "setup-forwarder: Setup user credentials"
+- name: "Setup-forwarder: Setup user credentials"
   ansible.builtin.template:
     src: "templates/user-seed.conf.j2"
     dest: "/opt/splunkforwarder/etc/system/local/user-seed.conf"
@@ -29,7 +29,7 @@
     mode: '0400'
     remote_src: false
 
-- name: "setup-forwarder: Setup inputs"
+- name: "Setup-forwarder: Setup inputs"
   ansible.builtin.template:
     src: templates/inputs.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/inputs.conf
@@ -38,7 +38,7 @@
     mode: '0400'
     remote_src: false
 
-- name: "setup-forwarder: Set logfile permissions"
+- name: "Setup-forwarder: Set logfile permissions"
   ansible.builtin.acl:
     path: "{{ item }}"
     entity: "{{ splunkforwarder_user }}"
@@ -49,7 +49,7 @@
   become: true
   with_items: "{{ splunkforwarder_logs }}"
 
-- name: "setup-forwarder: Setup outputs"
+- name: "Setup-forwarder: Setup outputs"
   ansible.builtin.template:
     src: templates/outputs.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/outputs.conf
@@ -58,7 +58,7 @@
     mode: '0400'
     remote_src: false
 
-- name: "setup-forwarder: Setup systemd file"
+- name: "Setup-forwarder: Setup systemd file"
   ansible.builtin.template:
     src: SplunkForwarder.service.j2
     dest: /etc/systemd/system/SplunkForwarder.service
@@ -66,7 +66,7 @@
     group: root
     mode: '0644'
 
-- name: "setup-forwarder: Enable systemd file"
+- name: "Setup-forwarder: Enable systemd file"
   ansible.builtin.service:
     name: SplunkForwarder
     enabled: true
