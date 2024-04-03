@@ -1,15 +1,15 @@
 ---
 - name: 'Pre-setup: Create the node_exporter group'
   ansible.builtin.group:
-    name: "{{ node_exporter_group }}"
+    name: "{{ base_node_exporter_group }}"
     state: present
     system: true
 
 - name: 'Pre-setup: Create the node_exporter user'
   ansible.builtin.user:
-    user: "{{ node_exporter_user }}"
+    user: "{{ base_node_exporter_user }}"
     groups:
-      - "{{ node_exporter_group }}"
+      - "{{ base_node_exporter_group }}"
     append: true
     shell: /usr/sbin/nologin
     system: true

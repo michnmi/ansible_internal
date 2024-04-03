@@ -11,10 +11,10 @@
 
 - name: 'Configure-node-exporter: Setup textfile directory'
   ansible.builtin.file:
-    path: "{{ node_exporter_textfile_dir }}"
+    path: "{{ base_node_exporter_textfile_dir }}"
     state: directory
-    owner: "{{ node_exporter_user }}"
-    group: "{{ node_exporter_group }}"
+    owner: "{{ base_node_exporter_user }}"
+    group: "{{ base_node_exporter_group }}"
     recurse: true
     mode: '0775'
 
