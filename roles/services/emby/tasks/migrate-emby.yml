@@ -12,7 +12,7 @@
 
 - name: "Migrate-emby: Link the new directories"
   ansible.builtin.file:
-    src: "{{ base_emby_data_dir }}/{{ item }}"
+    src: "{{ services_emby_data_dir }}/{{ item }}"
     dest: "/var/lib/emby/{{ item }}"
     state: "link"
   with_items:

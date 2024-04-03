@@ -1,7 +1,7 @@
 ---
 - name: "Pre-setup: Install required packages"
   ansible.builtin.apt:
-    name: "{{ base_emby_packages }}"
+    name: "{{ services_emby_packages }}"
     state: "present"
     update_cache: true
 

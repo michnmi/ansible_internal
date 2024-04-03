@@ -7,11 +7,11 @@
 
 - name: 'Main: Migrate existing installation'
   ansible.builtin.import_tasks: 'migrate-emby.yml'
-  when: base_emby_migrate
+  when: services_emby_migrate
 
 - name: 'Main: Setup IPTV'
   ansible.builtin.import_tasks: 'setup-iptv.yml'
-  when: base_setup_iptv
+  when: services_setup_iptv
 
 - name: 'Main: Setup openvpn'
   ansible.builtin.import_tasks: 'openvpn-emby.yml'

@@ -1,8 +1,8 @@
 ---
-base_emby_migrate: false
-base_emby_data_dir: ''
-base_emby_version: '4.8.3.0'
+services_emby_migrate: false
+services_emby_data_dir: ''
+services_emby_version: '4.8.3.0'
 
-base_openvpn_configs: "/tmp/ipvanish_configs"
+services_openvpn_configs: "/tmp/ipvanish_configs"
 
-base_setup_iptv: false
+services_setup_iptv: false

@@ -1,38 +1,38 @@
 ---
 - name: "Openvpn-emby: Create a temporary directory for ipvanish files"
   ansible.builtin.file:
-    path: "{{ base_openvpn_configs }}"
+    path: "{{ services_openvpn_configs }}"
     state: directory
     mode: '0700'
 
 - name: "Openvpn-emby: Download IPVANISH files"
   ansible.builtin.get_url:
     url: "https://configs.ipvanish.com/configs/configs.zip"
-    dest: "{{ base_openvpn_configs }}/"
+    dest: "{{ services_openvpn_configs }}/"
     mode: '0700'
 
 - name: "Openvpn-emby: Untar the ovpn and certificate"
   ansible.builtin.unarchive:
-    src: "{{ base_openvpn_configs }}/configs.zip"
-    dest: "{{ base_openvpn_configs }}/"
+    src: "{{ services_openvpn_configs }}/configs.zip"
+    dest: "{{ services_openvpn_configs }}/"
     mode: '0700'
     remote_src: true
 
 - name: "Openvpn-emby: Setup the files we need (ovpn)."
   ansible.builtin.copy:
-    src: "{{ base_openvpn_configs }}/{{ endpoint }}.ovpn"
+    src: "{{ services_openvpn_configs }}/{{ endpoint }}.ovpn"
     dest: "/etc/openvpn/client/{{ endpoint }}.conf"
     owner: "root"
     group: "root"
     mode: '0400'
     remote_src: true
-  loop: "{{ base_ovpn_endpoints }}"
+  loop: "{{ services_ovpn_endpoints }}"
   loop_control:
     loop_var: "endpoint"
 
 - name: "Openvpn-emby: Setup the files we need (cert)."
   ansible.builtin.copy:
-    src: "{{ base_openvpn_configs }}/ca.ipvanish.com.crt"
+    src: "{{ services_openvpn_configs }}/ca.ipvanish.com.crt"
     dest: "/etc/openvpn/client/ca.ipvanish.com.crt"
     owner: "root"
     group: "root"
@@ -41,7 +41,7 @@
 
 - name: "Openvpn-emby: Delete the directory"
   ansible.builtin.file:
-    path: "{{ base_openvpn_configs }}"
+    path: "{{ services_openvpn_configs }}"
     state: absent
 
 - name: "Openvpn-emby: Setup auth-user-pass"
@@ -57,12 +57,12 @@
     dest: "/etc/openvpn/client/{{ endpoint }}.conf"
     regexp: "auth-user-pass"
     replace: "auth-user-pass /etc/openvpn/client/auth-user-pass"
-  loop: "{{ base_ovpn_endpoints }}"
+  loop: "{{ services_ovpn_endpoints }}"
   loop_control:
     loop_var: "endpoint"
 
 - name: "Openvpn-emby: Start openvpn with default endpoint"
   ansible.builtin.systemd:
-    name: "openvpn-client@{{ base_ovpn_default_endpoint }}.service"
+    name: "openvpn-client@{{ services_ovpn_default_endpoint }}.service"
     state: stopped
     enabled: false
