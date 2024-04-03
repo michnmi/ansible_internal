@@ -3,7 +3,7 @@ services_prometheus_group: 'prometheus'
 services_prometheus_user: 'prometheus'
 services_prometheus_db_dir: '/var/lib/prometheus'
 services_prometheus_config_dir: '/etc/prometheus'
-services_prometheus_storage_retention:  '6y'
+services_prometheus_storage_retention: '6y'
 services_prometheus_storage_retention_size: 0
 
 services_prometheus_global:
