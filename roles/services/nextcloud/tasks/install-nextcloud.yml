@@ -33,8 +33,8 @@
     recurse: true
     state: directory
 
-- name: 'Install-nextcloud: Run the occ installation'
-  become_user: 'www-data'
+- name: 'Install-nextcloud: Run the occ installation' # noqa no-changed-when
+  become_user: 'www-data' # noqa partial-become
   ansible.builtin.command: >
         php occ maintenance:install
         --database='mysql'
@@ -50,7 +50,7 @@
   notify: 'Reload Apache'
 
 - name: 'Install-nextcloud: Setup the trusted domains' # noqa no-changed-when
-  become_user: 'www-data'
+  become_user: 'www-data' # noqa partial-become
   ansible.builtin.command: >
         php occ config:system:set trusted_domains {{ item.0 }} --value="{{ item.1 | ipwrap }}"
   args:
@@ -58,7 +58,7 @@
   with_indexed_items: "{{ nextcloud_trusted_domains }}"
 
 - name: 'Install-nextcloud: Setup the trusted proxies' # noqa no-changed-when
-  become_user: 'www-data'
+  become_user: 'www-data' # noqa partial-become
   ansible.builtin.command: >
         php occ config:system:set trusted_proxies {{ item.0 }} --value="{{ item.1 | ipwrap }}"
   args:
