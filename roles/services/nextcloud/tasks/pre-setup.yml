@@ -1,6 +1,6 @@
 ---
 - name: 'Pre-setup: CICD-76/STOR-82 - add repository for php8.2'
-  ansible.builtin.pt_repository:
+  ansible.builtin.apt_repository:
     repo: 'ppa:ondrej/php'
     state: 'present'
     mode: '0644'
