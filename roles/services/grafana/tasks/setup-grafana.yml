@@ -1,30 +1,30 @@
 ---
-- name: 'setup-grafana: Setup the datasources'
-  copy:
+- name: 'Setup-grafana: Setup the datasources'
+  ansible.builtin.copy:
     dest: '/etc/grafana/provisioning/datasources/ansible-datasources.yml'
     content: |
       apiVersion: 1
       deleteDatasources: []
       datasources:
-      {{ grafana_datasources | to_nice_yaml }}
+      {{ services_grafana_datasources | to_nice_yaml }}
     owner: 'root'
     group: 'grafana'
-    mode: 0640
+    mode: '0640'
   notify: 'Restart grafana'
 
-- name: 'setup-grafana: Create the dashboard files'
-  copy:
+- name: 'Setup-grafana: Create the dashboard files'
+  ansible.builtin.copy:
     src: "files/dashboards/{{ dashboard.env }}/{{ dashboard.name }}.json"
     dest: "/etc/grafana/provisioning/dashboards/{{ dashboard.title }}.json"
     owner: grafana
     group: grafana
-    mode: 0640
+    mode: '0640'
   loop: "{{ grafana_dashboards }}"
   loop_control:
     loop_var: "dashboard"
 
-- name: 'setup-grafana: Fix the data source name in the dashboard'
-  replace:
+- name: 'Setup-grafana: Fix the data source name in the dashboard'
+  ansible.builtin.replace:
     dest: "/etc/grafana/provisioning/dashboards/{{ dashboard.title }}.json"
     regexp: '"(?:\${)?DS_[A-Z0-9_-]+(?:})?"'
     replace: '"{{ grafana_default_datasource }}"'
@@ -32,8 +32,8 @@
   loop_control:
     loop_var: "dashboard"
 
-- name: 'setup-grafana: Upload the dashboards'
-  copy:
+- name: 'Setup-grafana: Upload the dashboards'
+  ansible.builtin.copy:
     dest: '/etc/grafana/provisioning/dashboards/ansible-dashboards.yml'
     content: |
       apiVersion: 1
@@ -46,24 +46,24 @@
            path: "/etc/grafana/provisioning/dashboards"
     owner: 'root'
     group: 'grafana'
-    mode: 0640
+    mode: '0640'
   notify: 'Restart grafana'
 
-- name: 'setup-grafana: Fix the database locking issue'
-  replace:
+- name: 'Setup-grafana: Fix the database locking issue'
+  ansible.builtin.replace:
     dest: '/etc/grafana/grafana.ini'
     regexp: '.token_rotation_interval_minutes = 10'
     replace: 'token_rotation_interval_minutes = 10080'
 
-- name: 'setup-grafana: Setup the admin password'
-  replace:
+- name: 'Setup-grafana: Setup the admin password'
+  ansible.builtin.replace:
     dest: '/etc/grafana/grafana.ini'
     regexp: ';admin_password = admin'
     replace: 'admin_password = {{ grafana_admin_password }}'
   notify: 'Restart grafana'
 
-- name: 'setup-grafana: Start the grafana service'
-  service:
+- name: 'Setup-grafana: Start the grafana service'
+  ansible.builtin.service:
     name: 'grafana-server'
     state: 'started'
     enabled: true

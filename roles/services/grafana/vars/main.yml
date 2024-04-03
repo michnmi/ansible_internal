@@ -1,5 +1,5 @@
 ---
-grafana_packages:
+services_grafana_packages:
   - apt-transport-https
   - adduser
   - ca-certificates

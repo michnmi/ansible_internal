@@ -1,9 +1,9 @@
 ---
-- name: 'main: Setup dependencies'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Setup dependencies'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Install main grafana package'
-  import_tasks: 'install-grafana.yml'
+- name: 'Main: Install main grafana package'
+  ansible.builtin.import_tasks: 'install-grafana.yml'
 
-- name: 'main: Configure grafana'
-  import_tasks: 'setup-grafana.yml'
+- name: 'Main: Configure grafana'
+  ansible.builtin.import_tasks: 'setup-grafana.yml'

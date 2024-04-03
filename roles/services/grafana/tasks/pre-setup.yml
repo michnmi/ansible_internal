@@ -1,6 +1,6 @@
 ---
-- name: 'pre-setup: Install required packages'
-  apt:
-    name: "{{ grafana_packages }}"
+- name: 'Pre-setup: Install required packages'
+  ansible.builtin.apt:
+    name: "{{ services_grafana_packages }}"
     state: 'present'
     update_cache: true
