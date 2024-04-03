@@ -1,5 +1,5 @@
 ---
-nextcloud_packages:
+services_nextcloud_packages:
   - apache2
   - bzip2
   - ffmpeg
@@ -30,7 +30,7 @@ nextcloud_packages:
   - php-dompdf
   - unzip
 
-php_apache_opcache:
+services_php_apache_opcache:
   - regexp: 'opcache.enable=0'
     line: 'opcache.enable=1'
   - regexp: 'opcache.enable_cli'
@@ -46,7 +46,7 @@ php_apache_opcache:
   - regexp: 'opcache.revalidate_freq'
     line: 'opcache.revalidate_freq=1'
 
-apache_modules:
+services_apache_modules:
   - rewrite
   - headers
   - env

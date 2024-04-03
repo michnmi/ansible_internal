@@ -1,16 +1,16 @@
 ---
-- name: 'main: Install dependencies'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Install dependencies'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Install nextcloud'
-  import_tasks: 'configure-apache.yml'
+- name: 'Main: Install nextcloud'
+  ansible.builtin.import_tasks: 'configure-apache.yml'
 
-- name: 'main: Install nextcloud'
-  import_tasks: 'install-nextcloud.yml'
+- name: 'Main: Install nextcloud'
+  ansible.builtin.import_tasks: 'install-nextcloud.yml'
 
-- name: 'main: Setup Database backup.'
-  import_tasks: 'setup-mysql-backup.yml'
+- name: 'Main: Setup Database backup.'
+  ansible.builtin.import_tasks: 'setup-mysql-backup.yml'
 
-- name: 'main: Migrate existing installation'
-  import_tasks: 'migrate-nextcloud.yml'
-  when: nextcloud_migrate
+- name: 'Main: Migrate existing installation'
+  ansible.builtin.import_tasks: 'migrate-nextcloud.yml'
+  when: services_nextcloud_migrate

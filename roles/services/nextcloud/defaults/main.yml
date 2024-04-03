@@ -1,11 +1,11 @@
 ---
-nextcloud_webroot: '/var/www/nextcloud'
-nextcloud_db_user: ''
-nextcloud_db_pass: ''
-nextcloud_admin_user: ''
-nextcloud_admin_pass: ''
-nextcloud_data_dir: '/var/www/nextcloud/data'
-nextcloud_migrate: false
-nextcloud_migrate_database_path: ''
-nextcloud_migrate_database_file: ''
-nextcloud_migrate_datadir_path: ''
+services_nextcloud_webroot: '/var/www/nextcloud'
+services_nextcloud_db_user: ''
+services_nextcloud_db_pass: ''
+services_nextcloud_admin_user: ''
+services_nextcloud_admin_pass: ''
+services_nextcloud_data_dir: '/var/www/nextcloud/data'
+services_nextcloud_migrate: false
+services_nextcloud_migrate_database_path: ''
+services_nextcloud_migrate_database_file: ''
+services_nextcloud_migrate_datadir_path: ''

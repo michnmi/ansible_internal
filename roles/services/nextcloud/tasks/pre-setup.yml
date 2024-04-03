@@ -1,25 +1,25 @@
 ---
-- name: 'pre-setup: CICD-76/STOR-82 - add repository for php8.2'
-  apt_repository:
+- name: 'Pre-setup: CICD-76/STOR-82 - add repository for php8.2'
+  ansible.builtin.pt_repository:
     repo: 'ppa:ondrej/php'
     state: 'present'
-    mode: 0644
+    mode: '0644'
     update_cache: true
 
-- name: 'pre-setup: Install required packages'
-  apt:
-    name: "{{ nextcloud_packages }}"
+- name: 'Pre-setup: Install required packages'
+  ansible.builtin.apt:
+    name: "{{ services_nextcloud_packages }}"
     state: 'present'
     update_cache: true
 
-- name: 'pre-setup: Setup php 8.2 as php'
-  file:
+- name: 'Pre-setup: Setup php 8.2 as php'
+  ansible.builtin.file:
     src: "/usr/bin/php8.2"
     dest: "/etc/alternatives/php"
     state: 'link'
 
-- name: 'pre-setup: Setup nextcloud user in mysql.'
-  mysql_user:
-    name: "{{ nextcloud_db_user }}"
-    password: "{{ nextcloud_db_pass }}"
+- name: 'Pre-setup: Setup nextcloud user in mysql.'
+  community.mysql.mysql_user:
+    name: "{{ services_nextcloud_db_user }}"
+    password: "{{ services_nextcloud_db_pass }}"
   no_log: true

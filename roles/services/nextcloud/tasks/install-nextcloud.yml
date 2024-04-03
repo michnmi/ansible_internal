@@ -1,48 +1,39 @@
 ---
-- name: 'install-nextcloud: Remove default apache2 folder.'
-  file:
+- name: 'Install-nextcloud: Remove default apache2 folder.'
+  ansible.builtin.file:
     path: '/var/www/html'
     state: absent
 
-- name: 'install-nextcloud: Create nextcloud webroot folder'
-  file:
-    path: "{{ nextcloud_webroot }}"
-    mode: 0750
+- name: 'Install-nextcloud: Create nextcloud webroot folder'
+  ansible.builtin.file:
+    path: "{{ services_nextcloud_webroot }}"
+    mode: '0750'
     owner: 'www-data'
     group: 'www-data'
     recurse: yes
     state: directory
 
 # Many times https://download.nextcloud.com is down. I need that artifactory (CICD-33)
-- name: 'install-nextcloud: Download nextcloud'
-  unarchive:
+- name: 'Install-nextcloud: Download nextcloud'
+  ansible.builtin.unarchive:
     src: 'https://download.nextcloud.com/server/releases/nextcloud-28.0.3.tar.bz2'
-    dest: "{{ nextcloud_webroot }}"
+    dest: "{{ services_nextcloud_webroot }}"
     owner: 'www-data'
     group: 'www-data'
-    mode: 0750
+    mode: '0750'
     remote_src: yes
     extra_opts: [--strip-components=1]
 
-# - name: 'install-nextcloud: Temp workaround for above comment'
-#   unarchive:
-#     src: 'files/nextcloud-19.0.3.tar.bz2'
-#     dest: "{{ nextcloud_webroot }}"
-#     owner: 'www-data'
-#     group: 'www-data'
-#     mode: 0750
-#     extra_opts: [--strip-components=1]
-
-- name: 'install-nextcloud: Create nextcloud webroot folder'
-  file:
-    path: "{{ nextcloud_webroot }}"
-    mode: 0750
+- name: 'Install-nextcloud: Create nextcloud webroot folder'
+  ansible.builtin.file:
+    path: "{{ services_nextcloud_webroot }}"
+    mode: '0750'
     owner: 'www-data'
     group: 'www-data'
     recurse: yes
     state: directory
 
-- name: 'install-nextcloud: Run the occ installation' # noqa 301
+- name: 'Install-nextcloud: Run the occ installation'
   become_user: 'www-data'
   command: >
         php occ maintenance:install
@@ -51,31 +42,31 @@
         --database-name='nextcloud'
         --database-user={{ mysql_root_user }}
         --database-pass={{ mysql_root_pass }}
-        --admin-user={{ nextcloud_admin_user }}
-        --admin-pass={{ nextcloud_admin_pass }}
-        --data-dir={{ nextcloud_data_dir }}
+        --admin-user={{ services_nextcloud_admin_user }}
+        --admin-pass={{ services_nextcloud_admin_pass }}
+        --data-dir={{ services_nextcloud_data_dir }}
   args:
-    chdir: "{{ nextcloud_webroot }}"
+    chdir: "{{ services_nextcloud_webroot }}"
   notify: 'Reload Apache'
 
-- name: 'install-nextcloud: Setup the trusted domains' # noqa 301
+- name: 'Install-nextcloud: Setup the trusted domains' # noqa 301
   become_user: 'www-data'
   command: >
         php occ config:system:set trusted_domains {{ item.0 }} --value="{{ item.1 | ipwrap }}"
   args:
-    chdir: "{{ nextcloud_webroot }}"
+    chdir: "{{ services_nextcloud_webroot }}"
   with_indexed_items: "{{ nextcloud_trusted_domains }}"
 
-- name: 'install-nextcloud: Setup the trusted proxies' # noqa 301
+- name: 'Install-nextcloud: Setup the trusted proxies' # noqa 301
   become_user: 'www-data'
   command: >
         php occ config:system:set trusted_proxies {{ item.0 }} --value="{{ item.1 | ipwrap }}"
   args:
-    chdir: "{{ nextcloud_webroot }}"
+    chdir: "{{ services_nextcloud_webroot }}"
   with_indexed_items: "{{ nextcloud_trusted_proxies }}"
 
-- name: 'install-nextcloud: Setup a cronjob to generate previews'
-  cron:
+- name: 'Install-nextcloud: Setup a cronjob to generate previews'
+  ansible.builtin.cron:
     name: 'Generate previews for everything'
     weekday: '*'
     minute: '*/10'

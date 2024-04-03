@@ -1,20 +1,20 @@
 ---
-- name: 'migrate-nextcloud: Setup the database.'
-  mysql_db:
+- name: 'Migrate-nextcloud: Setup the database.'
+  community.mysql.mysql_db:
     name: nextcloud
     state: import
-    target: "{{ nextcloud_migrate_database_path }}/{{ nextcloud_migrate_database_file }}"
+    target: "{{ services_nextcloud_migrate_database_path }}/{{ services_nextcloud_migrate_database_file }}"
   notify: 'Reload Apache'
 
-- name: 'migrate-nextcloud: Destroy the existing data directory.'
-  file:
-    path: "{{ nextcloud_data_dir }}"
+- name: 'Migrate-nextcloud: Destroy the existing data directory.'
+  ansible.builtin.file:
+    path: "{{ services_nextcloud_data_dir }}"
     state: absent
   notify: 'Reload Apache'
 
-- name: 'migrate-nextcloud: Create a link to the migrated data directory.'
-  file:
-    src: "{{ nextcloud_migrate_datadir_path }}"
-    dest: "{{ nextcloud_data_dir }}"
+- name: 'Migrate-nextcloud: Create a link to the migrated data directory.'
+  ansible.builtin.file:
+    src: "{{ services_nextcloud_migrate_datadir_path }}"
+    dest: "{{ services_nextcloud_data_dir }}"
     state: link
   notify: 'Reload Apache'
