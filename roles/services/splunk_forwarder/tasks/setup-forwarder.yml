@@ -39,7 +39,7 @@
     remote_src: false
 
 - name: "Setup-forwarder: Set logfile permissions"
-  ansible.builtin.acl:
+  ansible.posix.acl:
     path: "{{ item }}"
     entity: "{{ splunkforwarder_user }}"
     state: present
