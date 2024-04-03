@@ -1,5 +1,5 @@
 ---
-- name: 'packer-installation: Download packer from the website'
+- name: 'Packer-installation: Download packer from the website'
   ansible.builtin.unarchive:
     src: "{{ services_packer_base_url }}/{{ services_packer_version }}/packer_{{ services_packer_version }}_{{ services_packer_arch }}.zip"
     dest: '/usr/local/bin'
@@ -7,7 +7,7 @@
     mode: '0655'
 
 # A better way will be to move from json to HCL2 and use https://developer.hashicorp.com/packer/integrations/hashicorp/qemu#installation
-- name: 'packer-installation: Setup qemu plugin'
+- name: 'Packer-installation: Setup qemu plugin'
   ansible.builtin.command:
     argv:
       - "/usr/local/bin/packer"

@@ -1,16 +1,16 @@
 ---
-- name: 'pre-setup: Packer host specific packages'
+- name: 'Pre-setup: Packer host specific packages'
   ansible.builtin.package:
     name: "{{ services_packer_packages }}"
     state: 'present'
 
-- name: 'pre-setup: Create a packer user that has access to kvm'
+- name: 'Pre-setup: Create a packer user that has access to kvm'
   ansible.builtin.user:
     user: "{{ services_packer_user }}"
     groups: "kvm"
     append: true
 
-- name: 'pre-setup: Create the location for images'
+- name: 'Pre-setup: Create the location for images'
   ansible.builtin.file:
     path: "{{ services_packer_file_location }}"
     state: directory
