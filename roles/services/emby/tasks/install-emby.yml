@@ -1,7 +1,7 @@
 ---
 - name: 'Install-emby: Install the emby-server binary.'
   ansible.builtin.apt:
-    deb: '/tmp/emby-server-deb_{{ base_emby_version }}_amd64.deb'
+    deb: '/tmp/emby-server-deb_{{ services_emby_version }}_amd64.deb'
 
 - name: 'Install-emby: Stop the service'
   ansible.builtin.service:
@@ -16,5 +16,5 @@
 
 - name: 'Install-emby: Clean up the binary'
   ansible.builtin.file:
-    dest: '/tmp/emby-server-deb_{{ base_emby_version }}_amd64.deb'
+    dest: '/tmp/emby-server-deb_{{ services_emby_version }}_amd64.deb'
     state: absent

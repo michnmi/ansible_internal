@@ -7,6 +7,6 @@
 
 - name: "Pre-setup: Download the emby server binary"
   ansible.builtin.get_url:
-    url: "https://github.com/MediaBrowser/Emby.Releases/releases/download/{{ base_emby_version }}/emby-server-deb_{{ base_emby_version }}_amd64.deb"
-    dest: "/tmp/emby-server-deb_{{ base_emby_version }}_amd64.deb"
+    url: "https://github.com/MediaBrowser/Emby.Releases/releases/download/{{ services_emby_version }}/emby-server-deb_{{ services_emby_version }}_amd64.deb"
+    dest: "/tmp/emby-server-deb_{{ services_emby_version }}_amd64.deb"
     mode: '0600'
