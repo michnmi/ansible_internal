@@ -1,29 +1,29 @@
 ---
-- name: 'install-mysql: Install the mariadb package'
-  apt:
+- name: 'Install-mysql: Install the mariadb package'
+  ansible.builtin.apt:
     name: 'default-mysql-server'
     state: present
 
-- name: 'install-mysql: Send my.cnf over'
-  template:
+- name: 'Install-mysql: Send my.cnf over'
+  ansible.builtin.template:
     src: my.cnf.j2
     dest: '/etc/mysql/mysql.cnf'
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   notify: 'Restart mysql'
 
-- name: 'install-mysql: Ansible needs a root/.my.cnf file. Fiiiiiiine'
-  template:
+- name: 'Install-mysql: Ansible needs a root/.my.cnf file. Fiiiiiiine'
+  ansible.builtin.template:
     src: 'root_my.cnf.j2'
     dest: "/root/.my.cnf"
     owner: 'root'
     group: 'root'
-    mode: 0600
+    mode: '0600'
   no_log: true
 
-- name: 'install-mysql: Setup root account.'
-  mysql_user:
+- name: 'Install-mysql: Setup root account.'
+  community.mysql.mysql_user:
     name: "{{ mysql_root_user }}"
     password: "{{ mysql_root_pass }}"
   no_log: true

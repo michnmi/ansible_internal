@@ -1,6 +1,6 @@
 ---
-- name: 'pre-setup: Install required packages'
-  apt:
-    name: "{{ mysql_packages }}"
+- name: 'Pre-setup: Install required packages'
+  ansible.builtin.apt:
+    name: "{{ services_mysql_packages }}"
     state: 'present'
     update_cache: true

@@ -1,3 +1,3 @@
 ---
-mysql_packages:
+services_mysql_packages:
   - python3-mysqldb

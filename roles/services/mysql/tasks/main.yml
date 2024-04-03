@@ -1,6 +1,6 @@
 ---
-- name: 'main: Setup dependencies'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Setup dependencies'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Install mariadb'
-  import_tasks: 'install-mysql.yml'
+- name: 'Main: Install mariadb'
+  ansible.builtin.import_tasks: 'install-mysql.yml'
