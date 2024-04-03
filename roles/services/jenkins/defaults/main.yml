@@ -1,19 +1,19 @@
 ---
-jenkins_repo_key: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
-jenkins_repo: "deb https://pkg.jenkins.io/debian-stable binary/"
-jenkins_home: "/var/lib/jenkins"
+services_jenkins_repo_key: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
+services_jenkins_repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+services_jenkins_home: "/var/lib/jenkins"
 
-jenkins_java_options: 'Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"'
-jenkins_startup_timeout: 300
-jenkins_user: "jenkins"
-jenkins_systemd_file: "/lib/systemd/system/jenkins.service"
+services_jenkins_java_options: 'Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"'
+services_jenkins_startup_timeout: 300
+services_jenkins_user: "jenkins"
+services_jenkins_systemd_file: "/lib/systemd/system/jenkins.service"
 
 # Default username/password. Should be overriden
-jenkins_admin_user: "admin"
-jenkins_admin_pass: "admin"
+services_jenkins_admin_user: "admin"
+services_jenkins_admin_pass: "admin"
 
-jenkins_username_password_credentials: []
-jenkins_secret_text_credentials: []
-jenkins_ssh_credentials: []
+services_jenkins_username_password_credentials: []
+services_jenkins_secret_text_credentials: []
+services_jenkins_ssh_credentials: []
 
-jenkins_plugins: []
+services_jenkins_plugins: []

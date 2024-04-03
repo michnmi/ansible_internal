@@ -1,12 +1,12 @@
 ---
-- name: 'main: Prepare host'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Prepare host'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Allow jenkins to run ansible commands'
-  import_tasks: 'setup-ansible.yml'
+- name: 'Main: Allow jenkins to run ansible commands'
+  ansible.builtin.import_tasks: 'setup-ansible.yml'
 
-- name: 'main: Allow jenkins to run terraform commands'
-  import_tasks: 'setup-terraform.yml'
+- name: 'Main: Allow jenkins to run terraform commands'
+  ansible.builtin.import_tasks: 'setup-terraform.yml'
 
-- name: 'main: Setup Jenkins'
-  import_tasks: 'setup-jenkins.yml'
+- name: 'Main: Setup Jenkins'
+  ansible.builtin.import_tasks: 'setup-jenkins.yml'

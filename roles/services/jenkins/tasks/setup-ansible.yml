@@ -1,6 +1,6 @@
 ---
-- name: "setup-ansible: Install ansible."
-  pip:
+- name: "Setup-ansible: Install ansible."
+  ansible.builtin.pip:
     name: "ansible==2.10.7"
     state: "present"
     executable: "pip3"
@@ -8,8 +8,8 @@
     LANG: "en_US.UTF-8"
     LC_ALL: "en_US.UTF-8"
 
-- name: "setup-ansible: Install ansible-lint."
-  pip:
+- name: "Setup-ansible: Install ansible-lint."
+  ansible.builtin.pip:
     name: "ansible-lint"
     state: "present"
     executable: "pip3"

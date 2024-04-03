@@ -14,40 +14,40 @@ TODO_LIST:
 
 ### Variables (Defaults)
 
-- `jenkins_repo_key`  
+- `services_jenkins_repo_key`  
     Default = `https://pkg.jenkins.io/debian-stable/jenkins.io.key`  
     Self-explanatory
-- `jenkins_repo`  
+- `services_jenkins_repo`  
     Default = `deb https://pkg.jenkins.io/debian-stable binary/`  
     Self-explanatory
-- `jenkins_home`  
+- `services_jenkins_home`  
     Default = `/var/lib/jenkins`  
     The default location for *jenkins* files. In case I need it to be defined mounted somewhere.  
-- `jenkins_java_options`  
+- `services_jenkins_java_options`  
     Default = `-Djenkins.install.runSetupWizard=false`  
     `JAVA_VARS` that are in needed. For now , making sure the *SetupWizard* doesn't start.
-- `jenkins_user`  
+- `services_jenkins_user`  
     Default = `jenkins`  
     The *user* under which all `jenkins` operations run.
-- `jenkins_init_file`  
+- `services_jenkins_init_file`  
     Default = `/etc/default/jenkins`  
     The *source* script where all the `init` entries are taken from for starting *jenkins*
-- `jenkins_username_password_credentials`  
+- `services_jenkins_username_password_credentials`  
    Default = `[]`  
    The credentials to be used for *Github* plugins.
-- `jenkins_secret_text_credentials`  
+- `services_jenkins_secret_text_credentials`  
    Default = `[]`  
    The credentials to be used for *Github API* plugins.
-- `jenkins_ssh_credentials`  
+- `services_jenkins_ssh_credentials`  
    Default = `[]`  
    The credentials to be used for `ssh` actions. Primarily for packer.
-- `jenkins_plugins`  
+- `services_jenkins_plugins`  
    Default = `[]`  
    The plugins we want on the jenkins server.
 
 ### Variables (Required)
 
-- `jenkins_admin_user` and `jenkins_admin_pass`  
+- `services_jenkins_admin_user` and `services_jenkins_admin_pass`  
    Default = `admin`  
    The credentials for the initial *admin* user of the *jenkins* instance. They **should be overriden**
 
@@ -78,6 +78,6 @@ An example playbook could be like this:
   roles:
     - jenkins
   vars:
-    jenkins_admin_user: 'username'
-    jenkins_admin_pass: 'password'
+    services_jenkins_admin_user: 'username'
+    services_jenkins_admin_pass: 'password'
 ```

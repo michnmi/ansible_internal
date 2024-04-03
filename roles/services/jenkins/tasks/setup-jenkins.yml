@@ -1,84 +1,84 @@
 ---
-- name: "setup-jenkins: Install Jenkins"
-  apt:
+- name: "Setup-jenkins: Install Jenkins"
+  ansible.builtin.apt:
     name: "jenkins"
     state: "present"
   ignore_errors: true # noqa ignore-errors
 
-- name: "setup-jenkins: Make sure home exists ({{ jenkins_home }})."
-  file:
-    path: "{{ jenkins_home }}"
+- name: "Setup-jenkins: Make sure home exists ({{ services_jenkins_home }})."
+  ansible.builtin.file:
+    path: "{{ services_jenkins_home }}"
     state: directory
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: "0755"
 
 # Following the instructions on https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/docs/migration-13.md (as seen in CICD-37)
-- name: "setup-jenkins: Create the directory for libvirt terraform plugin"
-  file:
-    path: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64"
+- name: "Setup-jenkins: Create the directory for libvirt terraform plugin"
+  ansible.builtin.file:
+    path: "{{ services_jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64"
     state: directory
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: "0755"
 
 # Following the instructions in -> https://jenkins.programmingpedia.net/en/tutorial/7562/jenkins-groovy-scripting
-- name: "setup-jenkins: Create init scripts directory."
-  file:
-    path: "{{ jenkins_home }}/init.groovy.d"
+- name: "Setup-jenkins: Create init scripts directory."
+  ansible.builtin.file:
+    path: "{{ services_jenkins_home }}/init.groovy.d"
     state: directory
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: "0775"
 
-- name: "setup-jenkins: Manipulate jenkins systemd file ({{ jenkins_systemd_file }}) - JAVA_OPTS"
-  lineinfile:
-    dest: "{{ jenkins_systemd_file }}"
+- name: "Setup-jenkins: Manipulate jenkins systemd file ({{ jenkins_systemd_file }}) - JAVA_OPTS"
+  ansible.builtin.lineinfile:
+    dest: "{{ services_jenkins_systemd_file }}"
     regexp: "^#TimeoutStartSec=90"
-    line: "TimeoutStartSec={{ jenkins_startup_timeout }}"
+    line: "TimeoutStartSec={{ services_jenkins_startup_timeout }}"
     state: present
 
-- name: "setup-jenkins: Manipulate jenkins systemd file ({{ jenkins_systemd_file }}) - timeout"
-  lineinfile:
-    dest: "{{ jenkins_systemd_file }}"
+- name: "Setup-jenkins: Manipulate jenkins systemd file ({{ jenkins_systemd_file }}) - timeout"
+  ansible.builtin.lineinfile:
+    dest: "{{ services_jenkins_systemd_file }}"
     regexp: '^Environment="JAVA_OPTS='
-    line: "{{ jenkins_java_options }}"
+    line: "{{ services_jenkins_java_options }}"
     state: present
 
-- name: "setup-jenkins: Setup admin user/pass"
-  template:
+- name: "Setup-jenkins: Setup admin user/pass"
+  ansible.builtin.template:
     src: init.groovy.d_basic-security.groovy.j2
-    dest: "{{ jenkins_home }}/init.groovy.d/basic-security.groovy"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    dest: "{{ services_jenkins_home }}/init.groovy.d/basic-security.groovy"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: "0750"
   no_log: true
   notify: "Restart Jenkins"
 
-- name: "setup-jenkins: Check if this is being setup for the first time."
-  stat:
+- name: "Setup-jenkins: Check if this is being setup for the first time."
+  ansible.builtin.stat:
     path: "/var/lib/jenkins/secrets/initialAdminPassword"
   register: "initial_password_file_state"
 
-- name: "setup-jenkins: Load the initial setup tasks"
-  import_tasks: "initial-setup.yml"
+- name: "Setup-jenkins: Load the initial setup tasks"
+  ansible.builtin.import_tasks: "initial-setup.yml"
   when: initial_password_file_state.stat.exists
 
-- name: "setup-jenkins: Setup the LocationConfiguration.xml"
-  template:
+- name: "Setup-jenkins: Setup the LocationConfiguration.xml"
+  ansible.builtin.template:
     src: "jenkins.model.JenkinsLocationConfiguration.xml.j2"
-    dest: "{{ jenkins_home }}/jenkins.model.JenkinsLocationConfiguration.xml"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    dest: "{{ services_jenkins_home }}/jenkins.model.JenkinsLocationConfiguration.xml"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: "0644"
   notify: "Restart Jenkins"
 
 # This is needed so the plugins are available for the multibranch pipeline jobs.
-- name: "initial-setup: Make sure jenkins is restarted"
-  meta: flush_handlers
+- name: "Setup-jenkins: Make sure jenkins is restarted"
+  ansible.builtin.meta: flush_handlers
 
-- name: "setup-jenkins: Make sure jenkins is up before loading plugins"
-  uri:
+- name: "Setup-jenkins: Make sure jenkins is up before loading plugins"
+  ansible.builtin.uri:
     url: "http://localhost:8080"
     method: GET
     return_content: "yes"
@@ -91,20 +91,20 @@
   retries: "10"
   delay: "18"
 
-- name: "setup-jenkins: Wait for 90 seconds for plugins to get installed."
-  wait_for:
+- name: "Setup-jenkins: Wait for 90 seconds for plugins to get installed."
+  ansible.builtin.wait_for:
     timeout: 90
   delegate_to: localhost
   become: false
 
-- name: "setup-jenkins: Load the necessary plugins"
-  jenkins_plugin:
+- name: "Setup-jenkins: Load the necessary plugins"
+  community.general.jenkins_plugin:
     name: "{{ plugin.name }}"
-    jenkins_home: "{{ jenkins_home }}"
+    services_jenkins_home: "{{ services_jenkins_home }}"
     state: "present"
     updates_url: "https://updates.jenkins.io"
-    url_username: "{{ jenkins_admin_user }}"
-    url_password: "{{ jenkins_admin_pass }}"
+    url_username: "{{ services_jenkins_admin_user }}"
+    url_password: "{{ services_jenkins_admin_pass }}"
     timeout: 60
   loop: "{{ jenkins_plugins }}"
   loop_control:
@@ -113,24 +113,24 @@
 
 # This is needed so the plugins are available for the multibranch pipeline jobs.
 - name: "initial-setup: Make sure jenkins is restarted"
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
-- name: "setup-jenkins: Download the libvirt terraform plugin"
-  unarchive:
+- name: "Setup-jenkins: Download the libvirt terraform plugin"
+  ansible.builtin.unarchive:
     src: "https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz" # noqa 204
-    dest: "{{ jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64/"
+    dest: "{{ services_jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64/"
     remote_src: yes
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: "0755"
 
-- name: "setup-jenkins: Install the libraries needed by the plugin"
-  apt:
+- name: "Setup-jenkins: Install the libraries needed by the plugin"
+  ansible.builtin.apt:
     name: "libvirt-dev"
     state: "present"
 
-- name: "setup-jenkins: Make sure jenkins is up before loading jobs"
-  uri:
+- name: "Setup-jenkins: Make sure jenkins is up before loading jobs"
+  ansible.builtin.uri:
     url: "http://localhost:8080"
     method: GET
     return_content: "yes"
@@ -143,62 +143,62 @@
   retries: "10"
   delay: "6"
 
-- name: "setup-jenkins: Setup global credentials for jenkins"
-  template:
+- name: "Setup-jenkins: Setup global credentials for jenkins"
+  ansible.builtin.template:
     src: init.groovy.d_credentials.groovy.j2
-    dest: "{{ jenkins_home }}/init.groovy.d/credentials.groovy"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    dest: "{{ services_jenkins_home }}/init.groovy.d/credentials.groovy"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: "0750"
   no_log: false
   notify: "Restart Jenkins"
 
-- name: "setup-jenkins: Setup github configuration"
-  template:
+- name: "Setup-jenkins: Setup github configuration"
+  ansible.builtin.template:
     src: github-plugin-configuration.xml.j2
-    dest: "{{ jenkins_home }}/github-plugin-configuration.xml"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    dest: "{{ services_jenkins_home }}/github-plugin-configuration.xml"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: 0644
   notify: "Restart Jenkins"
 
-- name: "setup-jenkins: Setup Slack configuration"
-  template:
+- name: "Setup-jenkins: Setup Slack configuration"
+  ansible.builtin.template:
     src: jenkins.plugins.slack.SlackNotifier.xml.j2
-    dest: "{{ jenkins_home }}/jenkins.plugins.slack.SlackNotifier.xml"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    dest: "{{ services_jenkins_home }}/jenkins.plugins.slack.SlackNotifier.xml"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: 0644
   notify: "Restart Jenkins"
 
-- name: "setup-jenkins: Add all jobs as are defined."
-  jenkins_job:
+- name: "Setup-jenkins: Add all jobs as are defined."
+  community.general.jenkins_job:
     name: "{{ job.name }}"
     config: "{{ lookup('file', 'files/jobs/' + job.name + '.xml') }}"
-    user: "{{ jenkins_admin_user }}"
-    password: "{{ jenkins_admin_pass }}"
+    user: "{{ services_jenkins_admin_user }}"
+    password: "{{ services_jenkins_admin_pass }}"
   loop: "{{ jenkins_jobs }}"
   loop_control:
     loop_var: "job"
   notify: "Restart Jenkins"
 
-- name: "setup-jenkins: Create the .ssh directory for jenkins user"
-  file:
-    path: "{{ jenkins_home }}/.ssh"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+- name: "Setup-jenkins: Create the .ssh directory for jenkins user"
+  ansible.builtin.file:
+    path: "{{ services_jenkins_home }}/.ssh"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: 0700
     state: directory
 
-- name: "setup-jenkins: Create an .ssh/config for jenkins user"
-  template:
+- name: "Setup-jenkins: Create an .ssh/config for jenkins user"
+  ansible.builtin.template:
     src: "var_lib_jenkins_ssh_config.j2"
-    dest: "{{ jenkins_home }}/.ssh/config"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    dest: "{{ services_jenkins_home }}/.ssh/config"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
     mode: 0600
 
-- name: "setup-jenkins: Remove basic-security.groovy"
-  file:
-    dest: "{{ jenkins_home }}/init.groovy.d/basic-security.groovy"
+- name: "Setup-jenkins: Remove basic-security.groovy"
+  ansible.builtin.file:
+    dest: "{{ services_jenkins_home }}/init.groovy.d/basic-security.groovy"
     state: "absent"

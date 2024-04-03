@@ -1,5 +1,5 @@
 ---
-jenkins_packages:
+services_jenkins_packages:
   - curl
   - apt-transport-https
   - gnupg

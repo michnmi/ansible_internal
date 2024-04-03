@@ -1,24 +1,24 @@
 ---
 # This is not necessarily needed but for now I'll keep it.
-- name: "initial-setup: Register the contents of initialAdminPassword"
-  slurp:
+- name: "Initial-setup: Register the contents of initialAdminPassword"
+  ansible.builtin.slurp:
     src: "/var/lib/jenkins/secrets/initialAdminPassword"
   register: initial_password_file_contents
 
 - name: "initial-setup: Remove initialAdminPassword"
-  file:
+  ansible.builtin.file:
     dest: "/var/lib/jenkins/secrets/initialAdminPassword"
     state: "absent"
 
-- name: "intial-setup: Allow jenkins to connect to local kvm"
-  user:
-    name: "{{ jenkins_user }}"
+- name: "Initial-setup: Allow jenkins to connect to local kvm"
+  ansible.builtin.user:
+    user: "{{ services_jenkins_user }}"
     groups: "kvm"
     append: true
 
-# This is needed so the jenkins_admin_user has been setup by the security script.
-- name: "initial-setup: Make sure jenkins is restarted"
-  systemd:
+# This is needed so the services_jenkins_admin_user has been setup by the security script.
+- name: "Initial-setup: Make sure jenkins is restarted"
+  ansible.builtin.systemd:
     daemon_reload: true
     name: "jenkins"
     state: "restarted"

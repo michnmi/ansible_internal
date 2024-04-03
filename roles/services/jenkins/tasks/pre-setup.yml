@@ -1,32 +1,32 @@
 ---
-- name: 'pre-setup: Install required packages'
-  apt:
-    name: "{{ jenkins_packages }}"
+- name: 'Pre-setup: Install required packages'
+  ansible.builtin.apt:
+    name: "{{ services_jenkins_packages }}"
     state: 'present'
     update_cache: true
 
 # Following instructions in https://pkg.jenkins.io/debian-stable/
-- name: 'pre-setup: Add jenkins repo key.'
-  apt_key:
-    url: '{{ jenkins_repo_key }}'
+- name: 'Pre-setup: Add jenkins repo key.'
+  ansible.builtin.apt_key:
+    url: '{{ services_jenkins_repo_key }}'
     state: 'present'
 
-- name: 'pre-setup: Add jenkins repo.'
-  apt_repository:
-    repo: '{{ jenkins_repo }}'
+- name: 'Pre-setup: Add jenkins repo.'
+  ansible.builtin.apt_repository:
+    repo: '{{ services_jenkins_repo }}'
     state: 'present'
     mode: 0644
     update_cache: true
 
 # This is needed here so we can use python-jenkins
-- name: 'pre-setup: Setup pip3'
-  apt:
+- name: 'Pre-setup: Setup pip3'
+  ansible.builtin.apt:
     name: 'python3-pip'
     state: 'present'
 
 # This is needed here so we can use python-jenkins
-- name: 'pre-setup: Setup python-jenkins'
-  pip:
+- name: 'Pre-setup: Setup python-jenkins'
+  ansible.builtin.pip:
     name: 'python-jenkins'
     state: 'present'
     executable: pip3
