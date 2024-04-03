@@ -1,5 +1,5 @@
 ---
-nginx_packages:
+services_nginx_packages:
   - apt-transport-https
   - ca-certificates
   - dirmngr

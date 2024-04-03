@@ -1,5 +1,5 @@
 ---
-- name: 'install-nginx: Installing nginx from its mainline repo.'
-  apt:
+- name: 'Install-nginx: Installing nginx from its mainline repo.'
+  ansible.builtin.apt:
     name: 'nginx'
     state: 'present'

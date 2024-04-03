@@ -1,12 +1,12 @@
 ---
-- name: 'main: Install dependencies'
-  import_tasks: 'pre-setup.yml'
+- name: 'Main: Install dependencies'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
 
-- name: 'main: Install nginx'
-  import_tasks: 'install-nginx.yml'
+- name: 'Main: Install nginx'
+  ansible.builtin.import_tasks: 'install-nginx.yml'
 
-- name: 'main: Configure nginx'
-  import_tasks: 'setup-nginx.yml'
+- name: 'Main: Configure nginx'
+  ansible.builtin.import_tasks: 'setup-nginx.yml'
 
-- name: 'main: Renew Certificates'
-  import_tasks: 'renew-certs.yml'
+- name: 'Main: Renew Certificates'
+  ansible.builtin.import_tasks: 'renew-certs.yml'

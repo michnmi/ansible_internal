@@ -1,19 +1,19 @@
 ---
-- name: 'pre-setup: Install required packages'
-  apt:
-    name: "{{ nginx_packages }}"
+- name: 'Pre-setup: Install required packages'
+  ansible.builtin.apt:
+    name: "{{ services_nginx_packages }}"
     state: 'present'
     update_cache: true
 
-- name: 'pre-setup: Add pgp key for nginx'
-  apt_key:
+- name: 'Pre-setup: Add pgp key for nginx'
+  ansible.builtin.apt_key:
     id: '573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62'
     url: 'http://nginx.org/keys/nginx_signing.key'
 
 # This now is hardcoded to Ubuntu 22
-- name: 'pre-setup: Setup nginx repository'
-  apt_repository:
+- name: 'Pre-setup: Setup nginx repository'
+  ansible.builtin.apt_repository:
     filename: 'nginx'
     repo: 'deb [arch=amd64] https://nginx.org/packages/mainline/ubuntu/ jammy nginx'
-    update_cache: yes
-    mode: 0644
+    update_cache: true
+    mode: '0644'

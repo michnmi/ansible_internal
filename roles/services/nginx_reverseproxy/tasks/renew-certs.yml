@@ -1,5 +1,5 @@
 ---
-- name: "renew-certs: Make sure certs are renewed in deploy."
-  command: certbot renew # noqa no-changed-when
+- name: "Renew-certs: Make sure certs are renewed in deploy."
+  ansible.builtin.command: certbot renew # noqa no-changed-when
   notify: "Restart nginx"
   when: ansible_hostname != "nginx_test"

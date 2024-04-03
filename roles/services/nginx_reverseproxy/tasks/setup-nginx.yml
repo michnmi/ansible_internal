@@ -1,42 +1,42 @@
 ---
-- name: 'setup-nginx: Configure to allow for "sites-enabled" structure'
-  lineinfile: # Perhaps blockinfile would be better here.
+- name: 'Setup-nginx: Configure to allow for "sites-enabled" structure'
+  ansible.builtin.lineinfile: # Perhaps blockinfile would be better here.
     path: '/etc/nginx/nginx.conf'
     insertafter: '.*include.*\*\.conf;'
     line: '    include /etc/nginx/sites-enabled/*;'
 
-- name: 'setup-nginx: Allow for long FQDNs'
-  lineinfile: # Perhaps blockinfile would be better here.
+- name: 'Setup-nginx: Allow for long FQDNs'
+  ansible.builtin.lineinfile: # Perhaps blockinfile would be better here.
     path: '/etc/nginx/nginx.conf'
     insertbefore: '.*include.*\*\.conf;'
     line: '    server_names_hash_bucket_size  64;'
 
-- name: 'setup-nginx: Create "sites-enabled" structure'
-  file:
+- name: 'Setup-nginx: Create "sites-enabled" structure'
+  ansible.builtin.file:
     path: "/etc/nginx/{{ item }}"
     owner: 'root'
     group: 'root'
-    mode: 0755
+    mode: '0755'
     state: directory
   loop:
     - 'sites-enabled'
     - 'sites-available'
 
-- name: 'setup-nginx: Create the reverseproxy configurations'
-  template:
+- name: 'Setup-nginx: Create the reverseproxy configurations'
+  ansible.builtin.template:
     src: 'etc_nginx_sites-available_conf_reverseproxy_setup.j2'
     dest: "/etc/nginx/sites-available/{{ proxy.name }}"
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   loop: "{{ reverseproxies }}"
   loop_control:
     loop_var: "proxy"
   notify: 'Restart nginx'
   no_log: true
 
-- name: 'setup-nginx: Setup the links to sites-enabled'
-  file:
+- name: 'Setup-nginx: Setup the links to sites-enabled'
+  ansible.builtin.file:
     src: "/etc/nginx/sites-available/{{ proxy.name }}"
     dest: "/etc/nginx/sites-enabled/{{ proxy.name }}"
     state: link
@@ -46,35 +46,35 @@
   notify: 'Restart nginx'
   no_log: true
 
-- name: 'setup-nginx: Create a basic index.html for port 80'
-  copy:
+- name: 'Setup-nginx: Create a basic index.html for port 80'
+  ansible.builtin.copy:
     src: 'files/var_www_index.html'
     dest: "{{ certbot_well_known }}/index.html"
     owner: 'nginx'
     group: 'nginx'
-    mode: 0644
+    mode: '0644'
   notify: 'Restart nginx'
 
-- name: 'setup-nginx: Create a default entry (port 80)'
-  template:
+- name: 'Setup-nginx: Create a default entry (port 80)'
+  ansible.builtin.template:
     src: 'etc_nginx_sites-available_default.j2'
     dest: '/etc/nginx/sites-available/default'
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   notify: 'Restart nginx'
 
-- name: 'setup-nginx: Setup the link to sites-enabled for default'
-  file:
+- name: 'Setup-nginx: Setup the link to sites-enabled for default'
+  ansible.builtin.file:
     src: '/etc/nginx/sites-available/default'
     dest: '/etc/nginx/sites-enabled/default'
     state: link
   notify: 'Restart nginx'
 
-- name: 'setup-nginx: Setup the certbot web root directory'
-  file:
+- name: 'Setup-nginx: Setup the certbot web root directory'
+  ansible.builtin.file:
     path: "{{ certbot_well_known }}"
     owner: "{{ certbot_web_user }}"
     group: "{{ certbot_web_user }}"
-    mode: 0755
+    mode: '0755'
     state: 'directory'
