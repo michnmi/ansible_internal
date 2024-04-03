@@ -5,7 +5,7 @@
     src: "/var/lib/jenkins/secrets/initialAdminPassword"
   register: initial_password_file_contents
 
-- name: "initial-setup: Remove initialAdminPassword"
+- name: "Initial-setup: Remove initialAdminPassword"
   ansible.builtin.file:
     dest: "/var/lib/jenkins/secrets/initialAdminPassword"
     state: "absent"

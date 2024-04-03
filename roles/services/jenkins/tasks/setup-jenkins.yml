@@ -88,8 +88,8 @@
     status_code: 200,403
   register: result
   until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
-  retries: "10"
-  delay: "18"
+  retries: 10
+  delay: 18
 
 - name: "Setup-jenkins: Wait for 90 seconds for plugins to get installed."
   ansible.builtin.wait_for:
@@ -140,8 +140,8 @@
     status_code: 200,403
   register: result
   until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
-  retries: "10"
-  delay: "6"
+  retries: 10
+  delay: 6
 
 - name: "Setup-jenkins: Setup global credentials for jenkins"
   ansible.builtin.template:
@@ -159,7 +159,7 @@
     dest: "{{ services_jenkins_home }}/github-plugin-configuration.xml"
     owner: "{{ services_jenkins_user }}"
     group: "{{ services_jenkins_user }}"
-    mode: 0644
+    mode: '0644'
   notify: "Restart Jenkins"
 
 - name: "Setup-jenkins: Setup Slack configuration"
@@ -168,7 +168,7 @@
     dest: "{{ services_jenkins_home }}/jenkins.plugins.slack.SlackNotifier.xml"
     owner: "{{ services_jenkins_user }}"
     group: "{{ services_jenkins_user }}"
-    mode: 0644
+    mode: '0644'
   notify: "Restart Jenkins"
 
 - name: "Setup-jenkins: Add all jobs as are defined."
@@ -187,7 +187,7 @@
     path: "{{ services_jenkins_home }}/.ssh"
     owner: "{{ services_jenkins_user }}"
     group: "{{ services_jenkins_user }}"
-    mode: 0700
+    mode: '0700'
     state: directory
 
 - name: "Setup-jenkins: Create an .ssh/config for jenkins user"
@@ -196,7 +196,7 @@
     dest: "{{ services_jenkins_home }}/.ssh/config"
     owner: "{{ services_jenkins_user }}"
     group: "{{ services_jenkins_user }}"
-    mode: 0600
+    mode: '0600'
 
 - name: "Setup-jenkins: Remove basic-security.groovy"
   ansible.builtin.file:

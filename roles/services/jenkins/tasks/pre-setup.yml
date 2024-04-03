@@ -15,7 +15,7 @@
   ansible.builtin.apt_repository:
     repo: '{{ services_jenkins_repo }}'
     state: 'present'
-    mode: 0644
+    mode: '0644'
     update_cache: true
 
 # This is needed here so we can use python-jenkins
