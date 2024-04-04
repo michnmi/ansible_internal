@@ -1,0 +1,5 @@
+---
+- name: "Pre-setup: Install needed packages"
+  ansible.builtin.package:
+    name: "{{ base_storage_packages }}"
+    state: 'present'

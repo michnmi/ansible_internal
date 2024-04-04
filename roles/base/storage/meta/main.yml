@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  role_name: "storage"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "Prep for a NAS"
+  company: "Home"
+  license: Internal
+  min_ansible_version: '2.9'
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
