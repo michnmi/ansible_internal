@@ -1,4 +1,3 @@
 ---
 base_storage_packages:
   - nfs-kernel-server
-
