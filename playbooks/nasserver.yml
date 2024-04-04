@@ -6,6 +6,6 @@
   roles:
     - common
     - node_exporter
-    - luks_storage
+      #    - luks_storage
     - zpools
     - splunk_forwarder
