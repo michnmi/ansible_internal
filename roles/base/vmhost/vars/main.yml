@@ -14,6 +14,7 @@ base_vmhost_packages:
   - python3-lxml
 # I want this for EMBY
   - ffmpeg
+  - screen
 # I want this for the filetransfer work
   - nfs-common
   - unrar
