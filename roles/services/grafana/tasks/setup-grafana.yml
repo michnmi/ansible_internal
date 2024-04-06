@@ -19,7 +19,7 @@
     owner: grafana
     group: grafana
     mode: '0640'
-  loop: "{{ grafana_dashboards }}"
+  loop: "{{ services_grafana_dashboards }}"
   loop_control:
     loop_var: "dashboard"
 
@@ -28,7 +28,7 @@
     dest: "/etc/grafana/provisioning/dashboards/{{ dashboard.title }}.json"
     regexp: '"(?:\${)?DS_[A-Z0-9_-]+(?:})?"'
     replace: '"{{ grafana_default_datasource }}"'
-  loop: "{{ grafana_dashboards }}"
+  loop: "{{ services_grafana_dashboards }}"
   loop_control:
     loop_var: "dashboard"
 
