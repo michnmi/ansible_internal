@@ -1,0 +1,54 @@
+---
+- name: "Setup-kavita: Setup the directory"
+  ansible.builtin.unarchive:
+    src: "/tmp/kavita-linux-x64.tar.gz"
+    dest: "/opt/"
+    mode: '0770'
+    owner: "kavita"
+    group: "kavita"
+    remote_src: 'yes'
+
+- name: 'Setup-kavita: Remove config directory'
+  ansible.builtin.file:
+    dest: '{{ kavita_installation_dir }}/config'
+    state: 'absent'
+
+- name: "Setup-kavita: Link the new directories"
+  ansible.builtin.file:
+    src: "{{ kavita_config_dir }}"
+    dest: "{{ kavita_installation_dir}}/config"
+    state: "link"
+
+- name: 'Setup-kavita: Setup systemd service'
+  ansible.builtin.template:
+    src: 'templates/etc_systemd_system_kavita.service.j2'
+    dest: '/etc/systemd/system/kavita.service'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+
+
+- name: 'Setup-kavita: Make sure the service is started and enabled'
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: kavita
+    state: started
+    enabled: true
+
+- name: "Setup-kavita: Directory for kavita logs"
+  ansible.builtin.file:
+    state: directory
+    path: "/var/log/kavita"
+    owner: "root"
+    group: "root"
+    mode: "0777"
+
+- name: 'Setup-kavita: Setup a cronjob to rsync log files'
+  ansible.builtin.cron:
+    name: 'send kavita logs to /var/log/kavita'
+    weekday: '*'
+    minute: '*/1'
+    hour: '*'
+    user: 'root'
+    job: 'rsync -au {{ kavita_config_dir }}/logs/* /var/log/kavita'
+

@@ -1,0 +1,11 @@
+---
+- name: "Setup Kavita host"
+  hosts: kavita
+  become: true
+  become_method: sudo
+  roles:
+    - common
+    - node_exporter
+    - nfs_client
+    - kavita
+    - splunk_forwarder
