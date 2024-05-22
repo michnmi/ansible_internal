@@ -1,0 +1,42 @@
+---
+- name: "Setup-komga: Setup the directory for logs"
+  ansible.builtin.file:
+    path: "{{ service_komga_logs_dir }}"
+    state: directory
+    owner: "komga"
+    group: "komga"
+    recurse: true
+    mode: '0775'
+
+- name: 'Setup-komga: Copy over application.yaml'
+  ansible.builtin.template:
+    src: 'templates/opt_komga_application_yaml.j2'
+    dest: "{{ service_komga_installation_dir }}/application.yaml"
+    owner: 'komga'
+    group: 'komga'
+    mode: '0400'
+
+- name: "Setup-komga: Link everything"
+  ansible.builtin.file:
+    src: "{{ service_komga_config_dir }}/{{ item }}"
+    dest: "{{ service_komga_installation_dir }}/{{ item }}"
+    state: "link"
+  with_items:
+    - "{{ common_hostname }}-lucene"
+    - "{{ common_hostname }}-tasks.sqlite"
+    - "{{ common_hostname }}.sqlite"
+
+- name: 'Setup-komga: Setup systemd service'
+  ansible.builtin.template:
+    src: 'templates/etc_systemd_system_komga.service.j2'
+    dest: '/etc/systemd/system/komga.service'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+
+- name: 'Setup-komga: Make sure the service is started and enabled'
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: komga
+    state: started
+    enabled: true

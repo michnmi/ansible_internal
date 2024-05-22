@@ -1,0 +1,17 @@
+komga:
+  database:
+    file: {{ service_komga_installation_dir }}/{{ common_hostname }}.sqlite
+  lucene:
+    data-directory: {{ service_komga_installation_dir }}/{{ common_hostname }}-lucene
+  config-dir: {{ service_komga_installation_dir }}
+  tasks-db:
+    file: {{ service_komga_installation_dir }}/{{ common_hostname }}-tasks.sqlite    
+
+logging:
+  logback:
+    rollingpolicy:
+      max-history: 31
+      clean-history-on-start: true
+      max-file-size: 100MB
+  file:
+    name: {{ service_komga_logs_dir }}/komga.log

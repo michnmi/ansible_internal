@@ -1,0 +1,37 @@
+---
+- name: "Pre-setup: Install Java"
+  ansible.builtin.apt:
+    name: "{{ service_komga_java_version }}"
+    state: "present"
+
+- name: 'Pre-setup: Setup all groups as needed.'
+  ansible.builtin.group:
+    name: "komga"
+    gid: "5015"
+
+- name: 'Setup-users: Setup all users as needed.'
+  ansible.builtin.user:
+    user: "komga"
+    uid: "5015"
+    group: "komga"
+    create_home: false
+    home: "{{ service_komga_installation_dir }}"
+    comment: "Komga service user"
+    shell: "/bin/false"
+
+- name: "Pre-setup: Setup the directory"
+  ansible.builtin.file:
+    path: "{{ service_komga_installation_dir }}"
+    state: directory
+    owner: "komga"
+    group: "komga"
+    recurse: true
+    mode: '0775'
+
+- name: "Pre-setup: Download komga binary"
+  ansible.builtin.get_url:
+    url: "https://github.com/gotson/komga/releases/download/{{ service_komga_version }}/komga-{{ service_komga_version }}.jar"
+    dest: "{{ service_komga_installation_dir }}"
+    mode: '0700'
+    owner: "komga"
+    group: "komga"
