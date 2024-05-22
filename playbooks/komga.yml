@@ -1,0 +1,12 @@
+---
+- name: "Setup Komga host"
+  hosts: komga
+  become: true
+  become_method: sudo
+  roles:
+    - common
+    - node_exporter
+    - nfs_client
+    - komga
+    - splunk_forwarder
+
