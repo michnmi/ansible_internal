@@ -1,0 +1,19 @@
+---
+- name: "Pre-setup: Download kavita binary"
+  ansible.builtin.get_url:
+    url: "https://github.com/Kareadita/Kavita/releases/download/v{{ kavita_version }}/kavita-linux-x64.tar.gz"
+    dest: "/tmp"
+    mode: '0700'
+
+- name: 'Pre-setup: Setup all groups as needed.'
+  ansible.builtin.group:
+    name: "kavita"
+    gid: "5015"
+
+- name: 'Setup-users: Setup all users as needed.'
+  ansible.builtin.user:
+    user: "kavita"
+    uid: "5015"
+    group: "kavita"
+    comment: "Kavita service user"
+    shell: "/bin/false"
