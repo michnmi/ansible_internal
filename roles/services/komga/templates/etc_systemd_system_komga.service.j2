@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=komga
 Group=komga
-ExecStart=/usr/bin/java -jar {{ service_komga_installation_dir }}/komga-{{ service_komga_version }}.jar --komga.config-dir="{{ service_komga_installation_dir }}"
+ExecStart=/usr/bin/java -jar {{ service_komga_installation_dir }}/komga-{{ services_komga_version }}.jar --komga.config-dir="{{ service_komga_installation_dir }}"
 WorkingDirectory={{ service_komga_installation_dir }}
 Restart=on-failure
 

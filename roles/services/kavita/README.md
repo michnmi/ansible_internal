@@ -15,12 +15,12 @@ TODO_LIST:
 
 ### Variables (Defaults)
 
-- `service_kavita_version`
+- `services_kavita_version`
 
 ### Variables (Required)
 
-- `service_kavita_config_dir`
-- `service_kavita_installation_dir`
+- `services_kavita_config_dir`
+- `services_kavita_installation_dir`
 
 ### files
 
@@ -43,6 +43,6 @@ An example playbook could be like this:
   roles:
     - kavita
   vars:
-    - service_kavita_config_dir: '/opt/kavita/config'
-    - service_kavita_installation_dir: '/opt/kavita'
+    - services_kavita_config_dir: '/opt/kavita/config'
+    - services_kavita_installation_dir: '/opt/kavita'
 ```

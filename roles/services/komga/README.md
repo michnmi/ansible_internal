@@ -14,7 +14,7 @@ TODO_LIST:
 
 ### Variables (Defaults)
 
-- `service_komga_version`
+- `services_komga_version`
 
 ### Variables (Required)
 

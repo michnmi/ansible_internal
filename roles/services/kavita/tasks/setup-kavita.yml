@@ -10,13 +10,13 @@
 
 - name: 'Setup-kavita: Remove config directory'
   ansible.builtin.file:
-    dest: '{{ service_kavita_installation_dir }}/config'
+    dest: '{{ services_kavita_installation_dir }}/config'
     state: 'absent'
 
 - name: "Setup-kavita: Link the new directories"
   ansible.builtin.file:
-    src: "{{ service_kavita_config_dir }}"
-    dest: "{{ service_kavita_installation_dir }}/config"
+    src: "{{ services_kavita_config_dir }}"
+    dest: "{{ services_kavita_installation_dir }}/config"
     state: "link"
 
 - name: 'Setup-kavita: Setup systemd service'
@@ -50,4 +50,4 @@
     minute: '*/1'
     hour: '*'
     user: 'root'
-    job: 'rsync -au {{ service_kavita_config_dir }}/logs/* /var/log/kavita'
+    job: 'rsync -au {{ services_kavita_config_dir }}/logs/* /var/log/kavita'
