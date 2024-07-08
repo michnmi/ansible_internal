@@ -1,7 +1,7 @@
 ---
 - name: "Pre-setup: Install Java"
   ansible.builtin.apt:
-    name: "{{ service_komga_java_version }}"
+    name: "{{ services_komga_java_version }}"
     state: "present"
 
 - name: 'Pre-setup: Setup all groups as needed.'
@@ -30,7 +30,7 @@
 
 - name: "Pre-setup: Download komga binary"
   ansible.builtin.get_url:
-    url: "https://github.com/gotson/komga/releases/download/{{ service_komga_version }}/komga-{{ service_komga_version }}.jar"
+    url: "https://github.com/gotson/komga/releases/download/{{ services_komga_version }}/komga-{{ services_komga_version }}.jar"
     dest: "{{ service_komga_installation_dir }}"
     mode: '0700'
     owner: "komga"

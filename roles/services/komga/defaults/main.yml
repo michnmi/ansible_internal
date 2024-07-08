@@ -1,3 +1,3 @@
 ---
-service_komga_version: "1.11.1" # https://github.com/gotson/komga/releases/tag/1.11.1
-service_komga_java_version: "openjdk-19-jre-headless"
+services_komga_version: "1.11.1" # https://github.com/gotson/komga/releases/tag/1.11.1
+services_komga_java_version: "openjdk-19-jre-headless"
