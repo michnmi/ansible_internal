@@ -6,7 +6,7 @@ services_emby_packages:
 
 services_ovpn_endpoints:
   - "ipvanish-IS-Reykjavik-rkv-c01"
-  - "ipvanish-DE-Frankfurt-fra-a01"
+  - "ipvanish-DE-Frankfurt-fra-c01"
   - "ipvanish-MY-Kuala-Lumpur-kul-c11"
 
 services_ovpn_default_endpoint: "ipvanish-IS-Reykjavik-rkv-c01"
