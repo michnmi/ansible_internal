@@ -78,3 +78,8 @@
     group: "{{ certbot_web_user }}"
     mode: '0755'
     state: 'directory'
+
+- name: 'Setup-nginx: Start nginx before certbot renewal'
+  ansible.builtin.service:
+    name: 'nginx'
+    state: 'started'
