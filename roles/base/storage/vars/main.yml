@@ -5,3 +5,4 @@ base_storage_packages:
   - unzip
   - unrar
   - iftop
+  - mkvtoolnix
