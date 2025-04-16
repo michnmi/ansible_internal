@@ -11,3 +11,4 @@ base_common_base_packages:
   - 'acl'
   - 'net-tools'
   - 'rsyslog'
+  - 'iftop'
