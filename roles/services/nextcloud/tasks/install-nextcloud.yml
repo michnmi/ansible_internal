@@ -16,7 +16,7 @@
 # Many times https://download.nextcloud.com is down. I need that artifactory (CICD-33)
 - name: 'Install-nextcloud: Download nextcloud'
   ansible.builtin.unarchive:
-    src: 'https://download.nextcloud.com/server/releases/nextcloud-28.0.3.tar.bz2'
+    src: 'https://download.nextcloud.com/server/releases/nextcloud-31.0.5.tar.bz2'
     dest: "{{ services_nextcloud_webroot }}"
     owner: 'www-data'
     group: 'www-data'
