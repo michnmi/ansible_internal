@@ -12,3 +12,4 @@ base_common_base_packages:
   - 'net-tools'
   - 'rsyslog'
   - 'iftop'
+  - 'pv'
