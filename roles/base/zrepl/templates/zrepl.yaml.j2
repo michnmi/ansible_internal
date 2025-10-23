@@ -1,10 +1,12 @@
 global:
   logging:
 {{ zrepl_global_logging | to_nice_yaml(indent=2) | indent(4, true) }}
+{% if zrepl_monitoring %}
   monitoring:
 {{ zrepl_monitoring | to_nice_yaml(indent=2) | indent(4, true) }}
+{% endif %}
 
- jobs:
+jobs:
 {% for job in zrepl_jobs %}
 - name: {{ job.name }}
   type: {{ job.type }}
