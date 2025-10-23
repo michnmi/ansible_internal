@@ -1,0 +1,36 @@
+---
+- name: "Configure: Deploy TLS certificates"
+  ansible.builtin.copy:
+    content: "{{ item.content }}"
+    dest: "{{ zrepl_config_dir }}/{{ item.filename }}"
+    owner: zrepl
+    group: zrepl
+    mode: "0600"
+  become: true
+  loop:
+    - { content: "{{ zrepl_tls_ca }}", filename: "ca.crt" }
+    - { content: "{{ zrepl_tls_cert }}", filename: "cert.crt" }
+    - { content: "{{ zrepl_tls_key }}", filename: "cert.key" }
+  when:
+    - zrepl_tls_ca | length > 0
+    - zrepl_tls_cert | length > 0
+    - zrepl_tls_key | length > 0
+  notify: restart zrepl
+
+- name: "Configure: Generate zrepl configuration"
+  ansible.builtin.template:
+    src: zrepl.yaml.j2
+    dest: "{{ zrepl_config_file }}"
+    owner: zrepl
+    group: zrepl
+    mode: "0640"
+  become: true
+  notify: restart zrepl
+
+- name: "Configure: Enable and start zrepl service"
+  ansible.builtin.systemd:
+    name: zrepl
+    enabled: "{{ zrepl_service_enabled }}"
+    state: "{{ zrepl_service_state }}"
+    daemon_reload: true
+  become: true

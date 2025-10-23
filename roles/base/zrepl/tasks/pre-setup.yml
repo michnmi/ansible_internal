@@ -1,0 +1,28 @@
+---
+- name: "Pre-setup: Install ZFS utilities"
+  ansible.builtin.apt:
+    name:
+      - zfsutils-linux
+      - curl
+      - ca-certificates
+    state: present
+    update_cache: true
+  become: true
+
+- name: "Pre-setup: Create zrepl user"
+  ansible.builtin.user:
+    name: zrepl
+    system: true
+    shell: /bin/false
+    home: /var/lib/zrepl
+    create_home: true
+  become: true
+
+- name: "Pre-setup: Create zrepl configuration directory"
+  ansible.builtin.file:
+    path: "{{ zrepl_config_dir }}"
+    state: directory
+    owner: zrepl
+    group: zrepl
+    mode: "0750"
+  become: true
