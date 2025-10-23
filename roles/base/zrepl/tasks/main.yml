@@ -1,0 +1,9 @@
+---
+- name: "Main: Install dependencies"
+  ansible.builtin.import_tasks: "pre-setup.yml"
+
+- name: "Main: Install zrepl"
+  ansible.builtin.import_tasks: "install-zrepl.yml"
+
+- name: "Main: Configure zrepl"
+  ansible.builtin.import_tasks: "configure-zrepl.yml"

@@ -1,0 +1,46 @@
+---
+- name: "Install: Add zrepl GPG key"
+  ansible.builtin.get_url:
+    url: "https://zrepl.cschwarz.com/apt/apt-key.asc"
+    dest: "/tmp/zrepl-key.asc"
+    mode: "0644"
+  become: true
+
+- name: "Install: Convert and install GPG key"
+  ansible.builtin.shell: |
+    gpg --dearmor < /tmp/zrepl-key.asc > /usr/share/keyrings/zrepl.gpg
+    chmod 644 /usr/share/keyrings/zrepl.gpg
+  become: true
+  args:
+    creates: /usr/share/keyrings/zrepl.gpg
+
+- name: "Install: Get system architecture"
+  ansible.builtin.command: dpkg --print-architecture
+  register: system_arch
+  changed_when: false
+
+- name: "Install: Get distribution codename"
+  ansible.builtin.command: lsb_release -c -s
+  register: distro_codename
+  changed_when: false
+
+- name: "Install: Add zrepl repository"
+  ansible.builtin.apt_repository:
+    repo: "deb [arch={{ system_arch.stdout }} signed-by=/usr/share/keyrings/zrepl.gpg] https://zrepl.cschwarz.com/apt/ubuntu {{ distro_codename.stdout }} main"
+    filename: zrepl
+    state: present
+    update_cache: true
+  become: true
+
+- name: "Install: Install zrepl package"
+  ansible.builtin.apt:
+    name: zrepl
+    state: present
+  become: true
+  notify: restart zrepl
+
+- name: "Install: Clean up temporary key file"
+  ansible.builtin.file:
+    path: /tmp/zrepl-key.asc
+    state: absent
+  become: true

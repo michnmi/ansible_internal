@@ -1,0 +1,11 @@
+---
+- name: reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+  become: true
+
+- name: restart zrepl
+  ansible.builtin.systemd:
+    name: zrepl
+    state: restarted
+  become: true

@@ -1,0 +1,21 @@
+---
+zrepl_config_dir: "/etc/zrepl"
+zrepl_config_file: "{{ zrepl_config_dir }}/zrepl.yml"
+
+zrepl_service_enabled: true
+zrepl_service_state: started
+
+zrepl_global_logging:
+  - type: syslog
+    level: info
+    format: human
+
+# Default values - these should be overridden in host_vars
+zrepl_jobs: []
+zrepl_tls_ca: ""
+zrepl_tls_cert: ""
+zrepl_tls_key: ""
+
+zrepl_monitoring:
+  prometheus:
+    listen: "127.0.0.1:9811"
