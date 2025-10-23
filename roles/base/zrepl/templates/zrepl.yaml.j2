@@ -1,16 +1,30 @@
 global:
   logging:
 {{ zrepl_global_logging | to_nice_yaml(indent=2) | indent(4, true) }}
-{% if zrepl_monitoring %}
+{% if zrepl_monitoring and zrepl_monitoring | length > 0 %}
   monitoring:
 {{ zrepl_monitoring | to_nice_yaml(indent=2) | indent(4, true) }}
 {% endif %}
-
 jobs:
 {% for job in zrepl_jobs %}
 - name: {{ job.name }}
   type: {{ job.type }}
-{% if job.type == 'source' %}
+{% if job.type == 'sink' %}
+  serve:
+    type: tls
+    listen: "{{ job.listen | default(':8888') }}"
+    ca: {{ zrepl_config_dir }}/ca.crt
+    cert: {{ zrepl_config_dir }}/cert.crt
+    key: {{ zrepl_config_dir }}/cert.key
+    client_cns:
+{% for client in job.client_cns %}
+      - "{{ client }}"
+{% endfor %}
+  root_fs: {{ job.root_fs }}
+  recv:
+    placeholder:
+      encryption: {{ job.recv.placeholder.encryption | default('off') }}
+{% elif job.type == 'source' %}
   serve:
     type: tls
     listen: "{{ job.listen | default('0.0.0.0:8888') }}"
@@ -23,7 +37,7 @@ jobs:
 {% endfor %}
   filesystems:
 {% for filesystem in job.filesystems %}
-    "{{ filesystem.path }}": {{ filesystem.policy | default('ok') }}
+    "{{ filesystem.path }}": {{ filesystem.policy | default(true) | lower }}
 {% endfor %}
   send:
     encrypted: {{ job.send.encrypted | default(false) | lower }}
@@ -34,21 +48,6 @@ jobs:
     type: periodic
     prefix: {{ job.snapshotting.prefix | default('zrepl_') }}
     interval: {{ job.snapshotting.interval | default('10m') }}
-{% elif job.type == 'sink' %}
-  serve:
-    type: tls
-    listen: "{{ job.listen | default('0.0.0.0:8889') }}"
-    ca: {{ zrepl_config_dir }}/ca.crt
-    cert: {{ zrepl_config_dir }}/cert.crt
-    key: {{ zrepl_config_dir }}/cert.key
-    client_cns:
-{% for client in job.client_cns %}
-      - {{ client }}
-{% endfor %}
-  root_fs: {{ job.root_fs }}
-  recv:
-    placeholder:
-      encryption: off
 {% elif job.type == 'push' %}
   connect:
     type: tls
@@ -70,29 +69,14 @@ jobs:
     type: periodic
     prefix: {{ job.snapshotting.prefix | default('zrepl_') }}
     interval: {{ job.snapshotting.interval | default('10m') }}
-{% elif job.type == 'pull' %}
-  connect:
-    type: tls
-    address: {{ job.connect.address }}
-    ca: {{ zrepl_config_dir }}/ca.crt
-    cert: {{ zrepl_config_dir }}/cert.crt
-    key: {{ zrepl_config_dir }}/cert.key
-    server_cn: {{ job.connect.server_cn }}
-  root_fs: {{ job.root_fs }}
-  interval: {{ job.interval | default('10m') }}
-  recv:
-    placeholder:
-      encryption: off
 {% endif %}
+{% if job.type in ['source', 'push'] %}
   pruning:
     keep_sender:
 {% for rule in job.pruning.keep_sender %}
       - type: {{ rule.type }}
 {% if rule.count is defined %}
         count: {{ rule.count }}
-{% endif %}
-{% if rule.regex is defined %}
-        regex: "{{ rule.regex }}"
 {% endif %}
 {% endfor %}
     keep_receiver:
@@ -101,9 +85,6 @@ jobs:
 {% if rule.count is defined %}
         count: {{ rule.count }}
 {% endif %}
-{% if rule.regex is defined %}
-        regex: "{{ rule.regex }}"
+{% endfor %}
 {% endif %}
 {% endfor %}
-
- {% endfor %}
