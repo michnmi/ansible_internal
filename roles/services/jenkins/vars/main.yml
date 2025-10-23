@@ -9,3 +9,4 @@ services_jenkins_packages:
   - python3-jmespath
   - libguestfs-tools
   - genisoimage
+  - xsltproc
