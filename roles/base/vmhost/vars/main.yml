@@ -19,3 +19,7 @@ base_vmhost_packages:
   - nfs-common
   - unrar
   - mkvtoolnix
+# Now zfs is what i also need
+  - zfsutils-linux
+# That's a nice tool to have in baremetal servers
+  - smartmontools

@@ -8,3 +8,4 @@
     - node_exporter
     - vmhost
     - splunk_forwarder
+    - zrepl

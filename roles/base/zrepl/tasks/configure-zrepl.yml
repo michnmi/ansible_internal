@@ -16,6 +16,7 @@
     - zrepl_tls_cert | length > 0
     - zrepl_tls_key | length > 0
   notify: restart zrepl
+  no_log: true
 
 - name: "Configure: Generate zrepl configuration"
   ansible.builtin.template:

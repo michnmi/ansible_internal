@@ -6,3 +6,4 @@ base_storage_packages:
   - unrar
   - iftop
   - mkvtoolnix
+  - smartmontools
