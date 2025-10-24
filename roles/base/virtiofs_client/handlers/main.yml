@@ -1,0 +1,12 @@
+---
+- name: remount virtiofs filesystems
+  ansible.posix.mount:
+    state: remounted
+    name: "{{ base_virtiofs_mount_base_mountpoint }}/{{ mount.mount_point }}"
+    src: "{{ mount.target_dir }}"
+    fstype: "virtiofs"
+    opts: "{{ mount.opts | default('defaults') }}"
+  loop: "{{ base_virtiofs_mounts }}"
+  loop_control:
+    loop_var: "mount"
+  listen: "remount virtiofs"
