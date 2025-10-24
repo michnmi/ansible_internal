@@ -1,0 +1,22 @@
+---
+- name: "Setup_mounts: Create mount point directories"
+  ansible.builtin.file:
+    path: "{{ base_virtiofs_mount_base_mountpoint }}/{{ mount.mount_point }}"
+    state: directory
+    mode: "0755"
+  loop: "{{ base_virtiofs_mounts }}"
+  loop_control:
+    loop_var: "mount"
+
+- name: "Setup_mounts: Mount virtiofs filesystems"
+  ansible.posix.mount:
+    state: mounted
+    name: "{{ base_virtiofs_mount_base_mountpoint }}/{{ mount.mount_point }}"
+    src: "{{ mount.target_dir }}"
+    fstype: "virtiofs"
+    opts: "{{ mount.opts | default('defaults') }}"
+    dump: "0"
+    passno: "0"
+  loop: "{{ base_virtiofs_mounts }}"
+  loop_control:
+    loop_var: "mount"

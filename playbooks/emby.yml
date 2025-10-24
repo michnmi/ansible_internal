@@ -7,5 +7,6 @@
     - common
     - node_exporter
     - nfs_client
+    - virtiofs_client
     - emby
     - splunk_forwarder

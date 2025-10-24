@@ -1,0 +1,3 @@
+---
+base_virtiofs_mount_base_mountpoint: "/mnt"
+base_virtiofs_mounts: []
