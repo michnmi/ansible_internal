@@ -7,4 +7,5 @@
     - common
     - node_exporter
     - nfs_client
-    - splunk
+    # Cannot do splunk unless we have splunk_backend again (See STOR-96)
+    # - splunk 
