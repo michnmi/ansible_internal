@@ -6,6 +6,6 @@
   roles:
     - common
     - node_exporter
-    - nfs_client
+    - virtiofs_client
     - prometheus
     - splunk_forwarder
