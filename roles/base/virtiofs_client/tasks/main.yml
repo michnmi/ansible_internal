@@ -1,4 +1,4 @@
 ---
 - name: "Main: Setup virtiofs mounts"
   ansible.builtin.import_tasks: "setup_mounts.yml"
-  when: inventory_hostname == 'emby-test'
+  when: inventory_hostname == 'emby-test' or inventory_hostname == 'prometheus-test'
