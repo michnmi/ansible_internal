@@ -14,9 +14,18 @@
     mode: "0755"
 
 # Following the instructions on https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/docs/migration-13.md (as seen in CICD-37)
-- name: "Setup-jenkins: Create the directory for libvirt terraform plugin"
+- name: "Setup-jenkins: Create the directory for libvirt terraform plugin (0.6.2)"
   ansible.builtin.file:
     path: "{{ services_jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64"
+    state: directory
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
+    mode: "0755"
+
+# I'm adding one more , but this will be left only one at some point ; nothing to see here, move along.
+- name: "Setup-jenkins: Create the directory for libvirt terraform plugin (0.8.3)"
+  ansible.builtin.file:
+    path: "{{ services_jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.8.3/linux_amd64"
     state: directory
     owner: "{{ services_jenkins_user }}"
     group: "{{ services_jenkins_user }}"
@@ -115,10 +124,20 @@
 - name: "Setup-jenkins: Make sure jenkins is restarted"
   ansible.builtin.meta: flush_handlers
 
-- name: "Setup-jenkins: Download the libvirt terraform plugin"
+- name: "Setup-jenkins: Download the libvirt terraform plugin (0.6.2)"
   ansible.builtin.unarchive:
     src: "https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz" # noqa 204
     dest: "{{ services_jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64/"
+    remote_src: true
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
+    mode: "0755"
+
+# Again, this will be deleted at some point, i'll choose the latest version; nothing to see here, fuck off
+- name: "Setup-jenkins: Download the libvirt terraform plugin (0.8.3)"
+  ansible.builtin.unarchive:
+    src: "https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.8.3/terraform-provider-libvirt_0.8.3_linux_amd64.zip" # noqa 204
+    dest: "{{ services_jenkins_home }}/.local/share/terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.8.3/linux_amd64/"
     remote_src: true
     owner: "{{ services_jenkins_user }}"
     group: "{{ services_jenkins_user }}"
