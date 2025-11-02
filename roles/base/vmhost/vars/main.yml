@@ -23,3 +23,4 @@ base_vmhost_packages:
   - zfsutils-linux
 # That's a nice tool to have in baremetal servers
   - smartmontools
+  - sysstat
