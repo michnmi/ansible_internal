@@ -7,4 +7,3 @@
     - common
     - node_exporter
     - grafana
-    - splunk_forwarder
