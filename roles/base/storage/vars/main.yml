@@ -7,3 +7,4 @@ base_storage_packages:
   - iftop
   - mkvtoolnix
   - smartmontools
+  - sysstat
