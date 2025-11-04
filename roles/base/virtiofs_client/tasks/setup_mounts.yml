@@ -8,15 +8,18 @@
   loop_control:
     loop_var: "mount"
 
-- name: "Setup_mounts: Mount virtiofs filesystems"
+- name: "Setup_mounts: Mount filesystems (virtiofs or block)"
   ansible.posix.mount:
     state: mounted
     name: "{{ base_virtiofs_mount_base_mountpoint }}/{{ mount.mount_point }}"
-    src: "{{ mount.target_dir }}"
-    fstype: "virtiofs"
+    # If fstype is not given, default to virtiofs
+    fstype: "{{ mount.fstype | default('virtiofs') }}"
+    # If src not given, default to target_dir (virtiofs old style)
+    src: "{{ mount.src | default(mount.target_dir) }}"
     opts: "{{ mount.opts | default('defaults') }}"
     dump: "0"
     passno: "0"
   loop: "{{ base_virtiofs_mounts }}"
   loop_control:
     loop_var: "mount"
+  notify: "remount filesystems"
