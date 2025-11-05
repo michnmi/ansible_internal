@@ -8,3 +8,4 @@
     - node_exporter
     - virtiofs_client
     - prometheus
+    - splunk_forwarder

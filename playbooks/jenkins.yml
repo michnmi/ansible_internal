@@ -8,5 +8,6 @@
     - node_exporter
     - jenkins
     - packer
+    - splunk_forwarder
   vars:
     - services_packer_user: 'jenkins'

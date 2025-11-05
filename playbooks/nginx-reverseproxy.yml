@@ -8,3 +8,4 @@
     - node_exporter
     - certbot
     - nginx_reverseproxy
+    - splunk_forwarder

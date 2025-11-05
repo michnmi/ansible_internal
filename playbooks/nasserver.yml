@@ -10,3 +10,4 @@
     - luks_storage
     - zpools
     - zrepl
+    - splunk_forwarder
