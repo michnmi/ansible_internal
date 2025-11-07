@@ -8,3 +8,4 @@ base_storage_packages:
   - mkvtoolnix
   - smartmontools
   - sysstat
+  - iotop
