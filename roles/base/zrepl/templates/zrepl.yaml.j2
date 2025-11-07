@@ -24,6 +24,21 @@ jobs:
   recv:
     placeholder:
       encryption: {{ job.recv.placeholder.encryption | default('off') }}
+{% if job.recv.properties is defined %}
+    properties:
+{% if job.recv.properties.inherit is defined %}
+      inherit:
+{% for prop in job.recv.properties.inherit %}
+        - "{{ prop }}"
+{% endfor %}
+{% endif %}
+{% if job.recv.properties.override is defined %}
+      override:
+{% for k, v in job.recv.properties.override.items() %}
+        {{ k }}: "{{ v }}"
+{% endfor %}
+{% endif %}
+{% endif %}
 {% elif job.type == 'source' %}
   serve:
     type: tls
