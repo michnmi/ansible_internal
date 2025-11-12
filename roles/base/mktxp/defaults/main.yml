@@ -1,0 +1,6 @@
+---
+mktxp_user: prometheus
+mktxp_bin: /usr/local/bin/mktxp
+mktxp_conf_dir: "/var/lib/prometheus/.mktxp"
+mktxp_service_path: /etc/systemd/system/mktxp.service
+mktxp_port: 49090

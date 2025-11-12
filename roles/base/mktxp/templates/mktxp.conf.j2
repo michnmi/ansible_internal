@@ -1,0 +1,64 @@
+[hap-ac2]
+    enabled = True
+    hostname = {{ mikrotik_host }}
+    port = {{ mikrotik_port }}
+    username = {{ mikrotik_username }}
+    password = {{ mikrotik_password }}
+    health = True                   # System Health metrics
+    installed_packages = True       # Installed packages
+    dhcp = True                     # DHCP general metrics
+    dhcp_lease = True               # DHCP lease metrics
+
+    connections = True              # IP connections metrics
+    connection_stats = True        # Open IP connections metrics 
+
+    interface = True                # Interfaces traffic metrics
+    
+    route = True                    # IPv4 Routes metrics
+    pool = True                     # IPv4 Pool metrics
+    firewall = True                 # IPv4 Firewall rules traffic metrics
+    neighbor = True                 # IPv4 Reachable Neighbors
+    address_list = None             # Firewall Address List metrics, a comma-separated list of names
+    dns = True                     # DNS stats
+
+    ipv6_route = True              # IPv6 Routes metrics    
+    ipv6_pool = True               # IPv6 Pool metrics
+    ipv6_firewall = True           # IPv6 Firewall rules traffic metrics
+    ipv6_neighbor = True           # IPv6 Reachable Neighbors
+    ipv6_address_list = None        # IPv6 Firewall Address List metrics, a comma-separated list of names
+
+    poe = True                      # POE metrics
+    monitor = True                  # Interface monitor metrics
+    netwatch = True                 # Netwatch metrics
+    public_ip = True                # Public IP metrics
+    wireless = True                 # WLAN general metrics
+    wireless_clients = True         # WLAN clients metrics
+    capsman = True                  # CAPsMAN general metrics
+    capsman_clients = True          # CAPsMAN clients metrics
+    w60g = True                    # W60G metrics
+
+    eoip = True                    # EoIP status metrics
+    gre = True                     # GRE status metrics
+    ipip = True                    # IPIP status metrics
+    lte = True                     # LTE signal and status metrics (requires additional 'test' permission policy on RouterOS v6)
+    ipsec = True                   # IPSec active peer metrics
+    switch_port = True             # Switch Port metrics
+
+    kid_control_assigned = True    # Allow Kid Control metrics for connected devices with assigned users
+    kid_control_dynamic = True     # Allow Kid Control metrics for all connected devices, including those without assigned user
+
+    user = True                     # Active Users metrics
+    queue = True                    # Queues metrics
+
+    bfd = True                     # BFD sessions metrics
+    bgp = True                     # BGP sessions metrics
+    routing_stats = True           # Routing process stats
+    certificate = True             # Certificates metrics
+
+    container = True               # Containers metrics
+    
+    remote_dhcp_entry = None        # An MKTXP entry to provide for remote DHCP info / resolution
+    remote_capsman_entry = None     # An MKTXP entry to provide for remote capsman info 
+
+    use_comments_over_names = True  # when available, forces using comments over the interfaces names
+    check_for_updates = True       # check for available ROS updates

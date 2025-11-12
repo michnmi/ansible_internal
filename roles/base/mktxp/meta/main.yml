@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  role_name: "mktxp"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "Install and configure mktxp for Mikrotik metrics in prometheus"
+  company: "Home"
+  license: Internal
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy
+
+dependencies: []
