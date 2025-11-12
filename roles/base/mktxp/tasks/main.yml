@@ -1,0 +1,6 @@
+---
+- name: "Main: Install dependencies"
+  ansible.builtin.import_tasks: "pre-setup.yml"
+
+- name: "Main: Setup mktpx"
+  ansible.builtin.import_tasks: "setup-mktpx.yml"

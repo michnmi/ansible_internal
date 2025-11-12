@@ -1,0 +1,14 @@
+[Unit]
+Description=MKTXP Mikrotik Exporter
+After=network-online.target
+Wants=network-online.target
+
+[Service]          
+User={{ mktxp_user }}          
+Group={{ mktxp_user }}          
+ExecStart={{ mktxp_bin }} --cfg-dir {{ mktxp_conf_dir }} export 
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

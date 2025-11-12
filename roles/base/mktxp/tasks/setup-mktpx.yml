@@ -1,0 +1,28 @@
+---
+- name: "Setup-mktpx: Setup the directory for the configuration"
+  ansible.builtin.file:
+    path: "{{ mktxp_conf_dir }}"
+    state: directory
+    owner: "{{ mktxp_user }}"
+    group: "{{ mktxp_user }}"
+    mode: "0750"
+
+- name: "Setup-mktpx: Setup the mktxp configuration"
+  ansible.builtin.template:
+    src: templates/mktxp.conf.j2
+    dest: "{{ mktxp_conf_dir }}/mktxp.conf"
+    owner: "{{ mktxp_user }}"
+    group: "{{ mktxp_user }}"
+    mode: "0600"
+  notify:
+    - restart mktxp
+
+- name: "Setup-mktpx: Setup the systemd configuration"
+  ansible.builtin.template:
+    src: templates/mktxp.systemd.j2
+    dest: "{{ mktxp_service_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - reload systemd

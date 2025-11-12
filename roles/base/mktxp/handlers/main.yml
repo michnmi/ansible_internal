@@ -1,0 +1,11 @@
+---
+- name: reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+  become: true
+
+- name: restart mktxp
+  ansible.builtin.systemd:
+    name: mktxp
+    state: restarted
+  become: true
