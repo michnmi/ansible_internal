@@ -11,6 +11,41 @@
     insertbefore: '.*include.*\*\.conf;'
     line: '    server_names_hash_bucket_size  64;'
 
+- name: 'Setup-nginx: define req_id map and main_ext log_format'
+  ansible.builtin.copy:
+    dest: /etc/nginx/conf.d/10-logging-main_ext.conf
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      # Included inside http {} via /etc/nginx/nginx.conf
+      # Provides $req_id and the extended access log format.
+      map $http_x_request_id $req_id {
+          default $http_x_request_id;
+          ""      "$connection-$msec";
+      }
+
+      log_format main_ext
+          '$remote_addr - $remote_user [$time_local] '
+          '"$request" $status $body_bytes_sent '
+          '"$http_referer" "$http_user_agent" "$http_x_forwarded_for" '
+          'host="$host" server_name="$server_name" '
+          'method=$request_method uri="$uri" args="$args" proto=$server_protocol '
+          'req_len=$request_length bytes_sent=$bytes_sent '
+          'rt=$request_time uconn=$upstream_connect_time uhead=$upstream_header_time urt=$upstream_response_time '
+          'up_addr="$upstream_addr" up_status="$upstream_status" up_cache="$upstream_cache_status" '
+          'req_id="$req_id" ssl="$ssl_protocol" ssl_cipher="$ssl_cipher" sni="$ssl_server_name" alpn="$ssl_alpn_protocol"';
+  notify: Reload Nginx
+
+
+- name: 'Setup-nginx: use main_ext format for access_log'
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: '^\s*access_log\s+/var/log/nginx/access\.log\s+main;'
+    line: '    access_log  /var/log/nginx/access.log  main_ext;'
+    backrefs: no
+  notify: Reload Nginx
+
 - name: 'Setup-nginx: Create "sites-enabled" structure'
   ansible.builtin.file:
     path: "/etc/nginx/{{ item }}"
