@@ -7,6 +7,6 @@
     - common
     - node_exporter
     - virtiofs_client
-    - mktxp
     - prometheus
+    - mktxp
     - splunk_forwarder
