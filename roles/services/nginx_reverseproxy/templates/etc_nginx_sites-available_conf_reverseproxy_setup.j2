@@ -1,9 +1,13 @@
  server {
-	listen   {{ proxy.port }} ssl;
+	listen   {{ proxy.port }} ssl http2;
 	server_name {{ proxy.name }};
 
 	ssl_certificate {{ proxy.ssl_certificate }};
 	ssl_certificate_key {{ proxy.ssl_certificate_key }};
+
+
+    # Block mismatched Host header even if SNI matched
+    if ($allow_host = 0) { return 444; }
 
 	location / {
 		proxy_buffering off;
