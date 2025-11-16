@@ -1,1 +1,4 @@
 ---
+f2b_maxretry: 10      # 10 hits that match the filter
+f2b_findtime: 600     # within 10 minutes
+f2b_bantime: 3600     # ban for 1 hour

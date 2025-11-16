@@ -17,3 +17,9 @@
     repo: 'deb [arch=amd64] https://nginx.org/packages/mainline/ubuntu/ jammy nginx'
     update_cache: true
     mode: '0644'
+
+- name: "fail2ban: install"
+  ansible.builtin.package:
+    name: fail2ban
+    state: present
+

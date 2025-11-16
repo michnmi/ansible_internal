@@ -1,0 +1,24 @@
+---
+- name: "fail2ban: deploy nginx scanner filter"
+  ansible.builtin.template:
+    src: "etc_fail2ban_filter.d_nginx-scanner.conf.j2"
+    dest: "/etc/fail2ban/filter.d/nginx-scanner.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: "Restart fail2ban"
+
+- name: "fail2ban: deploy nginx scanner jail"
+  ansible.builtin.template:
+    src: "etc_fail2ban_jail.d_nginx-scanner.local.j2"
+    dest: "/etc/fail2ban/jail.d/nginx-scanner.local"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: "Restart fail2ban"
+
+- name: "fail2ban: start service"
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: true
