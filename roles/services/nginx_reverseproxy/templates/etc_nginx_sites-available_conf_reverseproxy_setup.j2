@@ -1,5 +1,6 @@
  server {
-	listen   {{ proxy.port }} ssl http2;
+	listen   {{ proxy.port }} ssl;
+	http2 on;
 	server_name {{ proxy.name }};
 
 	ssl_certificate {{ proxy.ssl_certificate }};
@@ -7,7 +8,10 @@
 
 
     # Block mismatched Host header even if SNI matched
-    if ($allow_host = 0) { return 444; }
+    if ($allow_host = 0) {
+		 return 444; 
+	}
+    include /etc/nginx/snippets/block-bots.conf;
 
 	location / {
 		proxy_buffering off;
