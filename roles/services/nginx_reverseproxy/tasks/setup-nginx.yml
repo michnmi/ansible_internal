@@ -68,7 +68,15 @@
   loop_control:
     loop_var: "proxy"
   notify: 'Restart nginx'
-  no_log: true
+
+- name: 'Setup-nginx: Render host-allow map'
+  ansible.builtin.template:
+    src: 'etc_nginx_conf.d_host-allow.map.conf.j2'
+    dest: '/etc/nginx/conf.d/00-host-allow.map.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: 'Reload nginx'
 
 - name: 'Setup-nginx: Setup the links to sites-enabled'
   ansible.builtin.file:
@@ -79,7 +87,6 @@
   loop_control:
     loop_var: "proxy"
   notify: 'Restart nginx'
-  no_log: true
 
 - name: 'Setup-nginx: Create a basic index.html for port 80'
   ansible.builtin.copy:
