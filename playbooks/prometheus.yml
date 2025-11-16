@@ -8,9 +8,5 @@
     - node_exporter
     - virtiofs_client
     - prometheus
+    - {role: mktxp, when: inventory_hostname == "prometheus-prod"}
     - splunk_forwarder
-  tasks:
-    - name: "Include mktxp role only on prometheus-prod"
-    include_role:
-      name: mktxp
-    when: inventory_hostname == "prometheus-prod"
