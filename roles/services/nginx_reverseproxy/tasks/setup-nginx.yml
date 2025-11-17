@@ -27,6 +27,50 @@
     state: absent
   notify: "Reload Nginx"
 
+- name: "Setup-nginx: Render host-allow map"
+  ansible.builtin.template:
+    src: "etc_nginx_conf.d_10-host-allow.map.conf.j2"
+    dest: "/etc/nginx/conf.d/10-host-allow.map.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: "Reload Nginx"
+
+- name: "Setup-nginx: Deploy antiscan maps"
+  ansible.builtin.template:
+    src: "etc_nginx_conf.d_20-antiscan.maps.conf.j2"
+    dest: "/etc/nginx/conf.d/20-antiscan.maps.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: "Reload Nginx"
+
+- name: "Setup-nginx: Deploy rate-limit zones"
+  ansible.builtin.template:
+    src: "etc_nginx_conf.d_30-ratelimit.conf.j2"
+    dest: "/etc/nginx/conf.d/30-ratelimit.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: "Reload Nginx"
+
+- name: "Setup-nginx: Create snippets directory"
+  ansible.builtin.file:
+    path: "/etc/nginx/snippets"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+    state: directory
+
+- name: "Nginx: deploy block-bots snippet"
+  ansible.builtin.template:
+    src: "etc_nginx_snippets_block-bots.conf.j2"
+    dest: "/etc/nginx/snippets/block-bots.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: "Reload Nginx"
+
 - name: 'Setup-nginx: Create "sites-enabled" structure'
   ansible.builtin.file:
     path: "/etc/nginx/{{ item }}"
@@ -49,32 +93,6 @@
   loop_control:
     loop_var: "proxy"
   notify: "Restart nginx"
-
-- name: "Setup-nginx: Render host-allow map"
-  ansible.builtin.template:
-    src: "etc_nginx_conf.d_host-allow.map.conf.j2"
-    dest: "/etc/nginx/conf.d/00-host-allow.map.conf"
-    owner: "root"
-    group: "root"
-    mode: "0644"
-  notify: "Reload Nginx"
-
-- name: "Setup-nginx: Create snippets directory"
-  ansible.builtin.file:
-    path: "/etc/nginx/snippets"
-    owner: "root"
-    group: "root"
-    mode: "0755"
-    state: directory
-
-- name: "Nginx: deploy block-bots snippet"
-  ansible.builtin.template:
-    src: "etc_nginx_snippets_block-bots.conf.j2"
-    dest: "/etc/nginx/snippets/block-bots.conf"
-    owner: "root"
-    group: "root"
-    mode: "0644"
-  notify: "Reload Nginx"
 
 - name: "Setup-nginx: Setup the links to sites-enabled"
   ansible.builtin.file:

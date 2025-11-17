@@ -10,3 +10,6 @@
 
 - name: 'Main: Renew Certificates'
   ansible.builtin.import_tasks: 'renew-certs.yml'
+
+- name: 'Main: Configure Fail2Ban'
+  ansible.builtin.import_tasks: 'setup-fail2ban.yml'
