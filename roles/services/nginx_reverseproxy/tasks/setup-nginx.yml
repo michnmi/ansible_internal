@@ -27,6 +27,18 @@
     state: absent
   notify: "Reload Nginx"
 
+- name: "Setup-nginx: Insert global websocket map block"
+  ansible.builtin.blockinfile:
+    path: /etc/nginx/nginx.conf
+    insertafter: '^http {'
+    marker: "# {mark} ANSIBLE WEBSOCKET MAP"
+    block: |
+      map $http_upgrade $connection_upgrade {
+          default upgrade;
+          ''      close;
+      }
+  notify: "Restart nginx"
+
 - name: "Setup-nginx: Render host-allow map"
   ansible.builtin.template:
     src: "etc_nginx_conf.d_10-host-allow.map.conf.j2"

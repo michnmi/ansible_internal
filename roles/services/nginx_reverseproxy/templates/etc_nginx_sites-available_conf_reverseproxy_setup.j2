@@ -23,5 +23,12 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
 
         client_max_body_size {{ proxy.client_max_body_size }};
+
+        {% if proxy.websocket | default(false) %}
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade    $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_read_timeout 36000s;
+        {% endif %}
     }
 }
