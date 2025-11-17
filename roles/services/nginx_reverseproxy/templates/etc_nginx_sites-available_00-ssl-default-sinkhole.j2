@@ -1,0 +1,15 @@
+server {
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
+    server_name _;
+
+    ssl_certificate     /etc/nginx/sinkhole-certs/sinkhole.crt;
+    ssl_certificate_key /etc/nginx/sinkhole-certs/sinkhole.key;
+
+    # Central anti-scan maps still work
+    if ($is_bad_ua)  { return 444; }
+    if ($is_bad_uri) { return 444; }
+
+    # Final fallback
+    return 444;
+}

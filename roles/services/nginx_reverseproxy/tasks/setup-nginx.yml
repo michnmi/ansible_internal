@@ -82,6 +82,40 @@
     - "sites-enabled"
     - "sites-available"
 
+- name: 'Setup-nginx: Create sinkhole certs directory.'
+  ansible.builtin.file:
+    path: "/etc/nginx/sinkhole-certs"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+    state: directory
+
+- name: 'Setup-nginx: Generate self-signed certificate for sinkhole'
+  command: >
+    openssl req -x509 -nodes -newkey rsa:2048
+    -keyout /etc/nginx/sinkhole-certs/sinkhole.key
+    -out /etc/nginx/sinkhole-certs/sinkhole.crt
+    -days 3650
+    -subj "/CN=_"
+  args:
+    creates: /etc/nginx/sinkhole-certs/sinkhole.crt
+
+- name: 'Setup-nginx: Create default ssl sinkhole'
+  ansible.builtin.template:
+    src: "etc_nginx_sites-available_00-ssl-default-sinkhole.j2"
+    dest: "/etc/nginx/sites-available/00-default-ssl-sinkhole"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: "Restart nginx"
+
+- name: 'Setup-nginx: Enable default SSL sinkhole'
+  file:
+    src: /etc/nginx/sites-available/00-default-ssl-sinkhole
+    dest: /etc/nginx/sites-enabled/00-default-ssl-sinkhole
+    state: link
+  notify: Reload Nginx
+
 - name: "Setup-nginx: Create the reverseproxy configurations"
   ansible.builtin.template:
     src: "etc_nginx_sites-available_conf_reverseproxy_setup.j2"
