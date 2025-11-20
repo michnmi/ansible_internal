@@ -12,7 +12,9 @@ if ($is_bad_ua)  { return 444; }
 if ($is_bad_uri) { return 444; }
 
 # Optional: only allow common methods
-if ($request_method !~ ^(GET|HEAD|POST)$ ) { return 405; }
+if ($request_method !~ ^(GET|HEAD|POST|OPTIONS|PROPFIND|REPORT|MKCOL|PUT|DELETE|MOVE|COPY|PROPPATCH|LOCK|UNLOCK)$ ) {
+     return 405; 
+}
 
 # Extra hard 444s by extension (cheap)
 location ~* \.(bak|old|save|swp|swo|orig|tmp|zip|tar|tgz|gz|7z)$ { return 444; }
