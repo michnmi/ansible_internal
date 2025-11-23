@@ -12,7 +12,7 @@ server {
 	include /etc/nginx/snippets/block-bots.conf;
 
     # General per-IP throttle
-    limit_req zone=req_per_ip burst=30 nodelay;
+    limit_req zone=req_per_ip burst=250 nodelay;
 
     location / {
     	proxy_buffering off;
