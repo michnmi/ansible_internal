@@ -7,6 +7,7 @@
     - common
     - node_exporter
     - nfs_client
+    - virtiofs_client
     - komga
     - splunk_forwarder
 
