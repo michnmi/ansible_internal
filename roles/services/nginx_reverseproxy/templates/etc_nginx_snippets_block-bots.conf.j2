@@ -12,7 +12,7 @@ if ($is_bad_ua)  { return 444; }
 if ($is_bad_uri) { return 444; }
 
 # Optional: only allow common methods
-if ($request_method !~ ^(GET|HEAD|POST|OPTIONS|PROPFIND|REPORT|MKCOL|PUT|DELETE|MOVE|COPY|PROPPATCH|LOCK|UNLOCK)$ ) {
+if ($request_method !~ ^(GET|HEAD|POST|OPTIONS|PROPFIND|REPORT|MKCOL|PUT|DELETE|MOVE|COPY|PROPPATCH|LOCK|UNLOCK|PATCH)$ ) {
      return 405; 
 }
 
