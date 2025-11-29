@@ -1,8 +1,9 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<github-plugin-configuration plugin="github@1.30.0">
+<!-- Managed by Ansible -->
+<github-plugin-configuration plugin="github@1.45.0">
   <configs>
 {% for credential in services_jenkins_secret_text_credentials %}
-{% if credential['name'] == 'Github API creds' %}
+{% if credential['name'] == 'jenkins-ansilbe-lint' %}
     <github-server-config>
       <name>{{ credential['name'] }}</name>
       <apiUrl>https://api.github.com</apiUrl>
@@ -13,3 +14,4 @@
 {% endif %}
 {% endfor %}
   </configs>
+</github-plugin-configuration>
