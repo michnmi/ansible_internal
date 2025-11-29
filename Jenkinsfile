@@ -43,7 +43,7 @@ pipeline {
           )
         }
 
-        sh 'echo "TEST"'
+        sh 'ansible-lint .'
       }
     }
   }
