@@ -1,12 +1,14 @@
 ---
 services_jenkins_packages:
-  - curl
   - apt-transport-https
-  - gnupg
-  - openjdk-21-jdk
-  - qemu-kvm
-  - python3-netaddr
-  - python3-jmespath
-  - libguestfs-tools
+  - curl
   - genisoimage
+  - gnupg
+  - libguestfs-tools
+  - libvirt-dev
+  - openjdk-21-jdk
+  - python3-jmespath
+  - python3-netaddr
+  - qemu-kvm
   - xsltproc
+
