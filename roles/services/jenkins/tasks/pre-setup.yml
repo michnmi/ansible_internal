@@ -24,9 +24,32 @@
     name: 'python3-pip'
     state: 'present'
 
+# Job loading can't happen without this
 # This is needed here so we can use python-jenkins
 - name: 'Pre-setup: Setup python-jenkins'
   ansible.builtin.pip:
     name: 'python-jenkins'
     state: 'present'
     executable: pip3
+
+# AttributeError: module 'lib' has no attribute 'X509_V_FLAG_NOTIFY_POLICY'
+- name: 'Pre-setup: Setup better cryptography'
+  ansible.builtin.pip:
+    name: 'cryptography'
+    state: 'present'
+    executable: pip3
+
+# AttributeError: module 'lib' has no attribute 'X509_V_FLAG_NOTIFY_POLICY'
+- name: 'Pre-setup: Setup better cryptography - part 2'
+  ansible.builtin.pip:
+    name: 'pyOpenSSL'
+    state: 'present'
+    executable: pip3
+
+# AttributeError: module 'lib' has no attribute 'X509_V_FLAG_NOTIFY_POLICY'
+- name: Remove system pyOpenSSL (conflicts with OpenSSL 3)
+  become: true
+  ansible.builtin.apt:
+    name: python3-openssl
+    state: absent
+    purge: true
