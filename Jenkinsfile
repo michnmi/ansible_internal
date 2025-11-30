@@ -8,23 +8,25 @@ pipeline {
   }
 
   options {
+    // In multibranch this stops the implicit checkout,
+    // we'll do an explicit 'checkout scm' ourselves.
     skipDefaultCheckout(true)
   }
 
   stages {
     stage('Checkout') {
       steps {
-        script {
-          git(
-            url: "https://github.com/${env.GITHUB_ACCOUNT}/${env.GITHUB_REPO}.git",
-            branch: env.BRANCH_NAME ?: 'master'
-          )
+        // Use the SCM config that Multibranch figured out (branch/PR, etc.)
+        checkout scm
 
+        script {
+          // Capture the actual commit we just checked out
           env.COMMIT_SHA = sh(
             script: 'git rev-parse HEAD',
             returnStdout: true
           ).trim()
-          echo "Commit SHA: ${env.COMMIT_SHA}"
+
+          echo "Building branch ${env.BRANCH_NAME} at commit ${env.COMMIT_SHA}"
         }
       }
     }
@@ -43,7 +45,9 @@ pipeline {
           )
         }
 
-        sh 'ansible-lint .'
+        sh '''
+          ansible-lint */*
+        '''
       }
     }
   }

@@ -3,7 +3,7 @@ services_jenkins_repo_key: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023
 services_jenkins_repo: "deb https://pkg.jenkins.io/debian-stable binary/"
 services_jenkins_home: "/var/lib/jenkins"
 
-services_jenkins_java_options: 'Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"'
+services_jenkins_java_options: 'Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true"'
 services_jenkins_startup_timeout: 300
 services_jenkins_user: "jenkins"
 services_jenkins_systemd_file: "/lib/systemd/system/jenkins.service"
