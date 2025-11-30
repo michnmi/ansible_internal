@@ -8,7 +8,7 @@ pipeline {
   }
 
   options {
-    // In multibranch this just stops the implicit checkout,
+    // In multibranch this stops the implicit checkout,
     // we'll do an explicit 'checkout scm' ourselves.
     skipDefaultCheckout(true)
   }
@@ -16,7 +16,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        // Use the exact SCM config that Multibranch figured out
+        // Use the SCM config that Multibranch figured out (branch/PR, etc.)
         checkout scm
 
         script {
@@ -30,7 +30,6 @@ pipeline {
         }
       }
     }
-  }
 
     stage('Run ansible-lint') {
       steps {
@@ -46,7 +45,9 @@ pipeline {
           )
         }
 
-        sh 'ansible-lint */*'
+        sh '''
+          ansible-lint */*
+        '''
       }
     }
   }
@@ -79,4 +80,4 @@ pipeline {
       }
     }
   }
-
+}
