@@ -9,3 +9,4 @@ base_storage_packages:
   - smartmontools
   - sysstat
   - iotop
+  - poppler-utils # for pdf to png
