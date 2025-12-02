@@ -27,6 +27,13 @@
     line: "{{ services_jenkins_java_options }}"
     state: present
 
+- name: "Setup-jenkins: Manipulate jenkins systemd file - {{ jenkins_systemd_file }} - enable logging"
+  ansible.builtin.lineinfile:
+    path: "{{ services_jenkins_systemd_file }}"
+    regexp: '^#Environment="JENKINS_LOG='
+    line: 'Environment="JENKINS_LOG=%L/jenkins/jenkins.log"'
+    state: present
+
 - name: "Setup-jenkins: Setup admin user/pass"
   ansible.builtin.template:
     src: init.groovy.d_basic-security.groovy.j2
@@ -127,34 +134,34 @@
     loop_var: "job"
   notify: "Restart Jenkins"
 
-# - name: "Setup-jenkins: Setup Slack configuration"
-#   ansible.builtin.template:
-#     src: jenkins.plugins.slack.SlackNotifier.xml.j2
-#     dest: "{{ services_jenkins_home }}/jenkins.plugins.slack.SlackNotifier.xml"
-#     owner: "{{ services_jenkins_user }}"
-#     group: "{{ services_jenkins_user }}"
-#     mode: '0644'
-#   notify: "Restart Jenkins"
+- name: "Setup-jenkins: Setup Slack configuration"
+  ansible.builtin.template:
+    src: jenkins.plugins.slack.SlackNotifier.xml.j2
+    dest: "{{ services_jenkins_home }}/jenkins.plugins.slack.SlackNotifier.xml"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
+    mode: '0644'
+  notify: "Restart Jenkins"
 
 
 
-# - name: "Setup-jenkins: Create the .ssh directory for jenkins user"
-#   ansible.builtin.file:
-#     path: "{{ services_jenkins_home }}/.ssh"
-#     owner: "{{ services_jenkins_user }}"
-#     group: "{{ services_jenkins_user }}"
-#     mode: '0700'
-#     state: directory
+- name: "Setup-jenkins: Create the .ssh directory for jenkins user"
+  ansible.builtin.file:
+    path: "{{ services_jenkins_home }}/.ssh"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
+    mode: '0700'
+    state: directory
 
-# - name: "Setup-jenkins: Create an .ssh/config for jenkins user"
-#   ansible.builtin.template:
-#     src: "var_lib_jenkins_ssh_config.j2"
-#     dest: "{{ services_jenkins_home }}/.ssh/config"
-#     owner: "{{ services_jenkins_user }}"
-#     group: "{{ services_jenkins_user }}"
-#     mode: '0600'
+- name: "Setup-jenkins: Create an .ssh/config for jenkins user"
+  ansible.builtin.template:
+    src: "var_lib_jenkins_ssh_config.j2"
+    dest: "{{ services_jenkins_home }}/.ssh/config"
+    owner: "{{ services_jenkins_user }}"
+    group: "{{ services_jenkins_user }}"
+    mode: '0600'
 
-# - name: "Setup-jenkins: Remove basic-security.groovy"
-#   ansible.builtin.file:
-#     dest: "{{ services_jenkins_home }}/init.groovy.d/basic-security.groovy"
-#     state: "absent"
+- name: "Setup-jenkins: Remove basic-security.groovy"
+  ansible.builtin.file:
+    dest: "{{ services_jenkins_home }}/init.groovy.d/basic-security.groovy"
+    state: "absent"
