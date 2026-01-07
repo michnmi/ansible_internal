@@ -1,0 +1,8 @@
+---
+- name: "Setup the Docker Hosts"
+  hosts: docker
+  become: true
+  become_method: sudo
+  roles:
+    - common
+
