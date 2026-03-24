@@ -5,4 +5,6 @@ map $host $allow_host {
 {% for h in reverseproxies | map(attribute='name') | unique | sort -%}
   {{ h }} 1;
 {% endfor %}
+{% comment %} This is temporary. It should be an array with a for loop again {% endcomment %}
+{{ nginx_extra_domain}} 1; 
 }
