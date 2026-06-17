@@ -10,3 +10,5 @@ base_storage_packages:
   - sysstat
   - iotop
   - poppler-utils # for pdf to png
+  - imagemagick # for image conversion
+  - webp # for image conversion
