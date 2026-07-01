@@ -12,3 +12,8 @@
 - name: "Setup-networking: Apply netplan"
   ansible.builtin.command: # noqa no-changed-when - We don't mind if this commands executes all the time.
     cmd: /usr/sbin/netplan apply
+
+- name: "Setup-networking: Restart resolved"
+  ansible.builtin.service:
+    name: systemd-resolved
+    state: restarted
