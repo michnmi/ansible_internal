@@ -18,3 +18,7 @@ services_jenkins_secret_text_credentials: []
 services_jenkins_ssh_credentials: []
 
 services_jenkins_plugins: []
+
+# Hostnames jenkins jobs SSH into (e.g. vmhost01) - keyscanned into the
+# jenkins user's known_hosts so jobs don't fail on first connection.
+services_jenkins_known_hosts: []
