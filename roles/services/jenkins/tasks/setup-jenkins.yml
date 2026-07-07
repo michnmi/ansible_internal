@@ -122,18 +122,6 @@
   retries: 10
   delay: 6
 
-
-- name: "Setup-jenkins: Add all jobs as are defined."
-  community.general.jenkins_job:
-    name: "{{ job.name }}"
-    config: "{{ lookup('file', 'files/jobs/' + job.name + '.xml') }}"
-    user: "{{ services_jenkins_admin_user }}"
-    password: "{{ services_jenkins_admin_pass }}"
-  loop: "{{ jenkins_jobs }}"
-  loop_control:
-    loop_var: "job"
-  notify: "Restart Jenkins"
-
 - name: "Setup-jenkins: Setup Slack configuration"
   ansible.builtin.template:
     src: jenkins.plugins.slack.SlackNotifier.xml.j2
@@ -186,6 +174,17 @@
     group: "{{ services_jenkins_user }}"
     mode: '0600'
   when: services_jenkins_known_hosts | length > 0
+
+- name: "Setup-jenkins: Add all jobs as are defined."
+  community.general.jenkins_job:
+    name: "{{ job.name }}"
+    config: "{{ lookup('file', 'files/jobs/' + job.name + '.xml') }}"
+    user: "{{ services_jenkins_admin_user }}"
+    password: "{{ services_jenkins_admin_pass }}"
+  loop: "{{ jenkins_jobs }}"
+  loop_control:
+    loop_var: "job"
+  notify: "Restart Jenkins"
 
 - name: "Setup-jenkins: Remove basic-security.groovy"
   ansible.builtin.file:
