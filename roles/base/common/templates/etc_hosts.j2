@@ -3,6 +3,10 @@
 127.0.0.1 localhost
 127.0.1.1 {{ inventory_hostname }}
 
-{% for host in custom_etc_hosts %}
+{% set overridden_hostnames = custom_etc_hosts_overrides | map(attribute='hostname') | list %}
+{% for host in custom_etc_hosts | rejectattr('hostname', 'in', overridden_hostnames) %}
+{{ host.ip }} {{ host.hostname }}
+{% endfor %}
+{% for host in custom_etc_hosts_overrides %}
 {{ host.ip }} {{ host.hostname }}
 {% endfor %}
