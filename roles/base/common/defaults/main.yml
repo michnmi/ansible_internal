@@ -1,1 +1,3 @@
 ---
+custom_etc_hosts: []
+custom_etc_hosts_overrides: []
