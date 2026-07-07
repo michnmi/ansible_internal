@@ -6,10 +6,18 @@
     update_cache: true
 
 # Following instructions in https://pkg.jenkins.io/debian-stable/
+# apt_key is deprecated and its key-ID validation fails on this key; use a signed-by keyring instead.
+- name: 'Pre-setup: Ensure the apt keyrings directory exists.'
+  ansible.builtin.file:
+    path: "{{ services_jenkins_repo_keyring | dirname }}"
+    state: directory
+    mode: '0755'
+
 - name: 'Pre-setup: Add jenkins repo key.'
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: '{{ services_jenkins_repo_key }}'
-    state: 'present'
+    dest: '{{ services_jenkins_repo_keyring }}'
+    mode: '0644'
 
 - name: 'Pre-setup: Add jenkins repo.'
   ansible.builtin.apt_repository:

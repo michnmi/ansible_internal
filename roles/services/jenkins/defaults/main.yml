@@ -1,6 +1,7 @@
 ---
-services_jenkins_repo_key: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
-services_jenkins_repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+services_jenkins_repo_key: "https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key"
+services_jenkins_repo_keyring: "/etc/apt/keyrings/jenkins-keyring.asc"
+services_jenkins_repo: "deb [signed-by={{ services_jenkins_repo_keyring }}] https://pkg.jenkins.io/debian-stable binary/"
 services_jenkins_home: "/var/lib/jenkins"
 
 services_jenkins_java_options: 'Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true"'
