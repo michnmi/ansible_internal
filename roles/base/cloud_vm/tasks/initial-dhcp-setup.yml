@@ -4,10 +4,10 @@
     net_interface: "ens3" # default to the interface name for Ubuntu 18.04
   when: ansible_distribution_version is version('18.04', '=')
 
-- name: "Initial-dhcp-setup: Update the name if we're in Ubuntu 22.04"
+- name: "Initial-dhcp-setup: Update the name if we're in Ubuntu 22.04+"
   ansible.builtin.set_fact:
-    net_interface: "enp0s2" # interface name for Ubuntu 22.04
-  when: ansible_distribution_version is version('22.04', '=')
+    net_interface: "enp0s2"
+  when: ansible_distribution_version is version('22.04', '>=')
 
 - name: "Initial-dhcp-setup: Remove cloud-init networking"
   ansible.builtin.file:
