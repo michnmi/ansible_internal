@@ -16,3 +16,4 @@
   ansible.builtin.package:
     name: "grafana"
     state: 'present'
+    update_cache: yes
