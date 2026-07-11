@@ -3,7 +3,7 @@ base_common_base_packages:
   - 'strace'
   - 'vim'
   - 'lsof'
-  - 'netcat'
+  - 'nmap'
   - 'nload'
   - 'telnet'
   - 'chrony'
