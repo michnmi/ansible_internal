@@ -1,14 +1,16 @@
 ---
-- name: 'Install-grafana: Import GPG key'
-  ansible.builtin.apt_key:
-    url: "https://apt.grafana.com/gpg.key"
+- name: 'Install-grafana: Add Grafana APT repository'
+  ansible.builtin.deb822_repository:
+    name: 'grafana'
+    types:
+      - 'deb'
+    uris: 'https://apt.grafana.com'
+    suites:
+      - 'stable'
+    components:
+      - 'main'
+    signed_by: 'https://apt.grafana.com/gpg-full.key'
     state: 'present'
-
-- name: 'Install-grafana: Add grafana repository'
-  ansible.builtin.apt_repository:
-    repo: 'deb https://apt.grafana.com stable main'
-    state: 'present'
-    update_cache: true
 
 - name: 'Install-grafana: Install grafana'
   ansible.builtin.package:
