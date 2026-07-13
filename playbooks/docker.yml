@@ -5,4 +5,8 @@
   become_method: sudo
   roles:
     - common
+    - virtiofs_client
+    - docker_host
+
+
 

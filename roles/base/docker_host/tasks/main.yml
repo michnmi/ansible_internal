@@ -1,0 +1,5 @@
+---
+- name: 'Main: Prepare the host for Docker Engine installation'
+  ansible.builtin.include_tasks: 'pre-setup.yml'
+- name: 'Main: Install Docker Engine'
+  ansible.builtin.include_tasks: 'install-docker.yml'
