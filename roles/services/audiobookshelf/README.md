@@ -25,7 +25,9 @@ TODO_LIST:
 
 ### Variables (Required)
 
-- `services_audiobookshelf_data_dir`
+- `services_audiobookshelf_data_dir` — host path for config/metadata/podcasts (e.g. `/mnt/audioshelfbook`)
+- `services_audiobookshelf_audiobooks_dir` — host path for the audiobooks library, expected
+  to be an NFS share already mounted by `nfs_client` (e.g. `/mnt/Audiobooks`)
 
 ### files
 
@@ -49,9 +51,11 @@ An example playbook could be like this:
     - common
     - node_exporter
     - virtiofs_client
+    - nfs_client
     - docker_host
     - audiobookshelf
     - splunk_forwarder
   vars:
     - services_audiobookshelf_data_dir: '/mnt/audioshelfbook'
+    - services_audiobookshelf_audiobooks_dir: '/mnt/Audiobooks'
 ```
