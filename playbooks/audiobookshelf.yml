@@ -1,0 +1,12 @@
+---
+- name: "Setup Audiobookshelf host"
+  hosts: audiobookshelf
+  become: true
+  become_method: sudo
+  roles:
+    - common
+    - node_exporter
+    - virtiofs_client
+    - docker_host
+    - audiobookshelf
+    - splunk_forwarder

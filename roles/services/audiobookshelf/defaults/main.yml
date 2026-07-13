@@ -1,0 +1,4 @@
+---
+services_audiobookshelf_version: "latest"
+services_audiobookshelf_host_port: 13378
+services_audiobookshelf_timezone: "GMT"
