@@ -3,4 +3,3 @@ services_audiobookshelf_image: "ghcr.io/advplyr/audiobookshelf"
 services_audiobookshelf_container_name: "audiobookshelf"
 services_audiobookshelf_container_port: 80
 services_audiobookshelf_compose_project_dir: "/opt/audiobookshelf"
-services_audiobookshelf_data_dir: ""

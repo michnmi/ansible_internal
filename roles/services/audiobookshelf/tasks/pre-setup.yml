@@ -1,4 +1,14 @@
 ---
+- name: "Pre-setup: Ensure services_audiobookshelf_data_dir was actually supplied"
+  ansible.builtin.assert:
+    that:
+      - services_audiobookshelf_data_dir is defined
+      - services_audiobookshelf_data_dir | length > 0
+    fail_msg: >-
+      services_audiobookshelf_data_dir is unset. Set it in this host's host_vars
+      (e.g. /mnt/audioshelfbook) - it must not default to empty, or volumes get
+      bind-mounted at the filesystem root.
+
 - name: "Pre-setup: Create the Audiobookshelf compose project directory"
   ansible.builtin.file:
     path: "{{ services_audiobookshelf_compose_project_dir }}"
