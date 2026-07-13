@@ -1,0 +1,3 @@
+---
+- name: 'Main: Setup Docker Engine'
+  ansible.builtin.include_tasks: 'install-docker.yml'

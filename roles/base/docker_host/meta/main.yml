@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  role_name: "docker_host"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "Tasks to be performed in a host to run docker containers"
+  company: "Home"
+  license: Internal
+  min_ansible_version: "2.15"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+        - noble
