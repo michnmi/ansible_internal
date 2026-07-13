@@ -11,5 +11,5 @@ services:
     volumes:
       - "{{ services_audiobookshelf_data_dir }}/config:/config"
       - "{{ services_audiobookshelf_data_dir }}/metadata:/metadata"
-      - "{{ services_audiobookshelf_data_dir }}/audiobooks:/audiobooks"
+      - "{{ services_audiobookshelf_audiobooks_dir }}:/audiobooks"
       - "{{ services_audiobookshelf_data_dir }}/podcasts:/podcasts"
