@@ -4,3 +4,4 @@ base_docker_host_packages:
   - ca-certificates
   - curl
   - software-properties-common
+  - python3-docker

@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  role_name: "audiobookshelf"
+  author: "Michalis Michaloliakos <michalis.michaloliakos@gmail.com>"
+  description: "Runs the Audiobookshelf server as a Docker container."
+  company: "Home"
+  license: Internal
+  min_ansible_version: "2.15"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+        - noble

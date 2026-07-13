@@ -1,0 +1,15 @@
+---
+services:
+  audiobookshelf:
+    image: "{{ services_audiobookshelf_image }}:{{ services_audiobookshelf_version }}"
+    container_name: "{{ services_audiobookshelf_container_name }}"
+    restart: "unless-stopped"
+    ports:
+      - "{{ services_audiobookshelf_host_port }}:{{ services_audiobookshelf_container_port }}"
+    environment:
+      TZ: "{{ services_audiobookshelf_timezone }}"
+    volumes:
+      - "{{ services_audiobookshelf_data_dir }}/config:/config"
+      - "{{ services_audiobookshelf_data_dir }}/metadata:/metadata"
+      - "{{ services_audiobookshelf_data_dir }}/audiobooks:/audiobooks"
+      - "{{ services_audiobookshelf_data_dir }}/podcasts:/podcasts"

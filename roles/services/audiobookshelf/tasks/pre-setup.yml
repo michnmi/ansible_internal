@@ -1,0 +1,17 @@
+---
+- name: "Pre-setup: Create the Audiobookshelf compose project directory"
+  ansible.builtin.file:
+    path: "{{ services_audiobookshelf_compose_project_dir }}"
+    state: directory
+    mode: '0775'
+
+- name: "Pre-setup: Create the Audiobookshelf data directories"
+  ansible.builtin.file:
+    path: "{{ services_audiobookshelf_data_dir }}/{{ item }}"
+    state: directory
+    mode: '0775'
+  loop:
+    - "config"
+    - "metadata"
+    - "audiobooks"
+    - "podcasts"

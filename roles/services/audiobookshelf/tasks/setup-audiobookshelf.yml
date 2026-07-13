@@ -1,0 +1,12 @@
+---
+- name: "Setup-audiobookshelf: Copy over the docker-compose.yml"
+  ansible.builtin.template:
+    src: "opt_audiobookshelf_docker-compose.yml.j2"
+    dest: "{{ services_audiobookshelf_compose_project_dir }}/docker-compose.yml"
+    mode: '0644'
+
+- name: "Setup-audiobookshelf: Run the Audiobookshelf stack"
+  community.docker.docker_compose_v2:
+    project_src: "{{ services_audiobookshelf_compose_project_dir }}"
+    state: "present"
+    pull: "always"
