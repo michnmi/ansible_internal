@@ -13,3 +13,22 @@
     name: "ansible-lint"
     state: "present"
     executable: "pip3"
+
+- name: "Setup-ansible: Ensure /etc/ansible exists"
+  ansible.builtin.file:
+    path: "/etc/ansible"
+    state: "directory"
+    mode: '0755'
+
+- name: "Setup-ansible: Copy over the ansible-galaxy requirements file"
+  ansible.builtin.copy:
+    src: "requirements.yml"
+    dest: "/etc/ansible/requirements.yml"
+    mode: '0644'
+
+- name: "Setup-ansible: Install ansible-galaxy collections"
+  ansible.builtin.command: >-
+    ansible-galaxy collection install -r /etc/ansible/requirements.yml
+    -p /usr/share/ansible/collections
+  register: services_jenkins_galaxy_collections
+  changed_when: "'Nothing to do' not in services_jenkins_galaxy_collections.stdout"
