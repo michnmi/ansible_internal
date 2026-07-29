@@ -1,0 +1,20 @@
+---
+- name: "Pre-setup: Ensure GHCR credentials were supplied when login is enabled"
+  ansible.builtin.assert:
+    that:
+      - services_guitar_tab_trainer_ghcr_username | length > 0
+      - services_guitar_tab_trainer_ghcr_password | length > 0
+    fail_msg: >-
+      services_guitar_tab_trainer_ghcr_login_enabled is true but
+      services_guitar_tab_trainer_ghcr_username and/or
+      services_guitar_tab_trainer_ghcr_password are empty - set a GitHub PAT
+      with read:packages scope, or set
+      services_guitar_tab_trainer_ghcr_login_enabled to false if the package
+      has been made public.
+  when: services_guitar_tab_trainer_ghcr_login_enabled | bool
+
+- name: "Pre-setup: Create the guitar-tab-trainer compose project directory"
+  ansible.builtin.file:
+    path: "{{ services_guitar_tab_trainer_compose_project_dir }}"
+    state: directory
+    mode: '0775'

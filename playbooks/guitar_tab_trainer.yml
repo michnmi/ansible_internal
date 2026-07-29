@@ -1,0 +1,12 @@
+---
+- name: "Setup guitar-tab-trainer host"
+  hosts: guitar_tab_trainer
+  become: true
+  become_method: sudo
+  roles:
+    - common
+    - node_exporter
+    - virtiofs_client
+    - docker_host
+    - guitar_tab_trainer
+    - splunk_forwarder

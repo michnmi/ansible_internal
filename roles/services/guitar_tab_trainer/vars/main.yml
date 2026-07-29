@@ -1,0 +1,6 @@
+---
+services_guitar_tab_trainer_image: "ghcr.io/michnmi/guitar-tab-trainer"
+services_guitar_tab_trainer_container_name: "guitar-tab-trainer"
+services_guitar_tab_trainer_container_port: 8080
+services_guitar_tab_trainer_compose_project_dir: "/opt/guitar-tab-trainer"
+services_guitar_tab_trainer_healthcheck_path: "/healthz"

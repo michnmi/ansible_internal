@@ -1,0 +1,10 @@
+---
+services_guitar_tab_trainer_version: "latest"
+services_guitar_tab_trainer_host_port: 13380
+
+# The ghcr.io/michnmi/guitar-tab-trainer package is currently private, so a
+# registry login is required before the image can be pulled. Flip this to
+# false (and drop the two vars below) once/if the package is made public.
+services_guitar_tab_trainer_ghcr_login_enabled: true
+services_guitar_tab_trainer_ghcr_username: ""
+services_guitar_tab_trainer_ghcr_password: ""
