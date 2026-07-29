@@ -1,0 +1,33 @@
+---
+- name: "Setup-guitar-tab-trainer: Log in to ghcr.io"
+  community.docker.docker_login:
+    registry_url: "ghcr.io"
+    username: "{{ services_guitar_tab_trainer_ghcr_username }}"
+    password: "{{ services_guitar_tab_trainer_ghcr_password }}"
+  when: services_guitar_tab_trainer_ghcr_login_enabled | bool
+
+- name: "Setup-guitar-tab-trainer: Copy over the docker-compose.yml"
+  ansible.builtin.template:
+    src: "opt_guitar_tab_trainer_docker-compose.yml.j2"
+    dest: "{{ services_guitar_tab_trainer_compose_project_dir }}/docker-compose.yml"
+    mode: '0644'
+
+- name: "Setup-guitar-tab-trainer: Run the guitar-tab-trainer stack"
+  community.docker.docker_compose_v2:
+    project_src: "{{ services_guitar_tab_trainer_compose_project_dir }}"
+    state: "present"
+    pull: "always"
+
+# The image is a minimal Go static binary with no shell/curl/wget inside it,
+# so a container-level HEALTHCHECK CMD isn't viable here - verify from the
+# Ansible side instead.
+- name: "Setup-guitar-tab-trainer: Verify the health endpoint responds"
+  ansible.builtin.uri:
+    url: "http://localhost:{{ services_guitar_tab_trainer_host_port }}{{ services_guitar_tab_trainer_healthcheck_path }}"
+    return_content: true
+  register: services_guitar_tab_trainer_healthcheck_result
+  until:
+    - services_guitar_tab_trainer_healthcheck_result.status == 200
+    - services_guitar_tab_trainer_healthcheck_result.content == "ok"
+  retries: 5
+  delay: 3

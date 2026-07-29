@@ -1,0 +1,8 @@
+---
+services:
+  guitar-tab-trainer:
+    image: "{{ services_guitar_tab_trainer_image }}:{{ services_guitar_tab_trainer_version }}"
+    container_name: "{{ services_guitar_tab_trainer_container_name }}"
+    restart: "unless-stopped"
+    ports:
+      - "{{ services_guitar_tab_trainer_host_port }}:{{ services_guitar_tab_trainer_container_port }}"
