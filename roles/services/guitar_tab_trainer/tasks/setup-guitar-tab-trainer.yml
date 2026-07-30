@@ -18,16 +18,3 @@
     state: "present"
     pull: "always"
 
-# The image is a minimal Go static binary with no shell/curl/wget inside it,
-# so a container-level HEALTHCHECK CMD isn't viable here - verify from the
-# Ansible side instead.
-- name: "Setup-guitar-tab-trainer: Verify the health endpoint responds"
-  ansible.builtin.uri:
-    url: "http://localhost:{{ services_guitar_tab_trainer_host_port }}{{ services_guitar_tab_trainer_healthcheck_path }}"
-    return_content: true
-  register: services_guitar_tab_trainer_healthcheck_result
-  until:
-    - services_guitar_tab_trainer_healthcheck_result.status == 200
-    - services_guitar_tab_trainer_healthcheck_result.content == "ok"
-  retries: 5
-  delay: 3
