@@ -17,7 +17,7 @@ if ($request_method !~ ^(GET|HEAD|POST|OPTIONS|PROPFIND|REPORT|MKCOL|PUT|DELETE|
 }
 
 # Extra hard 444s by extension (cheap)
-location ~* \.(bak|old|save|swp|swo|orig|tmp|zip|tar|tgz|gz|7z)$ { return 444; }
+location ~* \.(bak|old|save|swp|swo|orig|tmp)$ { return 444; }
 
 # Legacy scanners you don’t run
 location ~* /(phpmyadmin|wp-admin|wp-login\.php|xmlrpc\.php|vendor/|composer\.(json|lock)|info\.php|test\.php|_profiler|setup\.php|install\.php|\.git|\.hg|\.svn) { return 444; }
