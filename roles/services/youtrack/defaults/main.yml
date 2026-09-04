@@ -1,0 +1,4 @@
+---
+services_youtrack_version: "2026.1.12351"
+services_youtrack_host_port: 13382
+services_youtrack_timezone: "GMT"
