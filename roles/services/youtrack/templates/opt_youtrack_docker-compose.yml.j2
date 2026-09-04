@@ -1,0 +1,15 @@
+---
+services:
+  youtrack-server:
+    image: "{{ services_youtrack_image }}:{{ services_youtrack_version }}"
+    container_name: "{{ services_youtrack_container_name }}"
+    restart: "unless-stopped"
+    ports:
+      - "{{ services_youtrack_host_port }}:{{ services_youtrack_container_port }}"
+    environment:
+      TZ: "{{ services_youtrack_timezone }}"
+    volumes:
+      - "{{ services_youtrack_data_dir }}/data:/opt/youtrack/data"
+      - "{{ services_youtrack_data_dir }}/conf:/opt/youtrack/conf"
+      - "{{ services_youtrack_data_dir }}/logs:/opt/youtrack/logs"
+      - "{{ services_youtrack_data_dir }}/backups:/opt/youtrack/backups"

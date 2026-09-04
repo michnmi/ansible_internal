@@ -1,0 +1,5 @@
+---
+services_youtrack_image: "jetbrains/youtrack"
+services_youtrack_container_name: "youtrack-server"
+services_youtrack_container_port: 8080
+services_youtrack_compose_project_dir: "/opt/youtrack"

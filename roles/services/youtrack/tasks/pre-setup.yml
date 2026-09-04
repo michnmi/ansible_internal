@@ -1,0 +1,30 @@
+---
+- name: "Pre-setup: Ensure required YouTrack directory vars were actually supplied"
+  ansible.builtin.assert:
+    that:
+      - services_youtrack_data_dir is defined
+      - services_youtrack_data_dir | length > 0
+    fail_msg: >-
+      services_youtrack_data_dir must be set in this host's host_vars
+      (e.g. /mnt/youtrack) - it must not default to empty, or volumes
+      get bind-mounted at the filesystem root.
+
+- name: "Pre-setup: Create the YouTrack compose project directory"
+  ansible.builtin.file:
+    path: "{{ services_youtrack_compose_project_dir }}"
+    state: directory
+    mode: '0775'
+
+- name: "Pre-setup: Create the YouTrack data directories"
+  ansible.builtin.file:
+    path: "{{ services_youtrack_data_dir }}/{{ item }}"
+    state: directory
+    mode: '0750'
+    owner: '13001'
+    group: '13001'
+    recurse: true
+  loop:
+    - "backups"
+    - "conf"
+    - "data"
+    - "logs"

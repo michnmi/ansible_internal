@@ -1,0 +1,5 @@
+---
+- name: 'Main: Prepare host'
+  ansible.builtin.import_tasks: 'pre-setup.yml'
+- name: 'Main: Setup Youtrack as a service'
+  ansible.builtin.import_tasks: 'setup-youtrack.yml'
