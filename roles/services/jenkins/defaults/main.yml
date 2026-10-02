@@ -22,3 +22,6 @@ services_jenkins_plugins: []
 # Hostnames jenkins jobs SSH into (e.g. vmhost01) - keyscanned into the
 # jenkins user's known_hosts so jobs don't fail on first connection.
 services_jenkins_known_hosts: []
+
+# Ubuntu24 requires vevn for all pip3 packages
+services_pip3_venv: "/opt/ansible_jenkins/venv"
