@@ -65,7 +65,7 @@
     virtualenv_command: /usr/bin/python3 -m venv
 
 # AttributeError: module 'lib' has no attribute 'X509_V_FLAG_NOTIFY_POLICY'
-- name: Remove system pyOpenSSL (conflicts with OpenSSL 3)
+- name: 'Pre-setup: Remove system pyOpenSSL (conflicts with OpenSSL 3)'
   become: true
   ansible.builtin.apt:
     name: python3-openssl
