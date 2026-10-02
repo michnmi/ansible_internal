@@ -5,6 +5,7 @@ pipeline {
     GITHUB_ACCOUNT  = 'michnmi'
     GITHUB_REPO     = 'ansible_internal'
     GITHUB_CREDS_ID = 'jenkins-ansible-lint'
+    PATH            = '/opt/ansible_jenkins/venv/bin:${env.PATH}' 
   }
 
   options {
