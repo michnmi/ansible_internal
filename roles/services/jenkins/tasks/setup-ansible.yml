@@ -3,7 +3,8 @@
   ansible.builtin.pip:
     name: "ansible==2.10.7"
     state: "present"
-    executable: "pip3"
+    virtualenv: "{{ services_pip3_venv }}"
+    virtualenv_command: /usr/bin/python3 -m venv
   environment:
     LANG: "en_US.UTF-8"
     LC_ALL: "en_US.UTF-8"
@@ -12,7 +13,8 @@
   ansible.builtin.pip:
     name: "ansible-lint"
     state: "present"
-    executable: "pip3"
+    virtualenv: "{{ services_pip3_venv }}"
+    virtualenv_command: /usr/bin/python3 -m venv
 
 - name: "Setup-ansible: Ensure /etc/ansible exists"
   ansible.builtin.file:
@@ -28,7 +30,7 @@
 
 - name: "Setup-ansible: Install ansible-galaxy collections"
   ansible.builtin.command: >-
-    ansible-galaxy collection install -r /etc/ansible/requirements.yml
+    "{{ services_pip3_venv }}"/bin/ansible-galaxy collection install -r /etc/ansible/requirements.yml
     -p /usr/share/ansible/collections
   register: services_jenkins_galaxy_collections
   changed_when: "'Nothing to do' not in services_jenkins_galaxy_collections.stdout"

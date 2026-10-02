@@ -176,6 +176,8 @@
   when: services_jenkins_known_hosts | length > 0
 
 - name: "Setup-jenkins: Add all jobs as are defined."
+  vars:
+    ansible_python_interpreter: "{{ services_pip3_venv }}/bin/python"
   community.general.jenkins_job:
     name: "{{ job.name }}"
     config: "{{ lookup('file', 'files/jobs/' + job.name + '.xml') }}"
