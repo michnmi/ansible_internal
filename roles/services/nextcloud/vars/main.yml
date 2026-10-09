@@ -24,11 +24,12 @@ services_nextcloud_packages:
   - php8.2-mysql
   - php8.2-redis
   - php-json-schema
-  - php-services-json
   - php-smbclient
   - php-symfony-polyfill-iconv
-  - php-dompdf
   - unzip
+# Removed this for ubuntu 24 - php-services-json
+#                            - php-dompdf
+
 
 services_php_apache_opcache:
   - regexp: 'opcache.enable=0'
