@@ -17,7 +17,7 @@ map $uri $is_bad_uri {
     ~*^/(?:config|configs?|configuration|settings|parameters)(?:\.(?:js|json|ya?ml|php)|/.*)?$ 1;
 
     # Code / storage paths with sensitive extensions
-    ~*^/(?:api|backend|admin|app|apps|core|shared|server|service|services|user|users|controller|controllers|helper|helpers|vendor|node|node_modules|public|storage|cloud|portal|website|dev|development|prod|production|local|new|laravel|crm|mail|mailer|nginx|docker|www)(?:/.*\.(?:env|ya?ml|json|js|php|py|sh))$ 1;
+    ~*^/(?:api|backend|admin|app|apps|core|shared|server|service|services|user|users|controller|controllers|helper|helpers|vendor|node|node_modules|public|storage|cloud|portal|website|dev|development|prod|production|local|new|laravel|crm|mail|mailer|nginx|docker|www)(?:/.*\.(?:env|php|py|sh))$ 1;
 
     # One-offs from sample
     ~*^/phpinfo(?:\.php)?$                                1;
